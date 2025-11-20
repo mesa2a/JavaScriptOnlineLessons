@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>レッスン53: クイズアプリ</title>
+  <script src="script.js"></script>
+</head>
+<body>
+  <h1>1問クイズ</h1>
+
+  <section>
+    <h2>問題</h2>
+    <p>日本の首都はどこですか？</p>
+    <div>
+      <label>答え:</label>
+      <input id="answer" type="text" placeholder="答えを入力">
+    </div>
+    <button onclick="checkAnswer()">答え合わせ</button>
+  </section>
+
+  <section>
+    <h2>結果</h2>
+    <p id="result"></p>
+    <p id="error" style="color: red;"></p>
+  </section>
+</body>
+</html>

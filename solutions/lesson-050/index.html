@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>レッスン50: 組み合わせ条件</title>
+  <script src="script.js"></script>
+</head>
+<body>
+  <h1>レストラン予約チェック</h1>
+
+  <section>
+    <h2>予約情報</h2>
+    <div>
+      <label>
+        <input id="isWeekday" type="checkbox">
+        平日
+      </label>
+    </div>
+    <div>
+      <label>
+        <input id="isMember" type="checkbox">
+        会員
+      </label>
+    </div>
+    <div>
+      <label>人数:</label>
+      <input id="partySize" type="text" placeholder="人数を入力">
+    </div>
+    <button onclick="checkReservation()">予約チェック</button>
+  </section>
+
+  <section>
+    <h2>結果</h2>
+    <p id="result"></p>
+    <p id="error" style="color: red;"></p>
+  </section>
+</body>
+</html>

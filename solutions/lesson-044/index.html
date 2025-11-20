@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>レッスン44: AND演算（&&）</title>
+  <script src="script.js"></script>
+</head>
+<body>
+  <h1>入場チェック</h1>
+
+  <section>
+    <h2>情報入力</h2>
+    <div>
+      <label>年齢:</label>
+      <input id="age" type="text" placeholder="年齢を入力">
+    </div>
+    <div>
+      <label>
+        <input id="hasTicket" type="checkbox">
+        チケットを持っている
+      </label>
+    </div>
+    <button onclick="checkEntry()">入場チェック</button>
+  </section>
+
+  <section>
+    <h2>結果</h2>
+    <p id="result"></p>
+    <p id="error" style="color: red;"></p>
+  </section>
+</body>
+</html>

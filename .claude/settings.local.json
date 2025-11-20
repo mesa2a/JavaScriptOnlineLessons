@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(for i in 005 006 007 008 009 010 011 012 013)",
+      "Bash(do echo \"=== Lesson $i ===\")",
+      "Bash(done)",
+      "Bash(npm install:*)",
+      "Bash(npm test:*)",
+      "Skill(lesson-generator)",
+      "Bash(python:*)",
+      "Bash(git checkout:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

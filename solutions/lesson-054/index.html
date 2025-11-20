@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>レッスン54: じゃんけんゲーム</title>
+  <script src="script.js"></script>
+</head>
+<body>
+  <h1>じゃんけんゲーム</h1>
+
+  <section>
+    <h2>じゃんけん</h2>
+    <p>グー、チョキ、パーのいずれかを入力してください</p>
+    <p>（コンピュータの手は「グー」です）</p>
+    <div>
+      <label>あなたの手:</label>
+      <input id="playerHand" type="text" placeholder="グー、チョキ、パー">
+    </div>
+    <button onclick="play()">じゃんけん！</button>
+  </section>
+
+  <section>
+    <h2>結果</h2>
+    <p id="result"></p>
+    <p id="error" style="color: red;"></p>
+  </section>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>レッスン51: 範囲判定</title>
+  <script src="script.js"></script>
+</head>
+<body>
+  <h1>営業時間チェッカー</h1>
+
+  <section>
+    <h2>時刻入力</h2>
+    <div>
+      <label>時刻(0-23):</label>
+      <input id="hour" type="text" placeholder="時刻を入力">
+    </div>
+    <div>
+      <label>
+        <input id="isWeekend" type="checkbox">
+        土日
+      </label>
+    </div>
+    <button onclick="checkBusinessHours()">営業チェック</button>
+  </section>
+
+  <section>
+    <h2>結果</h2>
+    <p id="result"></p>
+    <p id="error" style="color: red;"></p>
+  </section>
+
+  <section>
+    <h3>営業時間</h3>
+    <p>平日: 9:00 - 18:00</p>
+    <p>土日: 10:00 - 20:00</p>
+  </section>
+</body>
+</html>

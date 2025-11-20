@@ -1,0 +1,14 @@
+{
+  "name": "javascript-online-lessons",
+  "version": "1.0.0",
+  "description": "JavaScript学習教材",
+  "type": "module",
+  "scripts": {
+    "test": "vitest",
+    "test:lesson": "vitest run"
+  },
+  "devDependencies": {
+    "vitest": "^1.0.0",
+    "jsdom": "^23.0.0"
+  }
+}
