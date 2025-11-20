@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 072</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .input-area {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+        }
+        #itemInput {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #itemList {
+            list-style: none;
+            padding: 0;
+        }
+        .list-item {
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .list-item:hover {
+            background-color: #e9e9e9;
+        }
+        .item-text {
+            flex: 1;
+        }
+        .delete-button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .delete-button:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <h1>動的リスト管理</h1>
+    <p>アイテムを追加して、削除ボタンやテキストをクリックしてみてください</p>
+
+    <div class="input-area">
+        <input type="text" id="itemInput" placeholder="アイテムを入力">
+        <button id="addButton">追加</button>
+    </div>
+
+    <ul id="itemList"></ul>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>簡易ドラムキット</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            color: white;
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .instructions {
+            color: white;
+            margin-bottom: 40px;
+            font-size: 18px;
+        }
+
+        .drum-kit {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .drum-pad {
+            width: 150px;
+            height: 150px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.1s;
+            backdrop-filter: blur(10px);
+        }
+
+        .drum-pad:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .drum-pad.active {
+            background-color: rgba(255, 255, 255, 0.4);
+            border-color: white;
+            transform: scale(0.95);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .key {
+            font-size: 36px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .sound-name {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <h1>🥁 ドラムキット</h1>
+    <p class="instructions">キーボード（A-H）またはマウスでパッドをクリックしてください</p>
+
+    <div class="drum-kit" id="drumKit">
+        <div class="drum-pad" data-key="a" data-sound="kick">
+            <div class="key">A</div>
+            <div class="sound-name">Kick</div>
+        </div>
+        <div class="drum-pad" data-key="s" data-sound="snare">
+            <div class="key">S</div>
+            <div class="sound-name">Snare</div>
+        </div>
+        <div class="drum-pad" data-key="d" data-sound="hihat">
+            <div class="key">D</div>
+            <div class="sound-name">Hi-Hat</div>
+        </div>
+        <div class="drum-pad" data-key="f" data-sound="tom1">
+            <div class="key">F</div>
+            <div class="sound-name">Tom 1</div>
+        </div>
+        <div class="drum-pad" data-key="g" data-sound="tom2">
+            <div class="key">G</div>
+            <div class="sound-name">Tom 2</div>
+        </div>
+        <div class="drum-pad" data-key="h" data-sound="crash">
+            <div class="key">H</div>
+            <div class="sound-name">Crash</div>
+        </div>
+        <div class="drum-pad" data-key="j" data-sound="ride">
+            <div class="key">J</div>
+            <div class="sound-name">Ride</div>
+        </div>
+        <div class="drum-pad" data-key="k" data-sound="clap">
+            <div class="key">K</div>
+            <div class="sound-name">Clap</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

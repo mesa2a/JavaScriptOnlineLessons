@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 067</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        input, button {
+            margin: 10px 0;
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        #result {
+            color: green;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>会員登録フォーム</h1>
+    <form id="registerForm">
+        <label>メールアドレス:</label><br>
+        <input type="text" id="emailInput" placeholder="example@email.com"><br>
+        <p id="emailError" class="error"></p>
+
+        <label>パスワード:</label><br>
+        <input type="password" id="passwordInput" placeholder="6文字以上"><br>
+        <p id="passwordError" class="error"></p>
+
+        <button type="submit" id="submitButton">登録</button>
+    </form>
+    <p id="result"></p>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 070</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        form {
+            margin: 20px 0;
+        }
+        input {
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            min-height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>URL検証フォーム</h1>
+    <p>URLを入力して送信してください（httpまたはhttpsで始まる必要があります）</p>
+
+    <form id="myForm">
+        <label>URL:</label><br>
+        <input type="text" id="urlInput" placeholder="https://example.com">
+        <button type="submit">送信</button>
+    </form>
+
+    <p id="result"></p>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 063</title>
+</head>
+<body>
+    <h1>RPGバトル</h1>
+    <div>
+        <h2>プレイヤー</h2>
+        <p id="playerHP">HP: 100</p>
+    </div>
+    <div>
+        <h2>敵</h2>
+        <p id="enemyHP">HP: 80</p>
+    </div>
+    <div>
+        <button onclick="playerAttack()">攻撃</button>
+        <button onclick="playerHeal()">回復</button>
+        <button onclick="resetGame()">リセット</button>
+    </div>
+    <div>
+        <h3>戦闘ログ</h3>
+        <p id="battleLog"></p>
+    </div>
+    <div>
+        <h3 id="result"></h3>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

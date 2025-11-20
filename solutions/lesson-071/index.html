@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 071</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        #box {
+            width: 200px;
+            height: 200px;
+            background-color: lightblue;
+            border: 2px solid blue;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin: 20px 0;
+            transition: all 0.3s;
+        }
+        #box:hover {
+            background-color: lightcoral;
+        }
+        .info {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>複数イベントの管理</h1>
+
+    <div id="box">クリックしてください</div>
+
+    <div class="info">
+        <p id="clickCount">クリック回数: 0</p>
+        <p id="hoverStatus">ステータス: 待機中</p>
+    </div>
+
+    <div>
+        <button id="enableClick">クリックイベント有効</button>
+        <button id="disableClick">クリックイベント無効</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
