@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>完成版TODOアプリ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>✅ TODO管理</h1>
+
+    <!-- タスク追加 -->
+    <div class="input-area">
+      <input type="text" id="todoInput" placeholder="新しいタスクを入力">
+      <button id="addButton" class="add-button">追加</button>
+    </div>
+
+    <!-- 統計情報 -->
+    <div id="stats" class="stats"></div>
+
+    <!-- コントロール -->
+    <div class="controls">
+      <!-- フィルタ -->
+      <div class="filter-area">
+        <span class="label">表示:</span>
+        <button id="filterAll" class="filter-button">全て</button>
+        <button id="filterActive" class="filter-button">未完了</button>
+        <button id="filterCompleted" class="filter-button">完了済み</button>
+      </div>
+
+      <!-- ソート -->
+      <div class="sort-area">
+        <span class="label">並び順:</span>
+        <button id="sortAddOrder" class="sort-button">追加順</button>
+        <button id="sortName" class="sort-button">名前順</button>
+      </div>
+
+      <!-- 一括削除 -->
+      <button id="clearCompleted" class="clear-button">完了済みを削除</button>
+    </div>
+
+    <!-- タスクリスト -->
+    <div id="todoList"></div>
+
+    <!-- 空メッセージ -->
+    <div id="emptyMessage" class="empty-message">タスクがありません</div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

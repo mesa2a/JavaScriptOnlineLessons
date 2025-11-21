@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>レッスン102：タスク表示</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    h1 {
+      color: #333;
+    }
+    .input-section {
+      background-color: white;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .input-group {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    input[type="text"], input[type="number"] {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    input[type="text"] {
+      flex-grow: 1;
+    }
+    input[type="number"] {
+      width: 100px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .summary {
+      background-color: #e3f2fd;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 8px;
+    }
+    .record-item {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      margin: 10px 0;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .record-number {
+      font-weight: bold;
+      color: #666;
+      margin-right: 15px;
+      min-width: 30px;
+      font-size: 18px;
+    }
+    .record-subject {
+      flex-grow: 1;
+      font-size: 16px;
+      color: #333;
+    }
+    .record-time {
+      font-size: 14px;
+      color: #4CAF50;
+      font-weight: bold;
+    }
+    .empty-message {
+      text-align: center;
+      color: #999;
+      font-style: italic;
+      padding: 40px;
+    }
+  </style>
+</head>
+<body>
+  <h1>📖 学習記録アプリ</h1>
+
+  <div class="input-section">
+    <div class="input-group">
+      <input type="text" id="subjectInput" placeholder="科目名">
+      <input type="number" id="minutesInput" value="30" min="1" placeholder="分">
+      <button id="addButton">追加</button>
+    </div>
+  </div>
+
+  <div class="summary">
+    <p>合計学習時間: <strong><span id="totalMinutes">0</span>分</strong></p>
+  </div>
+
+  <div id="recordList"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

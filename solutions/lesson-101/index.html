@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>レッスン101：タスク追加</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    h1 {
+      color: #333;
+    }
+    .input-section {
+      background-color: white;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .input-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+      font-weight: bold;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .summary {
+      background-color: #e3f2fd;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 8px;
+    }
+    .book-item {
+      background-color: white;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .book-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    .book-author {
+      font-size: 14px;
+      color: #666;
+    }
+    .empty-message {
+      text-align: center;
+      color: #999;
+      font-style: italic;
+      padding: 40px;
+    }
+  </style>
+</head>
+<body>
+  <h1>📚 本の管理アプリ</h1>
+
+  <div class="input-section">
+    <div class="input-group">
+      <label for="titleInput">タイトル</label>
+      <input type="text" id="titleInput" placeholder="本のタイトルを入力">
+    </div>
+    <div class="input-group">
+      <label for="authorInput">著者名</label>
+      <input type="text" id="authorInput" placeholder="著者名を入力">
+    </div>
+    <button id="addButton">追加</button>
+  </div>
+
+  <div class="summary">
+    <p>登録冊数: <strong><span id="bookCount">0</span>冊</strong></p>
+  </div>
+
+  <div id="bookList"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

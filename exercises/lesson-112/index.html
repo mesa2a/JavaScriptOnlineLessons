@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 112 - Exercise</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .button-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 12px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #45a049;
+    }
+
+    #output {
+      margin-top: 20px;
+      padding: 20px;
+      background: #f0f0f0;
+      border-radius: 5px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>計算アプリ</h1>
+
+  <div class="input-group">
+    <label for="num1">数値1</label>
+    <input type="number" id="num1" value="10">
+  </div>
+
+  <div class="input-group">
+    <label for="num2">数値2</label>
+    <input type="number" id="num2" value="5">
+  </div>
+
+  <div class="button-group">
+    <button onclick="calculate('add')">足し算</button>
+    <button onclick="calculate('subtract')">引き算</button>
+    <button onclick="calculate('multiply')">掛け算</button>
+    <button onclick="calculate('divide')">割り算</button>
+  </div>
+
+  <div id="output"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

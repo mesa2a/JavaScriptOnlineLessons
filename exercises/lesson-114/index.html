@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 114 - Exercise</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #45a049;
+    }
+
+    #output {
+      margin-top: 20px;
+      padding: 20px;
+      background: #f0f0f0;
+      border-radius: 5px;
+      white-space: pre-wrap;
+      font-family: 'Courier New', monospace;
+      line-height: 1.6;
+      min-height: 120px;
+    }
+  </style>
+</head>
+<body>
+  <h1>メッセージカード作成</h1>
+
+  <div class="input-group">
+    <label for="nameInput">お名前</label>
+    <input type="text" id="nameInput" placeholder="名前を入力">
+  </div>
+
+  <div class="input-group">
+    <label for="messageInput">メッセージ</label>
+    <textarea id="messageInput" placeholder="メッセージを入力"></textarea>
+  </div>
+
+  <button onclick="displayCard()">カードを作成</button>
+
+  <div id="output"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

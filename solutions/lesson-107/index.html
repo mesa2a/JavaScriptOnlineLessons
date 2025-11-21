@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>成績管理</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f5f5f5;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    .input-area {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .input-area input {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    #nameInput {
+      flex: 2;
+    }
+
+    #subjectInput {
+      flex: 1;
+    }
+
+    #scoreInput {
+      width: 100px;
+    }
+
+    #addButton {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    #addButton:hover {
+      background-color: #45a049;
+    }
+
+    .sort-area {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .sort-button {
+      padding: 6px 12px;
+      background-color: #f0f0f0;
+      color: #333;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .sort-button:hover {
+      background-color: #e0e0e0;
+    }
+
+    .sort-button.active {
+      background-color: #FF9800;
+      color: white;
+      border-color: #FF9800;
+    }
+
+    .grade-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .grade-name {
+      flex: 1;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .grade-subject {
+      flex: 1;
+      color: #666;
+    }
+
+    .grade-score {
+      padding: 6px 12px;
+      background-color: #2196F3;
+      color: white;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: bold;
+      min-width: 50px;
+      text-align: center;
+    }
+
+    .delete-button {
+      padding: 6px 12px;
+      background-color: #f44336;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .delete-button:hover {
+      background-color: #da190b;
+    }
+
+    .empty-message {
+      text-align: center;
+      color: #999;
+      padding: 20px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="container">
+      <h1>📊 成績管理</h1>
+      <div class="input-area">
+        <input type="text" id="nameInput" placeholder="生徒名">
+        <input type="text" id="subjectInput" placeholder="科目">
+        <input type="number" id="scoreInput" placeholder="点数" min="0" max="100">
+        <button id="addButton">追加</button>
+      </div>
+      <div class="sort-area">
+        <button id="sortNoneButton" class="sort-button">並び替えなし</button>
+        <button id="sortScoreButton" class="sort-button">点数順</button>
+        <button id="sortNameButton" class="sort-button">名前順</button>
+      </div>
+      <div id="gradeList"></div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

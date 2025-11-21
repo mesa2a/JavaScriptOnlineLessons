@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 118 - Solution</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 50px auto;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .info {
+      text-align: center;
+      margin-bottom: 30px;
+      padding: 15px;
+      background: #f0f0f0;
+      border-radius: 5px;
+    }
+
+    .info p {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .calculator {
+      margin-bottom: 30px;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 5px;
+    }
+
+    .calculator h2 {
+      margin-top: 0;
+      color: #667eea;
+      font-size: 20px;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #45a049;
+    }
+
+    .result {
+      margin-top: 15px;
+      padding: 15px;
+      background: #e8f5e9;
+      border-left: 4px solid #4CAF50;
+      border-radius: 3px;
+      font-weight: bold;
+    }
+
+    .error {
+      background: #ffebee;
+      border-left-color: #f44336;
+    }
+
+    .type-info {
+      margin-top: 10px;
+      padding: 10px;
+      background: #e3f2fd;
+      border-radius: 3px;
+      font-size: 14px;
+      color: #1976d2;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>型を意識した関数</h1>
+
+    <div class="info">
+      <p><strong>引数と戻り値の型チェック</strong></p>
+      <p>すべての関数で型チェックを実装しています</p>
+    </div>
+
+    <!-- BMI計算 -->
+    <div class="calculator">
+      <h2>1. BMI計算（数値→数値）</h2>
+      <div class="input-group">
+        <label for="heightInput">身長（cm）</label>
+        <input type="text" id="heightInput" placeholder="例: 170">
+      </div>
+      <div class="input-group">
+        <label for="weightInput">体重（kg）</label>
+        <input type="text" id="weightInput" placeholder="例: 60">
+      </div>
+      <button onclick="calculateBMI()">計算する</button>
+      <div id="bmiResult"></div>
+    </div>
+
+    <!-- 挨拶生成 -->
+    <div class="calculator">
+      <h2>2. 挨拶生成（文字列→文字列）</h2>
+      <div class="input-group">
+        <label for="nameInput">名前</label>
+        <input type="text" id="nameInput" placeholder="例: 太郎">
+      </div>
+      <button onclick="generateGreeting()">挨拶を生成</button>
+      <div id="greetingResult"></div>
+    </div>
+
+    <!-- 価格計算 -->
+    <div class="calculator">
+      <h2>3. 税込価格計算（数値→文字列）</h2>
+      <div class="input-group">
+        <label for="priceInput">価格（円）</label>
+        <input type="text" id="priceInput" placeholder="例: 1000">
+      </div>
+      <button onclick="calculateTotalPrice()">計算する</button>
+      <div id="priceResult"></div>
+    </div>
+
+    <!-- 数値変換 -->
+    <div class="calculator">
+      <h2>4. 数値変換（任意の型→数値）</h2>
+      <div class="input-group">
+        <label for="convertInput">値</label>
+        <input type="text" id="convertInput" placeholder="例: 123 または '456'">
+      </div>
+      <button onclick="convertValue()">変換する</button>
+      <div id="convertResult"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

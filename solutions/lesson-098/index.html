@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>レッスン98：配列から表示</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    h1 {
+      color: #333;
+    }
+    .buttons {
+      margin: 20px 0;
+    }
+    button {
+      padding: 10px 20px;
+      margin-right: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .student-card {
+      background-color: white;
+      border: 1px solid #ddd;
+      padding: 20px;
+      margin: 15px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .student-name {
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .student-score {
+      font-size: 18px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+    .pass {
+      color: #27ae60;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .fail {
+      color: #e74c3c;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .empty-message {
+      text-align: center;
+      color: #999;
+      font-style: italic;
+      padding: 40px;
+    }
+  </style>
+</head>
+<body>
+  <h1>📝 学生成績リスト</h1>
+
+  <div class="buttons">
+    <button id="showAll">すべて表示</button>
+    <button id="showPassed">合格者のみ</button>
+  </div>
+
+  <div id="studentList"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

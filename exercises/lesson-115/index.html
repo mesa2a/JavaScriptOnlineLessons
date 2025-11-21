@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 115 - Exercise</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #45a049;
+    }
+
+    #output {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 5px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>メッセージ表示アプリ</h1>
+
+  <div class="input-group">
+    <label for="messageInput">メッセージ（空欄可）</label>
+    <input type="text" id="messageInput" placeholder="メッセージを入力（任意）">
+  </div>
+
+  <div class="input-group">
+    <label for="typeSelect">タイプ</label>
+    <select id="typeSelect">
+      <option value="info">情報</option>
+      <option value="success">成功</option>
+      <option value="error">エラー</option>
+    </select>
+  </div>
+
+  <button onclick="displayMessage()">表示</button>
+
+  <div id="output" style="background-color: #d1ecf1;"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

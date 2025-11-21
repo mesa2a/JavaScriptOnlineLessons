@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>レッスン132: アロー関数とthis</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 1000px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #333;
+      border-bottom: 3px solid #673AB7;
+      padding-bottom: 10px;
+    }
+    .section {
+      margin: 30px 0;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-left: 4px solid #673AB7;
+      border-radius: 5px;
+    }
+    .section h2 {
+      margin-top: 0;
+      color: #673AB7;
+    }
+    .output {
+      background-color: white;
+      padding: 15px;
+      border-radius: 5px;
+      font-family: 'Courier New', monospace;
+      white-space: pre-wrap;
+      margin-top: 10px;
+      border: 1px solid #ddd;
+    }
+    .demo-box {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin: 15px 0;
+    }
+    .demo-box h3 {
+      margin-top: 0;
+      color: #673AB7;
+    }
+    button {
+      background-color: #673AB7;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 5px;
+    }
+    button:hover {
+      background-color: #5E35B1;
+    }
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    .counter-display {
+      font-size: 24px;
+      font-weight: bold;
+      color: #673AB7;
+      margin: 15px 0;
+    }
+    .timer-display {
+      font-size: 32px;
+      font-weight: bold;
+      color: #673AB7;
+      margin: 15px 0;
+      font-family: 'Courier New', monospace;
+    }
+    .good {
+      color: #4CAF50;
+      font-weight: bold;
+    }
+    .bad {
+      color: #f44336;
+      font-weight: bold;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #673AB7;
+      color: white;
+    }
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>レッスン132: アロー関数とthis</h1>
+
+    <div class="section">
+      <h2>1. thisの基本</h2>
+      <div id="thisBasicOutput" class="output"></div>
+    </div>
+
+    <div class="section">
+      <h2>2. 通常の関数 vs アロー関数</h2>
+      <div id="comparisonOutput" class="output"></div>
+    </div>
+
+    <div class="section">
+      <h2>3. カウンターのデモ</h2>
+      <div class="demo-box">
+        <h3>カウンター</h3>
+        <div class="counter-display" id="counterDisplay">0</div>
+        <button onclick="counterDemo.increment()">+1</button>
+        <button onclick="counterDemo.decrement()">-1</button>
+        <button onclick="counterDemo.incrementMultiple(5)">+5</button>
+        <button onclick="counterDemo.reset()">リセット</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>4. タイマーのデモ</h2>
+      <div class="demo-box">
+        <h3>ストップウォッチ</h3>
+        <div class="timer-display" id="timerDisplay">00:00</div>
+        <button id="startBtn" onclick="timerDemo.start()">開始</button>
+        <button id="stopBtn" onclick="timerDemo.stop()" disabled>停止</button>
+        <button onclick="timerDemo.reset()">リセット</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>5. 配列メソッドでの活用</h2>
+      <div id="arrayOutput" class="output"></div>
+    </div>
+
+    <div class="section">
+      <h2>6. よくある間違いと正しい書き方</h2>
+      <div id="mistakesOutput"></div>
+    </div>
+
+    <div class="section">
+      <h2>7. 使い分けガイド</h2>
+      <div id="guideOutput"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

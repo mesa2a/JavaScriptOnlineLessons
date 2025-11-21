@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 119 - Solution</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .info {
+      text-align: center;
+      margin-bottom: 30px;
+      padding: 15px;
+      background: #f0f0f0;
+      border-radius: 5px;
+    }
+
+    .info p {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #45a049;
+    }
+
+    .message {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 5px;
+      display: none;
+    }
+
+    .error {
+      background: #ffebee;
+      border-left: 4px solid #f44336;
+      color: #c62828;
+      display: block;
+    }
+
+    .success {
+      background: #e8f5e9;
+      border-left: 4px solid #4CAF50;
+      color: #2e7d32;
+      display: block;
+    }
+
+    .function-list {
+      margin-top: 30px;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 5px;
+    }
+
+    .function-list h3 {
+      margin-top: 0;
+      color: #667eea;
+    }
+
+    .function-item {
+      padding: 8px;
+      margin-bottom: 5px;
+      background: white;
+      border-left: 3px solid #667eea;
+      border-radius: 3px;
+      font-size: 14px;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>ユーザー登録フォーム</h1>
+
+    <div class="info">
+      <p><strong>単一責任の原則</strong></p>
+      <p>各関数が1つの仕事だけをしています</p>
+    </div>
+
+    <div class="form-group">
+      <label for="username">ユーザー名（3文字以上）</label>
+      <input type="text" id="username" placeholder="例: taro">
+    </div>
+
+    <div class="form-group">
+      <label for="email">メールアドレス</label>
+      <input type="email" id="email" placeholder="例: taro@example.com">
+    </div>
+
+    <div class="form-group">
+      <label for="password">パスワード（8文字以上）</label>
+      <input type="password" id="password" placeholder="8文字以上">
+    </div>
+
+    <button onclick="register()">登録する</button>
+
+    <div id="message" class="message"></div>
+
+    <div class="function-list">
+      <h3>使用している関数（単一責任）</h3>
+      <div class="function-item">getFormData() - フォームデータを取得</div>
+      <div class="function-item">isValidUsername() - ユーザー名を検証</div>
+      <div class="function-item">isValidEmail() - メールを検証</div>
+      <div class="function-item">isValidPassword() - パスワードを検証</div>
+      <div class="function-item">validateForm() - 全体を検証</div>
+      <div class="function-item">showError() - エラー表示</div>
+      <div class="function-item">showSuccess() - 成功表示</div>
+      <div class="function-item">clearForm() - フォームをクリア</div>
+      <div class="function-item">register() - 登録処理全体を制御</div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

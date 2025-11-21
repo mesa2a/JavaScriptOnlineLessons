@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 085 - 解答例</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        #word {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 30px 0;
+            color: #333;
+        }
+        #userInput {
+            font-size: 24px;
+            padding: 10px;
+            width: 300px;
+        }
+        #info {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>タイピングゲーム</h1>
+    <button id="start">スタート</button>
+
+    <div id="word"></div>
+    <input type="text" id="userInput" placeholder="ここに入力" disabled>
+
+    <div id="info">
+        <p>残り時間: <span id="time">30</span>秒</p>
+        <p>スコア: <span id="score">0</span></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

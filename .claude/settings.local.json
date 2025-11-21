@@ -10,7 +10,9 @@
       "Skill(lesson-generator)",
       "Bash(python:*)",
       "Bash(git checkout:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(copy:*)",
+      "Bash(for i in 105 106 107)"
     ],
     "deny": [],
     "ask": []

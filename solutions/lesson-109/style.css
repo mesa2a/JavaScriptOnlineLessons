@@ -1,0 +1,246 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 20px;
+  margin: 0;
+}
+
+.container {
+  max-width: 750px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 35px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+h1 {
+  margin: 0 0 25px 0;
+  color: #333;
+  text-align: center;
+  font-size: 32px;
+}
+
+/* タスク追加エリア */
+.input-area {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#todoInput {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: border-color 0.2s;
+}
+
+#todoInput:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.add-button {
+  padding: 12px 24px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.add-button:hover {
+  background-color: #45a049;
+}
+
+/* 統計情報 */
+.stats {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 14px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #555;
+  font-weight: 500;
+}
+
+/* コントロールエリア */
+.controls {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.filter-area,
+.sort-area {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.label {
+  font-size: 13px;
+  color: #666;
+  font-weight: 500;
+}
+
+.filter-button,
+.sort-button {
+  padding: 7px 14px;
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+
+.filter-button:hover,
+.sort-button:hover {
+  background-color: #e0e0e0;
+}
+
+.filter-button.active,
+.sort-button.active {
+  background-color: #667eea;
+  color: white;
+  border-color: #667eea;
+}
+
+.clear-button {
+  padding: 7px 14px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 13px;
+  margin-left: auto;
+  transition: background-color 0.2s;
+}
+
+.clear-button:hover {
+  background-color: #da190b;
+}
+
+/* タスクリスト */
+#todoList {
+  min-height: 200px;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s;
+}
+
+.todo-item:hover {
+  background-color: #f9f9f9;
+}
+
+.todo-item input[type="checkbox"] {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+}
+
+.todo-item span {
+  flex: 1;
+  font-size: 15px;
+  color: #333;
+}
+
+.todo-item span.completed {
+  text-decoration: line-through;
+  color: #999;
+}
+
+/* 編集モード */
+.edit-input {
+  flex: 1;
+  padding: 8px;
+  border: 2px solid #2196F3;
+  border-radius: 4px;
+  font-size: 15px;
+}
+
+.edit-input:focus {
+  outline: none;
+  border-color: #1976D2;
+}
+
+/* ボタン */
+.edit-button,
+.delete-button,
+.save-button,
+.cancel-button {
+  padding: 7px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.edit-button {
+  background-color: #2196F3;
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #1976D2;
+}
+
+.delete-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #da190b;
+}
+
+.save-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.save-button:hover {
+  background-color: #45a049;
+}
+
+.cancel-button {
+  background-color: #999;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #777;
+}
+
+/* 空メッセージ */
+.empty-message {
+  text-align: center;
+  color: #999;
+  padding: 50px 20px;
+  font-size: 15px;
+  display: none;
+}
+
+.empty-message.show {
+  display: block;
+}

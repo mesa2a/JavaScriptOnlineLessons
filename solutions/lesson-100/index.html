@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>レッスン100：リストの更新</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    h1 {
+      color: #333;
+    }
+    .input-section {
+      background-color: white;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      font-family: sans-serif;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+    .controls {
+      margin: 20px 0;
+    }
+    button {
+      padding: 10px 20px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .memo-item {
+      background-color: white;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    .memo-text {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 10px;
+      white-space: pre-wrap;
+    }
+    .memo-date {
+      font-size: 12px;
+      color: #999;
+    }
+    .delete-button {
+      background-color: #e74c3c;
+      padding: 6px 12px;
+      font-size: 12px;
+      position: absolute;
+      top: 15px;
+      right: 15px;
+    }
+    .delete-button:hover {
+      background-color: #c0392b;
+    }
+    .empty-message {
+      text-align: center;
+      color: #999;
+      font-style: italic;
+      padding: 40px;
+    }
+  </style>
+</head>
+<body>
+  <h1>📝 メモ帳アプリ</h1>
+
+  <div class="input-section">
+    <textarea id="memoInput" rows="4" placeholder="メモを入力してください..."></textarea>
+    <div style="margin-top: 10px;">
+      <button id="addButton">追加</button>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button id="sortNewest">新しい順</button>
+    <button id="sortOldest">古い順</button>
+  </div>
+
+  <div id="memoList"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

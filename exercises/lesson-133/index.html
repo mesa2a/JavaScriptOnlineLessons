@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>レッスン133: スコープとクロージャ</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 1000px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #333;
+      border-bottom: 3px solid #00BCD4;
+      padding-bottom: 10px;
+    }
+    .section {
+      margin: 30px 0;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-left: 4px solid #00BCD4;
+      border-radius: 5px;
+    }
+    .section h2 {
+      margin-top: 0;
+      color: #00BCD4;
+    }
+    .output {
+      background-color: white;
+      padding: 15px;
+      border-radius: 5px;
+      font-family: 'Courier New', monospace;
+      white-space: pre-wrap;
+      margin-top: 10px;
+      border: 1px solid #ddd;
+    }
+    .demo-box {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin: 15px 0;
+    }
+    button {
+      background-color: #00BCD4;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 5px;
+    }
+    button:hover {
+      background-color: #00ACC1;
+    }
+    .counter-display {
+      font-size: 24px;
+      font-weight: bold;
+      color: #00BCD4;
+      margin: 15px 0;
+    }
+    input {
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin: 5px;
+      width: 200px;
+    }
+    .task-item {
+      padding: 10px;
+      margin: 5px 0;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .task-item.completed {
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>レッスン133: スコープとクロージャ</h1>
+
+    <div class="section">
+      <h2>1. スコープの基本</h2>
+      <div id="scopeOutput" class="output"></div>
+    </div>
+
+    <div class="section">
+      <h2>2. クロージャの基本</h2>
+      <div id="closureBasicOutput" class="output"></div>
+    </div>
+
+    <div class="section">
+      <h2>3. カウンターのデモ</h2>
+      <div class="demo-box">
+        <h3>クロージャを使ったカウンター</h3>
+        <div class="counter-display" id="counterDisplay">0</div>
+        <button onclick="incrementCounter()">+1</button>
+        <button onclick="decrementCounter()">-1</button>
+        <button onclick="getCounterValue()">値を表示</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>4. 関数ファクトリー</h2>
+      <div id="factoryOutput" class="output"></div>
+    </div>
+
+    <div class="section">
+      <h2>5. プライベート変数</h2>
+      <div id="privateOutput" class="output"></div>
+    </div>
+
+    <div class="section">
+      <h2>6. 銀行口座のデモ</h2>
+      <div class="demo-box">
+        <h3>銀行口座（クロージャによるデータ保護）</h3>
+        <div id="accountDisplay"></div>
+        <input type="number" id="amountInput" placeholder="金額を入力">
+        <button onclick="depositMoney()">入金</button>
+        <button onclick="withdrawMoney()">出金</button>
+        <button onclick="showBalance()">残高確認</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>7. タスク管理のデモ</h2>
+      <div class="demo-box">
+        <h3>タスク管理</h3>
+        <input type="text" id="taskInput" placeholder="タスクを入力">
+        <button onclick="addNewTask()">追加</button>
+        <div id="taskList"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

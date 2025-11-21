@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>レッスン129: デバッグとエラー処理</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #333;
+      border-bottom: 3px solid #e91e63;
+      padding-bottom: 10px;
+    }
+    .section {
+      margin: 30px 0;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-left: 4px solid #e91e63;
+      border-radius: 5px;
+    }
+    .section h2 {
+      margin-top: 0;
+      color: #e91e63;
+    }
+    .output {
+      background-color: white;
+      padding: 15px;
+      border-radius: 5px;
+      font-family: 'Courier New', monospace;
+      white-space: pre-wrap;
+      margin-top: 10px;
+      border: 1px solid #ddd;
+    }
+    .success {
+      background-color: #e8f5e9;
+      color: #2e7d32;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+    .error {
+      background-color: #ffebee;
+      color: #c62828;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+    .form-demo {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-top: 15px;
+    }
+    .form-group {
+      margin: 15px 0;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #555;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #e91e63;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #c2185b;
+    }
+    .validation-errors {
+      margin-top: 15px;
+    }
+    .validation-errors li {
+      color: #c62828;
+      margin: 5px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #e91e63;
+      color: white;
+    }
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+    .test-button {
+      background-color: #2196F3;
+      margin: 5px;
+    }
+    .test-button:hover {
+      background-color: #1976D2;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>レッスン129: デバッグとエラー処理</h1>
+
+    <div class="section">
+      <h2>1. エラーの種類のデモ</h2>
+      <p>ボタンをクリックすると、それぞれのエラーを体験できます（try-catchで処理されます）</p>
+      <button class="test-button" onclick="testReferenceError()">ReferenceError</button>
+      <button class="test-button" onclick="testTypeError()">TypeError</button>
+      <button class="test-button" onclick="testRangeError()">RangeError</button>
+      <div id="errorOutput" class="output"></div>
+    </div>
+
+    <div class="section">
+      <h2>2. try-catchによるエラー処理</h2>
+      <div id="tryCatchOutput" class="output"></div>
+    </div>
+
+    <div class="section">
+      <h2>3. 除算関数のエラー処理</h2>
+      <button class="test-button" onclick="testDivide(10, 2)">10 ÷ 2</button>
+      <button class="test-button" onclick="testDivide(10, 0)">10 ÷ 0</button>
+      <button class="test-button" onclick="testDivide('abc', 5)">不正な入力</button>
+      <div id="divideOutput" class="output"></div>
+    </div>
+
+    <div class="section">
+      <h2>4. 年齢チェック関数</h2>
+      <button class="test-button" onclick="testAge(25)">年齢: 25</button>
+      <button class="test-button" onclick="testAge(15)">年齢: 15</button>
+      <button class="test-button" onclick="testAge(-5)">年齢: -5</button>
+      <button class="test-button" onclick="testAge(150)">年齢: 150</button>
+      <div id="ageOutput" class="output"></div>
+    </div>
+
+    <div class="section">
+      <h2>5. フォームのバリデーション</h2>
+      <div class="form-demo">
+        <form id="userForm">
+          <div class="form-group">
+            <label for="name">名前:</label>
+            <input type="text" id="name" placeholder="田中太郎">
+          </div>
+          <div class="form-group">
+            <label for="email">メールアドレス:</label>
+            <input type="text" id="email" placeholder="tanaka@example.com">
+          </div>
+          <div class="form-group">
+            <label for="age">年齢:</label>
+            <input type="number" id="age" placeholder="25">
+          </div>
+          <button type="submit">送信</button>
+        </form>
+        <div id="formResult"></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>6. JSON解析のエラー処理</h2>
+      <button class="test-button" onclick="testJSON('正常')">正常なJSON</button>
+      <button class="test-button" onclick="testJSON('不正')">不正なJSON</button>
+      <div id="jsonOutput" class="output"></div>
+    </div>
+
+    <div class="section">
+      <h2>7. 総合例: データ処理</h2>
+      <div id="processingOutput"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

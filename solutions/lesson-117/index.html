@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 117 - Solution</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .info {
+      text-align: center;
+      margin-bottom: 30px;
+      padding: 15px;
+      background: #f0f0f0;
+      border-radius: 5px;
+    }
+
+    .info p {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .score-display {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .score-display h2 {
+      margin: 0;
+      font-size: 48px;
+      color: #667eea;
+    }
+
+    .score-display p {
+      margin: 5px 0;
+      color: #666;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 15px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .add-btn {
+      background: #4CAF50;
+      color: white;
+    }
+
+    .add-btn:hover {
+      background: #45a049;
+    }
+
+    .subtract-btn {
+      background: #f44336;
+      color: white;
+    }
+
+    .subtract-btn:hover {
+      background: #da190b;
+    }
+
+    .reset-btn {
+      background: #9E9E9E;
+      color: white;
+      grid-column: 1 / -1;
+    }
+
+    .reset-btn:hover {
+      background: #757575;
+    }
+
+    .history {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f9f9f9;
+      border-radius: 5px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .history h3 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    .history-item {
+      padding: 8px;
+      margin-bottom: 5px;
+      background: white;
+      border-left: 3px solid #667eea;
+      border-radius: 3px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>スコア管理アプリ</h1>
+
+    <div class="info">
+      <p><strong>グローバル変数の使用例</strong></p>
+      <p>score と history がグローバル変数として管理されています</p>
+    </div>
+
+    <div class="score-display">
+      <h2 id="scoreDisplay">0</h2>
+      <p>現在のスコア</p>
+    </div>
+
+    <div class="buttons">
+      <button class="add-btn" onclick="addScore(10)">+10点</button>
+      <button class="add-btn" onclick="addScore(50)">+50点</button>
+      <button class="subtract-btn" onclick="subtractScore(10)">-10点</button>
+      <button class="subtract-btn" onclick="subtractScore(50)">-50点</button>
+      <button class="reset-btn" onclick="resetScore()">リセット</button>
+    </div>
+
+    <div class="history">
+      <h3>履歴</h3>
+      <div id="historyList"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
