@@ -9,7 +9,8 @@
       "Bash(npm test:*)",
       "Skill(lesson-generator)",
       "Bash(python:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []
