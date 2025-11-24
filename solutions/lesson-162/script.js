@@ -1,0 +1,607 @@
+// グローバル変数
+let transactions = [];
+
+// カテゴリの色設定
+const incomeCategories = {
+  '給料': '#4CAF50',
+  'ボーナス': '#8BC34A',
+  '副業': '#CDDC39',
+  'お小遣い': '#FFC107',
+  'その他': '#9E9E9E'
+};
+
+const expenseCategories = {
+  '食費': '#F44336',
+  '交通費': '#E91E63',
+  '娯楽': '#9C27B0',
+  '光熱費': '#673AB7',
+  '家賃': '#3F51B5',
+  '通信費': '#2196F3',
+  '医療費': '#03A9F4',
+  '日用品': '#00BCD4',
+  '被服費': '#009688',
+  'その他': '#9E9E9E'
+};
+
+// IDを生成する関数
+function generateId() {
+  if (transactions.length === 0) {
+    return 1;
+  }
+  const maxId = Math.max(...transactions.map(function(t) {
+    return t.id;
+  }));
+  return maxId + 1;
+}
+
+// 金額をフォーマットする関数
+function formatCurrency(amount) {
+  return amount.toLocaleString('ja-JP');
+}
+
+// カテゴリの色を取得する関数
+function getCategoryColor(category, type) {
+  if (type === 'income') {
+    return incomeCategories[category] || '#9E9E9E';
+  } else if (type === 'expense') {
+    return expenseCategories[category] || '#9E9E9E';
+  }
+  return '#9E9E9E';
+}
+
+// 収入を追加する関数
+function addIncome() {
+  const dateInput = document.getElementById('income-date');
+  const amountInput = document.getElementById('income-amount');
+  const categoryInput = document.getElementById('income-category');
+  const memoInput = document.getElementById('income-memo');
+
+  const date = dateInput.value;
+  const amount = amountInput.value;
+  const category = categoryInput.value;
+  const memo = memoInput.value;
+
+  if (date === '') {
+    alert('日付を入力してください');
+    return;
+  }
+
+  if (amount === '' || amount === '0') {
+    alert('金額を入力してください');
+    return;
+  }
+
+  if (Number(amount) <= 0) {
+    alert('金額は1円以上で入力してください');
+    return;
+  }
+
+  if (category === '') {
+    alert('カテゴリを選択してください');
+    return;
+  }
+
+  const newIncome = {
+    id: generateId(),
+    type: 'income',
+    date: date,
+    amount: Number(amount),
+    category: category,
+    memo: memo
+  };
+
+  transactions.push(newIncome);
+  saveTransactions();
+  renderIncomeList();
+  updateIncomeTotal();
+  updateStats();
+
+  dateInput.value = '';
+  amountInput.value = '';
+  categoryInput.value = '';
+  memoInput.value = '';
+
+  alert('収入を追加しました');
+}
+
+// 支出を追加する関数
+function addExpense() {
+  const dateInput = document.getElementById('expense-date');
+  const amountInput = document.getElementById('expense-amount');
+  const categoryInput = document.getElementById('expense-category');
+  const memoInput = document.getElementById('expense-memo');
+
+  const date = dateInput.value;
+  const amount = amountInput.value;
+  const category = categoryInput.value;
+  const memo = memoInput.value;
+
+  if (date === '') {
+    alert('日付を入力してください');
+    return;
+  }
+
+  if (amount === '' || amount === '0') {
+    alert('金額を入力してください');
+    return;
+  }
+
+  if (Number(amount) <= 0) {
+    alert('金額は1円以上で入力してください');
+    return;
+  }
+
+  if (category === '') {
+    alert('カテゴリを選択してください');
+    return;
+  }
+
+  const newExpense = {
+    id: generateId(),
+    type: 'expense',
+    date: date,
+    amount: Number(amount),
+    category: category,
+    memo: memo
+  };
+
+  transactions.push(newExpense);
+  saveTransactions();
+  renderExpenseList();
+  updateExpenseTotal();
+  updateStats();
+
+  dateInput.value = '';
+  amountInput.value = '';
+  categoryInput.value = '';
+  memoInput.value = '';
+
+  alert('支出を追加しました');
+}
+
+// 収入一覧を表示する関数
+function renderIncomeList() {
+  const listContainer = document.getElementById('income-items');
+
+  const incomes = transactions.filter(function(t) {
+    return t.type === 'income';
+  });
+
+  if (incomes.length === 0) {
+    listContainer.innerHTML = '<div class="empty-message">データがありません</div>';
+    return;
+  }
+
+  incomes.sort(function(a, b) {
+    return b.date.localeCompare(a.date);
+  });
+
+  let html = '';
+  incomes.forEach(function(income) {
+    const categoryColor = getCategoryColor(income.category, 'income');
+
+    html += '<div class="transaction-item">';
+    html += '  <span class="col-date">' + income.date + '</span>';
+    html += '  <span class="col-category" style="background-color: ' + categoryColor + '">' + income.category + '</span>';
+    html += '  <span class="col-amount income">¥' + formatCurrency(income.amount) + '</span>';
+    html += '  <span class="col-memo">' + income.memo + '</span>';
+    html += '  <span class="col-actions">';
+    html += '    <button class="delete-button" onclick="deleteIncome(' + income.id + ')">削除</button>';
+    html += '  </span>';
+    html += '</div>';
+  });
+
+  listContainer.innerHTML = html;
+}
+
+// 支出一覧を表示する関数
+function renderExpenseList() {
+  const listContainer = document.getElementById('expense-items');
+
+  const expenses = transactions.filter(function(t) {
+    return t.type === 'expense';
+  });
+
+  if (expenses.length === 0) {
+    listContainer.innerHTML = '<div class="empty-message">データがありません</div>';
+    return;
+  }
+
+  expenses.sort(function(a, b) {
+    return b.date.localeCompare(a.date);
+  });
+
+  let html = '';
+  expenses.forEach(function(expense) {
+    const categoryColor = getCategoryColor(expense.category, 'expense');
+
+    html += '<div class="transaction-item">';
+    html += '  <span class="col-date">' + expense.date + '</span>';
+    html += '  <span class="col-category" style="background-color: ' + categoryColor + '">' + expense.category + '</span>';
+    html += '  <span class="col-amount expense">¥' + formatCurrency(expense.amount) + '</span>';
+    html += '  <span class="col-memo">' + expense.memo + '</span>';
+    html += '  <span class="col-actions">';
+    html += '    <button class="delete-button" onclick="deleteExpense(' + expense.id + ')">削除</button>';
+    html += '  </span>';
+    html += '</div>';
+  });
+
+  listContainer.innerHTML = html;
+}
+
+// 収入を削除する関数
+function deleteIncome(id) {
+  if (!confirm('この収入を削除しますか？')) {
+    return;
+  }
+
+  const index = transactions.findIndex(function(t) {
+    return t.id === id;
+  });
+
+  if (index !== -1) {
+    transactions.splice(index, 1);
+    saveTransactions();
+    renderIncomeList();
+    updateIncomeTotal();
+    updateStats();
+    alert('収入を削除しました');
+  }
+}
+
+// 支出を削除する関数
+function deleteExpense(id) {
+  if (!confirm('この支出を削除しますか？')) {
+    return;
+  }
+
+  const index = transactions.findIndex(function(t) {
+    return t.id === id;
+  });
+
+  if (index !== -1) {
+    transactions.splice(index, 1);
+    saveTransactions();
+    renderExpenseList();
+    updateExpenseTotal();
+    updateStats();
+    alert('支出を削除しました');
+  }
+}
+
+// 収入合計を計算する関数
+function calculateIncomeTotal() {
+  let total = 0;
+  transactions.forEach(function(t) {
+    if (t.type === 'income') {
+      total += t.amount;
+    }
+  });
+  return total;
+}
+
+// 支出合計を計算する関数
+function calculateExpenseTotal() {
+  let total = 0;
+  transactions.forEach(function(t) {
+    if (t.type === 'expense') {
+      total += t.amount;
+    }
+  });
+  return total;
+}
+
+// 収支を計算する関数
+function calculateBalance() {
+  const income = calculateIncomeTotal();
+  const expense = calculateExpenseTotal();
+  return income - expense;
+}
+
+// 収入合計を表示する関数
+function updateIncomeTotal() {
+  const total = calculateIncomeTotal();
+  const totalElement = document.getElementById('income-total');
+  totalElement.textContent = '¥' + formatCurrency(total);
+}
+
+// 支出合計を表示する関数
+function updateExpenseTotal() {
+  const total = calculateExpenseTotal();
+  const totalElement = document.getElementById('expense-total');
+  totalElement.textContent = '¥' + formatCurrency(total);
+}
+
+// 統計情報を更新する関数
+function updateStats() {
+  const income = calculateIncomeTotal();
+  const expense = calculateExpenseTotal();
+  const balance = calculateBalance();
+
+  const statsIncomeElement = document.getElementById('stats-income');
+  const statsExpenseElement = document.getElementById('stats-expense');
+  const balanceElement = document.getElementById('balance');
+
+  if (statsIncomeElement) {
+    statsIncomeElement.textContent = '¥' + formatCurrency(income);
+  }
+  if (statsExpenseElement) {
+    statsExpenseElement.textContent = '¥' + formatCurrency(expense);
+  }
+  if (balanceElement) {
+    balanceElement.textContent = '¥' + formatCurrency(balance);
+
+    // 収支がプラスかマイナスかで色を変える
+    balanceElement.classList.remove('positive', 'negative');
+    if (balance > 0) {
+      balanceElement.classList.add('positive');
+    } else if (balance < 0) {
+      balanceElement.classList.add('negative');
+    }
+  }
+}
+
+// カテゴリ別の支出を計算する関数
+function calculateExpenseByCategory() {
+  const result = {};
+
+  transactions.forEach(function(t) {
+    if (t.type === 'expense') {
+      if (result[t.category]) {
+        result[t.category] += t.amount;
+      } else {
+        result[t.category] = t.amount;
+      }
+    }
+  });
+
+  return result;
+}
+
+// 今日の日付を設定する関数
+function setTodayDate() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const day = String(today.getDate()).padStart(2, '0');
+  const dateString = year + '-' + month + '-' + day;
+
+  const incomeDateInput = document.getElementById('income-date');
+  const expenseDateInput = document.getElementById('expense-date');
+
+  if (incomeDateInput) {
+    incomeDateInput.value = dateString;
+  }
+  if (expenseDateInput) {
+    expenseDateInput.value = dateString;
+  }
+}
+
+// localStorageに保存する関数
+function saveTransactions() {
+  localStorage.setItem('transactions', JSON.stringify(transactions));
+}
+
+// localStorageから読み込む関数
+function loadTransactions() {
+  const saved = localStorage.getItem('transactions');
+  if (saved) {
+    transactions = JSON.parse(saved);
+  }
+}
+
+// 円グラフを描画する関数
+function drawPieChart(canvas, data, colors) {
+  const ctx = canvas.getContext('2d');
+  const width = canvas.width;
+  const height = canvas.height;
+  const centerX = width / 2;
+  const centerY = height / 2;
+  const radius = Math.min(width, height) / 2 - 20;
+
+  ctx.clearRect(0, 0, width, height);
+
+  if (Object.keys(data).length === 0) {
+    ctx.fillStyle = '#999';
+    ctx.font = '16px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('データがありません', centerX, centerY);
+    return;
+  }
+
+  let total = 0;
+  for (let key in data) {
+    total += data[key];
+  }
+
+  let startAngle = -Math.PI / 2;
+
+  for (let category in data) {
+    const value = data[category];
+    const angle = (value / total) * (Math.PI * 2);
+    const endAngle = startAngle + angle;
+
+    ctx.fillStyle = colors[category] || '#9E9E9E';
+    ctx.beginPath();
+    ctx.moveTo(centerX, centerY);
+    ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+    ctx.closePath();
+    ctx.fill();
+
+    const percentage = ((value / total) * 100).toFixed(1);
+
+    if (percentage >= 5) {
+      const labelAngle = startAngle + angle / 2;
+      const labelX = centerX + Math.cos(labelAngle) * (radius * 0.7);
+      const labelY = centerY + Math.sin(labelAngle) * (radius * 0.7);
+
+      ctx.fillStyle = '#FFF';
+      ctx.font = 'bold 14px Arial';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(percentage + '%', labelX, labelY);
+    }
+
+    startAngle = endAngle;
+  }
+}
+
+// 凡例を描画する関数
+function drawLegend(container, data, colors) {
+  container.innerHTML = '';
+
+  let total = 0;
+  for (let key in data) {
+    total += data[key];
+  }
+
+  const sortedData = Object.entries(data).sort(function(a, b) {
+    return b[1] - a[1];
+  });
+
+  sortedData.forEach(function(item) {
+    const category = item[0];
+    const value = item[1];
+    const percentage = ((value / total) * 100).toFixed(1);
+
+    const legendItem = document.createElement('div');
+    legendItem.className = 'legend-item';
+
+    const colorBox = document.createElement('span');
+    colorBox.className = 'legend-color';
+    colorBox.style.backgroundColor = colors[category] || '#9E9E9E';
+
+    const label = document.createElement('span');
+    label.className = 'legend-label';
+    label.textContent = category;
+
+    const amount = document.createElement('span');
+    amount.className = 'legend-amount';
+    amount.textContent = '¥' + formatCurrency(value) + ' (' + percentage + '%)';
+
+    legendItem.appendChild(colorBox);
+    legendItem.appendChild(label);
+    legendItem.appendChild(amount);
+    container.appendChild(legendItem);
+  });
+}
+
+// 棒グラフを描画する関数
+function drawBarChart(canvas, income, expense) {
+  const ctx = canvas.getContext('2d');
+  const width = canvas.width;
+  const height = canvas.height;
+  const padding = 40;
+  const barWidth = 80;
+  const maxValue = Math.max(income, expense) || 1;
+
+  ctx.clearRect(0, 0, width, height);
+
+  if (income === 0 && expense === 0) {
+    ctx.fillStyle = '#999';
+    ctx.font = '16px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('データがありません', width / 2, height / 2);
+    return;
+  }
+
+  const chartHeight = height - padding * 2;
+  const scale = chartHeight / maxValue;
+
+  const incomeHeight = income * scale;
+  const incomeX = width / 2 - barWidth - 20;
+  const incomeY = height - padding - incomeHeight;
+
+  ctx.fillStyle = '#4CAF50';
+  ctx.fillRect(incomeX, incomeY, barWidth, incomeHeight);
+
+  ctx.fillStyle = '#333';
+  ctx.font = '14px Arial';
+  ctx.textAlign = 'center';
+  ctx.fillText('収入', incomeX + barWidth / 2, height - padding + 20);
+  ctx.fillText('¥' + formatCurrency(income), incomeX + barWidth / 2, incomeY - 10);
+
+  const expenseHeight = expense * scale;
+  const expenseX = width / 2 + 20;
+  const expenseY = height - padding - expenseHeight;
+
+  ctx.fillStyle = '#F44336';
+  ctx.fillRect(expenseX, expenseY, barWidth, expenseHeight);
+
+  ctx.fillStyle = '#333';
+  ctx.font = '14px Arial';
+  ctx.textAlign = 'center';
+  ctx.fillText('支出', expenseX + barWidth / 2, height - padding + 20);
+  ctx.fillText('¥' + formatCurrency(expense), expenseX + barWidth / 2, expenseY - 10);
+
+  ctx.strokeStyle = '#ccc';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(padding, height - padding);
+  ctx.lineTo(width - padding, height - padding);
+  ctx.stroke();
+}
+
+// グラフを更新する関数
+function updateCharts() {
+  const expenseByCategory = calculateExpenseByCategory();
+
+  const pieCanvas = document.getElementById('pie-chart');
+  const pieLegend = document.getElementById('pie-legend');
+  if (pieCanvas && pieLegend) {
+    drawPieChart(pieCanvas, expenseByCategory, expenseCategories);
+    drawLegend(pieLegend, expenseByCategory, expenseCategories);
+  }
+
+  const barCanvas = document.getElementById('bar-chart');
+  if (barCanvas) {
+    const income = calculateIncomeTotal();
+    const expense = calculateExpenseTotal();
+    drawBarChart(barCanvas, income, expense);
+  }
+}
+
+// タブ切り替え機能
+function setupTabs() {
+  const tabButtons = document.querySelectorAll('.tab-button');
+  const tabPanes = document.querySelectorAll('.tab-pane');
+
+  tabButtons.forEach(function(button) {
+    button.addEventListener('click', function() {
+      const targetTab = this.getAttribute('data-tab');
+
+      tabButtons.forEach(function(btn) {
+        btn.classList.remove('active');
+      });
+      tabPanes.forEach(function(pane) {
+        pane.classList.remove('active');
+      });
+
+      this.classList.add('active');
+      document.getElementById(targetTab + '-tab').classList.add('active');
+
+      if (targetTab === 'stats') {
+        updateCharts();
+      }
+    });
+  });
+}
+
+// ページ読み込み時の初期化
+document.addEventListener('DOMContentLoaded', function() {
+  loadTransactions();
+  setTodayDate();
+  renderIncomeList();
+  renderExpenseList();
+  updateIncomeTotal();
+  updateExpenseTotal();
+  updateStats();
+
+  const addIncomeButton = document.getElementById('add-income-button');
+  const addExpenseButton = document.getElementById('add-expense-button');
+
+  addIncomeButton.addEventListener('click', addIncome);
+  addExpenseButton.addEventListener('click', addExpense);
+
+  setupTabs();
+});

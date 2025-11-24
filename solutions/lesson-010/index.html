@@ -1,42 +1,866 @@
-<script>
-// 課題1：円の面積を計算
-const pi = 3.14;
-let radius = 5;
-let area = radius * radius * pi;
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 010: 変わらない値 - 解答例</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-console.log("半径：" + radius);
-console.log("面積：" + area);
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 20px;
+            color: #333;
+        }
 
-// 課題2：消費税計算
-// const taxRate = 1.1;
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
 
-// let notebookPrice = 120;
-// let penPrice = 80;
-// let eraserPrice = 60;
+        h1 {
+            color: #f5576c;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
 
-// let notebookWithTax = notebookPrice * taxRate;
-// let penWithTax = penPrice * taxRate;
-// let eraserWithTax = eraserPrice * taxRate;
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #f5576c;
+        }
 
-// let total = notebookPrice + penPrice + eraserPrice;
-// let totalWithTax = total * taxRate;
+        .solution {
+            background: white;
+            border: 3px solid #4caf50;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.2);
+        }
 
-// console.log("ノート（税込）：" + notebookWithTax + "円");
-// console.log("ペン（税込）：" + penWithTax + "円");
-// console.log("消しゴム（税込）：" + eraserWithTax + "円");
-// console.log("合計（税込）：" + totalWithTax + "円");
+        .solution h2 {
+            color: #4caf50;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #4caf50;
+        }
 
-// 課題3：割引計算
-// const discountRate = 0.2;
-// let originalPrice = 1000;
-// let discountedPrice = originalPrice * (1 - discountRate);
+        .task-number {
+            display: inline-block;
+            background: #4caf50;
+            color: white;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 50%;
+            margin-right: 10px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
 
-// console.log("元の価格：" + originalPrice + "円");
-// console.log("割引率：" + (discountRate * 100) + "%");
-// console.log("割引後価格：" + discountedPrice + "円");
+        .code-section {
+            background: #263238;
+            color: #aed581;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+            line-height: 1.6;
+        }
 
-// 課題4：エラーを体験する
-// const message = "Hello";
-// message = "World";  // エラーが発生します
-// console.log(message);
-</script>
+        .comment {
+            color: #90a4ae;
+        }
+
+        .string {
+            color: #ffeb3b;
+        }
+
+        .keyword {
+            color: #81d4fa;
+        }
+
+        .const-keyword {
+            color: #ff80ab;
+        }
+
+        .number {
+            color: #ff9800;
+        }
+
+        .explanation {
+            background: #f0f7ff;
+            border-left: 4px solid #2196f3;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .explanation h3 {
+            color: #1976d2;
+            margin-bottom: 12px;
+            font-size: 1.3em;
+        }
+
+        .output {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            border-left: 4px solid #4caf50;
+        }
+
+        .output-label {
+            color: #4caf50;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .error-output {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            border-left: 4px solid #f44336;
+        }
+
+        .error-label {
+            color: #f44336;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .flow {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .flow h4 {
+            color: #f57c00;
+            margin-bottom: 12px;
+            font-size: 1.2em;
+        }
+
+        .flow ol {
+            padding-left: 25px;
+        }
+
+        .flow li {
+            margin: 8px 0;
+            padding: 5px 0;
+        }
+
+        .variations {
+            background: #f3e5f5;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .variations h3 {
+            color: #7b1fa2;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .variation-item {
+            background: white;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 4px solid #9c27b0;
+        }
+
+        .variation-item h4 {
+            color: #7b1fa2;
+            margin-bottom: 10px;
+        }
+
+        .key-point {
+            background: #fff9e6;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .key-point strong {
+            color: #f57c00;
+        }
+
+        .mistakes {
+            background: #ffebee;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+        }
+
+        .mistakes h3 {
+            color: #c62828;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .mistake-item {
+            background: white;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .mistake-item h4 {
+            color: #d32f2f;
+            margin-bottom: 10px;
+        }
+
+        .wrong {
+            background: #ffcdd2;
+            padding: 12px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            border-left: 4px solid #f44336;
+        }
+
+        .correct {
+            background: #c8e6c9;
+            padding: 12px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            border-left: 4px solid #4caf50;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: #f5576c;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-size: 1.1em;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        .summary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+
+        .summary h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .summary ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .summary li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .summary li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+
+        .next-steps {
+            background: #e8eaf6;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+        }
+
+        .next-steps h3 {
+            color: #3f51b5;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #666;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✅ Lesson 010: 変わらない値 - 解答例</h1>
+        <div class="subtitle">const Solutions - 定数の使い方をマスターしよう</div>
+
+        <!-- 課題1の解答 -->
+        <div class="solution">
+            <h2><span class="task-number">1</span>課題1：円周率と円の面積</h2>
+
+            <div class="explanation">
+                <h3>📖 課題の内容</h3>
+                <p>円周率を定数として定義し、半径5の円の面積を計算します。</p>
+            </div>
+
+            <div class="code-section">
+<span class="comment">// 課題1：円周率と円の面積</span><br>
+<span class="const-keyword">const</span> pi = <span class="number">3.14</span>;<br>
+<span class="keyword">let</span> radius = <span class="number">5</span>;<br>
+<span class="keyword">let</span> area = radius * radius * pi;<br>
+<br>
+console.log(<span class="string">"半径："</span> + radius);<br>
+console.log(<span class="string">"面積："</span> + area);
+            </div>
+
+            <div class="output">
+                <div class="output-label">🖥️ 実行結果（コンソール）：</div>
+                半径：5<br>
+                面積：78.5
+            </div>
+
+            <div class="flow">
+                <h4>🔄 実行の流れ</h4>
+                <ol>
+                    <li><code>const pi = 3.14</code> - 円周率を定数として定義</li>
+                    <li><code>let radius = 5</code> - 半径を変数として定義</li>
+                    <li><code>radius * radius * pi</code> - 5 × 5 × 3.14 = 78.5 を計算</li>
+                    <li>計算結果を<code>area</code>変数に保存</li>
+                    <li>半径と面積をコンソールに表示</li>
+                </ol>
+            </div>
+
+            <div class="key-point">
+                <strong>🔑 重要ポイント：</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>円周率（pi）は<strong>const</strong>で宣言 - 数学的に決まっている値なので変更しない</li>
+                    <li>半径（radius）は<strong>let</strong>で宣言 - 後で異なる半径で計算する可能性がある</li>
+                    <li>面積（area）も<strong>let</strong>で宣言 - 計算結果を保存する変数</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 課題2の解答 -->
+        <div class="solution">
+            <h2><span class="task-number">2</span>課題2：消費税計算</h2>
+
+            <div class="explanation">
+                <h3>📖 課題の内容</h3>
+                <p>消費税率を定数として定義し、複数の商品の税込価格を計算します。</p>
+            </div>
+
+            <div class="code-section">
+<span class="comment">// 課題2：消費税計算</span><br>
+<span class="const-keyword">const</span> taxRate = <span class="number">1.1</span>;<br>
+<br>
+<span class="keyword">let</span> notebookPrice = <span class="number">120</span>;<br>
+<span class="keyword">let</span> penPrice = <span class="number">80</span>;<br>
+<span class="keyword">let</span> eraserPrice = <span class="number">60</span>;<br>
+<br>
+<span class="keyword">let</span> notebookWithTax = notebookPrice * taxRate;<br>
+<span class="keyword">let</span> penWithTax = penPrice * taxRate;<br>
+<span class="keyword">let</span> eraserWithTax = eraserPrice * taxRate;<br>
+<br>
+<span class="keyword">let</span> total = notebookPrice + penPrice + eraserPrice;<br>
+<span class="keyword">let</span> totalWithTax = total * taxRate;<br>
+<br>
+console.log(<span class="string">"ノート（税込）："</span> + notebookWithTax + <span class="string">"円"</span>);<br>
+console.log(<span class="string">"ペン（税込）："</span> + penWithTax + <span class="string">"円"</span>);<br>
+console.log(<span class="string">"消しゴム（税込）："</span> + eraserWithTax + <span class="string">"円"</span>);<br>
+console.log(<span class="string">"合計（税込）："</span> + totalWithTax + <span class="string">"円"</span>);
+            </div>
+
+            <div class="output">
+                <div class="output-label">🖥️ 実行結果：</div>
+                ノート（税込）：132円<br>
+                ペン（税込）：88円<br>
+                消しゴム（税込）：66円<br>
+                合計（税込）：286円
+            </div>
+
+            <div class="flow">
+                <h4>🔄 実行の流れ</h4>
+                <ol>
+                    <li><code>const taxRate = 1.1</code> - 消費税率10%（1.1倍）を定数として定義</li>
+                    <li>3つの商品の税抜価格を変数に保存</li>
+                    <li>各商品の税込価格を計算：
+                        <ul>
+                            <li>120 × 1.1 = 132円（ノート）</li>
+                            <li>80 × 1.1 = 88円（ペン）</li>
+                            <li>60 × 1.1 = 66円（消しゴム）</li>
+                        </ul>
+                    </li>
+                    <li>合計の税抜価格を計算：120 + 80 + 60 = 260円</li>
+                    <li>合計の税込価格を計算：260 × 1.1 = 286円</li>
+                    <li>各商品と合計をコンソールに表示</li>
+                </ol>
+            </div>
+
+            <div class="key-point">
+                <strong>🔑 重要ポイント：</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li><code>taxRate = 1.1</code>は「110%」を意味します（100% + 10%消費税）</li>
+                    <li>すべての計算で同じ<code>taxRate</code>を使うので、税率が変わってもこの1箇所を変更するだけで済む</li>
+                    <li>定数を使うことで、計算ミス（例：1.1を1.01と間違える）を防げる</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 課題3の解答 -->
+        <div class="solution">
+            <h2><span class="task-number">3</span>課題3：割引計算</h2>
+
+            <div class="explanation">
+                <h3>📖 課題の内容</h3>
+                <p>割引率20%を定数として定義し、1000円の商品の割引後価格を計算します。</p>
+            </div>
+
+            <div class="code-section">
+<span class="comment">// 課題3：割引計算</span><br>
+<span class="const-keyword">const</span> discountRate = <span class="number">0.2</span>;<br>
+<span class="keyword">let</span> originalPrice = <span class="number">1000</span>;<br>
+<span class="keyword">let</span> discountedPrice = originalPrice * (<span class="number">1</span> - discountRate);<br>
+<br>
+console.log(<span class="string">"元の価格："</span> + originalPrice + <span class="string">"円"</span>);<br>
+console.log(<span class="string">"割引率："</span> + (discountRate * <span class="number">100</span>) + <span class="string">"%"</span>);<br>
+console.log(<span class="string">"割引後価格："</span> + discountedPrice + <span class="string">"円"</span>);
+            </div>
+
+            <div class="output">
+                <div class="output-label">🖥️ 実行結果：</div>
+                元の価格：1000円<br>
+                割引率：20%<br>
+                割引後価格：800円
+            </div>
+
+            <div class="flow">
+                <h4>🔄 実行の流れ</h4>
+                <ol>
+                    <li><code>const discountRate = 0.2</code> - 割引率20%（0.2）を定数として定義</li>
+                    <li><code>let originalPrice = 1000</code> - 元の価格を変数に保存</li>
+                    <li><code>1 - discountRate</code> - 1 - 0.2 = 0.8（80%の価格になる）</li>
+                    <li><code>originalPrice * (1 - discountRate)</code> - 1000 × 0.8 = 800</li>
+                    <li>割引後価格を<code>discountedPrice</code>に保存</li>
+                    <li>元の価格、割引率、割引後価格をコンソールに表示</li>
+                </ol>
+            </div>
+
+            <div class="key-point">
+                <strong>🔑 重要ポイント：</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li><code>discountRate = 0.2</code>は20%を意味します（0.2 × 100 = 20）</li>
+                    <li>20%引き = 80%の価格 = 元の価格 × (1 - 0.2) = 元の価格 × 0.8</li>
+                    <li>割引率を定数にすることで、様々な商品に同じ割引率を適用しやすくなる</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 課題4の解答 -->
+        <div class="solution">
+            <h2><span class="task-number">4</span>課題4：エラーを体験する</h2>
+
+            <div class="explanation">
+                <h3>📖 課題の内容</h3>
+                <p>constに再代入しようとして、エラーメッセージを確認します。</p>
+            </div>
+
+            <div class="code-section">
+<span class="comment">// 課題4：エラーを体験する</span><br>
+<span class="const-keyword">const</span> message = <span class="string">"Hello"</span>;<br>
+message = <span class="string">"World"</span>;  <span class="comment">// ← ここでエラーが発生</span><br>
+console.log(message);
+            </div>
+
+            <div class="error-output">
+                <div class="error-label">❌ 実行結果（エラー）：</div>
+                Uncaught TypeError: Assignment to constant variable.<br>
+                <span style="color: #90a4ae;">    at index.html:2</span>
+            </div>
+
+            <div class="flow">
+                <h4>🔄 何が起こったか</h4>
+                <ol>
+                    <li><code>const message = "Hello"</code> - messageを定数として宣言し、"Hello"を代入</li>
+                    <li><code>message = "World"</code> - messageに"World"を再代入しようとする</li>
+                    <li><strong>❌ エラー発生！</strong> - constで宣言した変数は再代入できない</li>
+                    <li>JavaScriptの実行が停止し、エラーメッセージがコンソールに表示される</li>
+                </ol>
+            </div>
+
+            <div style="background: #e8f5e9; padding: 20px; border-radius: 10px; margin: 15px 0;">
+                <h4 style="color: #2e7d32; margin-bottom: 12px;">📖 エラーメッセージの詳細な読み方</h4>
+
+                <div style="background: white; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                    <p style="font-weight: bold; margin-bottom: 10px;">Uncaught TypeError: Assignment to constant variable.</p>
+
+                    <ul style="padding-left: 25px; margin-top: 15px;">
+                        <li style="margin: 8px 0;"><strong>Uncaught</strong>（アンコート）：捕捉されなかった（処理されなかった）エラー</li>
+                        <li style="margin: 8px 0;"><strong>TypeError</strong>（タイプエラー）：型に関するエラー。変数の型や操作が正しくない</li>
+                        <li style="margin: 8px 0;"><strong>Assignment to constant variable</strong>：定数への代入を試みた</li>
+                        <li style="margin: 8px 0;"><strong>at index.html:2</strong>：エラーが発生したファイルと行番号</li>
+                    </ul>
+                </div>
+
+                <p style="margin-top: 15px;"><strong>このエラーが教えてくれること：</strong></p>
+                <p style="margin-top: 5px;">「<code>message</code>はconstで宣言された定数なので、値を変更することはできません！」</p>
+            </div>
+
+            <div class="key-point">
+                <strong>🔑 重要ポイント：</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>これは<strong>意図的に発生させたエラー</strong>です - constの動作を理解するため</li>
+                    <li>エラーメッセージは問題を解決するための重要な情報源</li>
+                    <li>エラーが出たら怖がらず、メッセージを読んで原因を理解しましょう</li>
+                    <li>もしmessageの値を変更したければ、<code>const</code>の代わりに<code>let</code>を使う必要がある</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- バリエーション例 -->
+        <div class="variations">
+            <h3>🎨 バリエーション例（8個）</h3>
+            <p>constを使った様々な実装例を見てみましょう。</p>
+
+            <div class="variation-item">
+                <h4>バリエーション1：複数の税率（標準税率と軽減税率）</h4>
+                <div class="code-section">
+<span class="const-keyword">const</span> standardTaxRate = <span class="number">1.1</span>;   <span class="comment">// 標準税率10%</span><br>
+<span class="const-keyword">const</span> reducedTaxRate = <span class="number">1.08</span>;   <span class="comment">// 軽減税率8%</span><br>
+<br>
+<span class="keyword">let</span> penPrice = <span class="number">150</span>;  <span class="comment">// ペン（標準税率）</span><br>
+<span class="keyword">let</span> breadPrice = <span class="number">200</span>;  <span class="comment">// パン（軽減税率）</span><br>
+<br>
+<span class="keyword">let</span> penWithTax = penPrice * standardTaxRate;<br>
+<span class="keyword">let</span> breadWithTax = breadPrice * reducedTaxRate;<br>
+<br>
+console.log(<span class="string">"ペン（税込）："</span> + penWithTax + <span class="string">"円"</span>);  <span class="comment">// 165円</span><br>
+console.log(<span class="string">"パン（税込）："</span> + breadWithTax + <span class="string">"円"</span>);  <span class="comment">// 216円</span>
+                </div>
+                <p><strong>説明：</strong> 複数の税率を定数として定義し、商品の種類によって使い分けることができます。</p>
+            </div>
+
+            <div class="variation-item">
+                <h4>バリエーション2：円の周の長さと面積を同時に計算</h4>
+                <div class="code-section">
+<span class="const-keyword">const</span> pi = <span class="number">3.14159</span>;<br>
+<span class="keyword">let</span> radius = <span class="number">10</span>;<br>
+<br>
+<span class="keyword">let</span> circumference = <span class="number">2</span> * pi * radius;  <span class="comment">// 円周の長さ</span><br>
+<span class="keyword">let</span> area = pi * radius * radius;  <span class="comment">// 円の面積</span><br>
+<br>
+console.log(<span class="string">"半径："</span> + radius + <span class="string">"cm"</span>);<br>
+console.log(<span class="string">"円周："</span> + circumference + <span class="string">"cm"</span>);<br>
+console.log(<span class="string">"面積："</span> + area + <span class="string">"cm²"</span>);
+                </div>
+                <p><strong>説明：</strong> 1つの定数（pi）を使って、複数の異なる計算を行うことができます。</p>
+            </div>
+
+            <div class="variation-item">
+                <h4>バリエーション3：時給計算</h4>
+                <div class="code-section">
+<span class="const-keyword">const</span> hourlyWage = <span class="number">1200</span>;  <span class="comment">// 時給1200円</span><br>
+<br>
+<span class="keyword">let</span> hoursWorked = <span class="number">8</span>;  <span class="comment">// 働いた時間</span><br>
+<span class="keyword">let</span> dailyPay = hourlyWage * hoursWorked;<br>
+<br>
+<span class="keyword">let</span> daysWorked = <span class="number">5</span>;  <span class="comment">// 働いた日数</span><br>
+<span class="keyword">let</span> weeklyPay = dailyPay * daysWorked;<br>
+<br>
+console.log(<span class="string">"時給："</span> + hourlyWage + <span class="string">"円"</span>);<br>
+console.log(<span class="string">"1日の給与："</span> + dailyPay + <span class="string">"円"</span>);<br>
+console.log(<span class="string">"週給："</span> + weeklyPay + <span class="string">"円"</span>);
+                </div>
+                <p><strong>説明：</strong> 時給を定数にすることで、様々な期間の給与計算に使い回せます。</p>
+            </div>
+
+            <div class="variation-item">
+                <h4>バリエーション4：ポイント還元率</h4>
+                <div class="code-section">
+<span class="const-keyword">const</span> pointRate = <span class="number">0.05</span>;  <span class="comment">// 5%ポイント還元</span><br>
+<br>
+<span class="keyword">let</span> purchaseAmount = <span class="number">5000</span>;<br>
+<span class="keyword">let</span> pointsEarned = purchaseAmount * pointRate;<br>
+<br>
+console.log(<span class="string">"購入金額："</span> + purchaseAmount + <span class="string">"円"</span>);<br>
+console.log(<span class="string">"還元率："</span> + (pointRate * <span class="number">100</span>) + <span class="string">"%"</span>);<br>
+console.log(<span class="string">"獲得ポイント："</span> + pointsEarned + <span class="string">"ポイント"</span>);
+                </div>
+                <p><strong>説明：</strong> ポイント還元率を定数にすることで、計算ミスを防ぎ、変更も簡単になります。</p>
+            </div>
+
+            <div class="variation-item">
+                <h4>バリエーション5：温度変換（摂氏→華氏）</h4>
+                <div class="code-section">
+<span class="const-keyword">const</span> conversionFactor = <span class="number">1.8</span>;<br>
+<span class="const-keyword">const</span> conversionOffset = <span class="number">32</span>;<br>
+<br>
+<span class="keyword">let</span> celsius = <span class="number">25</span>;  <span class="comment">// 摂氏25度</span><br>
+<span class="keyword">let</span> fahrenheit = celsius * conversionFactor + conversionOffset;<br>
+<br>
+console.log(celsius + <span class="string">"℃ = "</span> + fahrenheit + <span class="string">"℉"</span>);
+                </div>
+                <p><strong>説明：</strong> 変換係数を定数にすることで、数式が読みやすくなり、間違いも減ります。</p>
+            </div>
+        </div>
+
+        <!-- よくある間違い -->
+        <div class="mistakes">
+            <h3>❌ よくある間違いと修正方法（5個）</h3>
+
+            <div class="mistake-item">
+                <h4>間違い1：constに再代入しようとする</h4>
+                <div class="wrong">
+                    ❌ const price = 100;<br>
+                    price = 200;  // エラー！
+                </div>
+                <p><strong>問題点：</strong> constで宣言した変数は再代入できません。</p>
+                <div class="correct">
+                    ✅ let price = 100;<br>
+                    price = 200;  // OK!
+                </div>
+                <p><strong>修正方法：</strong> 値を変更したい場合は、constではなくletを使います。</p>
+            </div>
+
+            <div class="mistake-item">
+                <h4>間違い2：constの初期化忘れ</h4>
+                <div class="wrong">
+                    ❌ const taxRate;  // エラー！<br>
+                    taxRate = 1.1;
+                </div>
+                <p><strong>問題点：</strong> constは宣言と同時に値を設定する必要があります。後から代入することはできません。</p>
+                <div class="correct">
+                    ✅ const taxRate = 1.1;  // 宣言と同時に初期化
+                </div>
+                <p><strong>修正方法：</strong> constの宣言と初期化を同じ行で行います。</p>
+            </div>
+
+            <div class="mistake-item">
+                <h4>間違い3：変更が必要な値にconstを使う</h4>
+                <div class="wrong">
+                    ❌ const counter = 0;<br>
+                    counter = counter + 1;  // エラー！<br>
+                    counter = counter + 1;  // エラー！
+                </div>
+                <p><strong>問題点：</strong> カウンターのように値が変わる変数にconstを使うと、値を更新できません。</p>
+                <div class="correct">
+                    ✅ let counter = 0;<br>
+                    counter = counter + 1;  // OK!<br>
+                    counter = counter + 1;  // OK!
+                </div>
+                <p><strong>修正方法：</strong> 値が変わる可能性がある場合は、letを使います。</p>
+            </div>
+
+            <div class="mistake-item">
+                <h4>間違い4：変わらない値にletを使う</h4>
+                <div class="wrong">
+                    ❌ let pi = 3.14;  // 動くけど推奨されない<br>
+                    let result = 2 * pi * 5;
+                </div>
+                <p><strong>問題点：</strong> 動作はしますが、piは変更しないのにletを使っているため、意図が不明確です。</p>
+                <div class="correct">
+                    ✅ const pi = 3.14;  // 変更しないことが明確<br>
+                    let result = 2 * pi * 5;
+                </div>
+                <p><strong>修正方法：</strong> 変更しない値はconstで宣言することで、意図を明確にします。</p>
+            </div>
+
+            <div class="mistake-item">
+                <h4>間違い5：同じ名前の定数を2回宣言</h4>
+                <div class="wrong">
+                    ❌ const pi = 3.14;<br>
+                    const pi = 3.14159;  // エラー！
+                </div>
+                <p><strong>問題点：</strong> 同じ名前の変数を2回宣言することはできません（letでも同じ）。</p>
+                <div class="correct">
+                    ✅ const pi = 3.14159;  // 最初から正確な値で宣言
+                </div>
+                <p><strong>修正方法：</strong> 最初の宣言だけを残すか、変数名を変えます。</p>
+            </div>
+        </div>
+
+        <!-- 比較表 -->
+        <div style="margin: 30px 0;">
+            <h2 style="color: #f5576c; margin-bottom: 20px;">📊 letとconstの詳細比較</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>項目</th>
+                        <th>let</th>
+                        <th>const</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>再代入</strong></td>
+                        <td>✅ できる</td>
+                        <td>❌ できない（エラーになる）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>初期化</strong></td>
+                        <td>後で代入可能</td>
+                        <td>宣言時に必須</td>
+                    </tr>
+                    <tr>
+                        <td><strong>用途</strong></td>
+                        <td>値が変わる変数</td>
+                        <td>値が変わらない定数</td>
+                    </tr>
+                    <tr>
+                        <td><strong>エラー</strong></td>
+                        <td>何度変更してもエラーなし</td>
+                        <td>再代入時にTypeError</td>
+                    </tr>
+                    <tr>
+                        <td><strong>例</strong></td>
+                        <td>counter, userInput, result</td>
+                        <td>pi, taxRate, maxValue</td>
+                    </tr>
+                    <tr>
+                        <td><strong>推奨</strong></td>
+                        <td>値を更新する必要がある場合</td>
+                        <td>値を更新しない場合（基本はconst）</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- まとめ -->
+        <div class="summary">
+            <h2>📚 まとめ</h2>
+            <h3 style="margin-top: 20px; margin-bottom: 15px;">今回学んだ重要なポイント</h3>
+            <ul>
+                <li><strong>定数（const）</strong>：一度値を設定したら変更できない変数</li>
+                <li><strong>constを使う理由</strong>：意図を明確にし、意図しない変更を防ぐ</li>
+                <li><strong>letとの違い</strong>：letは再代入可能、constは再代入不可</li>
+                <li><strong>エラーメッセージ</strong>：constに再代入すると"Assignment to constant variable"エラー</li>
+                <li><strong>初期化のルール</strong>：constは宣言と同時に値を設定する必要がある</li>
+                <li><strong>使い分けの基本</strong>：迷ったらconstを使い、必要に応じてletに変更</li>
+            </ul>
+        </div>
+
+        <!-- 次のステップ -->
+        <div class="next-steps">
+            <h3>🚀 次のステップ</h3>
+            <p>constの使い方をマスターしました！次は以下のトピックに進みましょう：</p>
+            <ul style="padding-left: 25px; margin-top: 15px;">
+                <li><strong>レッスン11：letとconstの使い分け</strong> - より実践的な使い分けの方法を学びます</li>
+                <li><strong>配列とオブジェクト</strong> - constで宣言した配列やオブジェクトの中身は変更できる</li>
+                <li><strong>ベストプラクティス</strong> - プロのプログラマーが使うconst活用テクニック</li>
+            </ul>
+        </div>
+
+        <footer>
+            <p><strong>📚 Lesson 010: 変わらない値 - 解答例</strong></p>
+            <p style="margin-top: 10px; color: #999;">すべての課題を完了できましたか？次のレッスンへ進みましょう！</p>
+            <p style="margin-top: 15px; font-size: 0.9em;">💡 このファイルをブラウザで開き、F12キーで開発者ツールを開くと、コンソールに解答コードが表示されます。</p>
+        </footer>
+    </div>
+
+    <script>
+        console.log("=== Lesson 010: 変わらない値 - 解答例 ===\n");
+
+        console.log("--- 課題1：円周率と円の面積 ---");
+        const pi = 3.14;
+        let radius = 5;
+        let area = radius * radius * pi;
+        console.log("半径：" + radius);
+        console.log("面積：" + area);
+
+        console.log("\n--- 課題2：消費税計算 ---");
+        const taxRate = 1.1;
+        let notebookPrice = 120;
+        let penPrice = 80;
+        let eraserPrice = 60;
+        let notebookWithTax = notebookPrice * taxRate;
+        let penWithTax = penPrice * taxRate;
+        let eraserWithTax = eraserPrice * taxRate;
+        let total = notebookPrice + penPrice + eraserPrice;
+        let totalWithTax = total * taxRate;
+        console.log("ノート（税込）：" + notebookWithTax + "円");
+        console.log("ペン（税込）：" + penWithTax + "円");
+        console.log("消しゴム（税込）：" + eraserWithTax + "円");
+        console.log("合計（税込）：" + totalWithTax + "円");
+
+        console.log("\n--- 課題3：割引計算 ---");
+        const discountRate = 0.2;
+        let originalPrice = 1000;
+        let discountedPrice = originalPrice * (1 - discountRate);
+        console.log("元の価格：" + originalPrice + "円");
+        console.log("割引率：" + (discountRate * 100) + "%");
+        console.log("割引後価格：" + discountedPrice + "円");
+
+        console.log("\n--- 課題4：エラーを体験する ---");
+        console.log("課題4はエラーが発生するため、コメントアウトしています");
+        console.log("コメントを外して実行すると、以下のエラーが表示されます：");
+        console.log("Uncaught TypeError: Assignment to constant variable.");
+        // const message = "Hello";
+        // message = "World";  // エラー発生
+        // console.log(message);
+
+        console.log("\n=== すべての課題を完了しました！ ===");
+    </script>
+</body>
+</html>

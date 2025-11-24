@@ -1,0 +1,282 @@
+/* リセット */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  gap: 20px;
+  max-width: 900px;
+  width: 100%;
+}
+
+/* 計算機本体 */
+.calculator {
+  background: #2d2d2d;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  flex: 1;
+  max-width: 400px;
+}
+
+/* ディスプレイ */
+.display {
+  background: #1a1a1a;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: right;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.previous-operand {
+  color: #888;
+  font-size: 20px;
+  min-height: 30px;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.current-operand {
+  color: white;
+  font-size: 48px;
+  font-weight: bold;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+/* ボタンエリア */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.btn {
+  padding: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.btn:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+.btn-number {
+  background: #505050;
+  color: white;
+}
+
+.btn-operator {
+  background: #ff9500;
+  color: white;
+}
+
+.btn-function {
+  background: #a5a5a5;
+  color: black;
+}
+
+.btn-equals {
+  background: #ff9500;
+  color: white;
+  font-size: 32px;
+}
+
+/* 追加ボタン */
+.extra-buttons {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+/* 計算履歴セクション */
+.history-section {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  flex: 1;
+  max-width: 400px;
+  max-height: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.history-header h3 {
+  font-size: 24px;
+  color: #333;
+  margin: 0;
+}
+
+.btn-clear-history {
+  padding: 8px 16px;
+  background: #ff5252;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.btn-clear-history:hover {
+  background: #ff1744;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(255, 82, 82, 0.3);
+}
+
+.btn-clear-history:active {
+  transform: translateY(0);
+}
+
+.history-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.history-list .empty {
+  color: #999;
+  text-align: center;
+  padding: 40px 20px;
+  font-size: 16px;
+}
+
+.history-item {
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #333;
+  word-wrap: break-word;
+  transition: all 0.3s;
+}
+
+.history-item:hover {
+  background: #e9ecef;
+  transform: translateX(5px);
+}
+
+/* スクロールバーのカスタマイズ */
+.history-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.history-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.history-list::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.history-list::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* レスポンシブ */
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .calculator,
+  .history-section {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .calculator {
+    padding: 15px;
+    border-radius: 15px;
+  }
+
+  .display {
+    padding: 15px;
+    min-height: 100px;
+  }
+
+  .current-operand {
+    font-size: 36px;
+  }
+
+  .previous-operand {
+    font-size: 16px;
+  }
+
+  .btn {
+    padding: 15px;
+    font-size: 20px;
+  }
+
+  .btn-equals {
+    font-size: 24px;
+  }
+
+  .buttons {
+    gap: 8px;
+  }
+
+  .extra-buttons {
+    gap: 8px;
+  }
+}
+
+/* アニメーション */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.history-item {
+  animation: fadeIn 0.3s ease-in;
+}

@@ -1,50 +1,648 @@
-<script>
-// 課題1：基本の計算
-let price = 200;
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>レッスン8：変数を使った計算 - 解答</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            border-bottom: 3px solid #4CAF50;
+            padding-bottom: 15px;
+        }
+        .section {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #4CAF50;
+            margin-top: 0;
+        }
+        .subsection {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #2196F3;
+            border-radius: 4px;
+        }
+        .code-block {
+            background-color: #263238;
+            color: #aed581;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+        }
+        .explanation {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .important {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .error {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .success {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d32f2f;
+        }
+        .comparison {
+            display: flex;
+            gap: 20px;
+            margin: 15px 0;
+        }
+        .comparison > div {
+            flex: 1;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .output-example {
+            background-color: #fff3e0;
+            border: 2px solid #FF9800;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .variation {
+            background-color: #f3e5f5;
+            border-left: 4px solid #9C27B0;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>レッスン8：変数を使った計算 - 解答</h1>
+
+    <div class="section">
+        <h2>📝 課題1：基本の計算 - 解答</h2>
+
+        <div class="subsection">
+            <h3>基本の解答</h3>
+            <div class="code-block">let price = 200;
 let count = 4;
 let total = price * count;
 
 console.log("単価：" + price + "円");
 console.log("個数：" + count + "個");
-console.log("合計：" + total + "円");
+console.log("合計：" + total + "円");</div>
 
-// 課題2：割引計算
-// let price = 1000;
-// let discountRate = 20;
-// let discount = price * discountRate / 100;
-// let finalPrice = price - discount;
+            <div class="explanation">
+                <h4>📖 コードの説明</h4>
 
-// console.log("元の価格：" + price + "円");
-// console.log("割引率：" + discountRate + "%");
-// console.log("割引額：" + discount + "円");
-// console.log("支払い額：" + finalPrice + "円");
+                <p><strong>1行目：</strong> <code>let price = 200;</code></p>
+                <ul>
+                    <li>単価（price）を200円として保存</li>
+                </ul>
 
-// 課題3：買い物リスト
-// let notebookPrice = 150;
-// let notebookCount = 2;
-// let notebookTotal = notebookPrice * notebookCount;
+                <p><strong>2行目：</strong> <code>let count = 4;</code></p>
+                <ul>
+                    <li>個数（count）を4個として保存</li>
+                </ul>
 
-// let penPrice = 100;
-// let penCount = 3;
-// let penTotal = penPrice * penCount;
+                <p><strong>3行目：</strong> <code>let total = price * count;</code></p>
+                <ul>
+                    <li><code>price * count</code>を計算（200 × 4 = 800）</li>
+                    <li>計算結果の800を<code>total</code>に保存</li>
+                    <li>この時点で<code>total</code>は800という値を持つ</li>
+                </ul>
 
-// let eraserPrice = 80;
-// let eraserCount = 1;
-// let eraserTotal = eraserPrice * eraserCount;
+                <p><strong>5〜7行目：</strong> 結果を表示</p>
+                <ul>
+                    <li><code>"単価：" + price + "円"</code> → 文字列と変数を連結</li>
+                    <li><code>price</code>の値（200）が自動的に文字列に変換される</li>
+                    <li>結果：「単価：200円」</li>
+                </ul>
+            </div>
 
-// let grandTotal = notebookTotal + penTotal + eraserTotal;
+            <div class="output-example">
+                <h4>🖥️ コンソール出力</h4>
+                <pre>単価：200円
+個数：4個
+合計：800円</pre>
+            </div>
+        </div>
 
-// console.log("ノート：" + notebookTotal + "円");
-// console.log("ペン：" + penTotal + "円");
-// console.log("消しゴム：" + eraserTotal + "円");
-// console.log("合計：" + grandTotal + "円");
+        <div class="variation">
+            <h3>バリエーション例</h3>
 
-// 課題4：お釣り計算
-// let payment = 1000;
-// let cost = 680;
-// let change = payment - cost;
+            <h4>例1：別の商品</h4>
+            <div class="code-block">let price = 350;
+let count = 2;
+let total = price * count;
 
-// console.log("支払い：" + payment + "円");
-// console.log("金額：" + cost + "円");
-// console.log("お釣り：" + change + "円");
-</script>
+console.log("単価：" + price + "円");
+console.log("個数：" + count + "個");
+console.log("合計：" + total + "円");</div>
+            <p><strong>出力：</strong> 単価：350円 / 個数：2個 / 合計：700円</p>
+
+            <h4>例2：まとめて表示</h4>
+            <div class="code-block">let price = 200;
+let count = 4;
+let total = price * count;
+
+console.log(price + "円 × " + count + "個 = " + total + "円");</div>
+            <p><strong>出力：</strong> 200円 × 4個 = 800円</p>
+
+            <h4>例3：商品名を追加</h4>
+            <div class="code-block">let item = "りんご";
+let price = 200;
+let count = 4;
+let total = price * count;
+
+console.log("商品：" + item);
+console.log("単価：" + price + "円");
+console.log("個数：" + count + "個");
+console.log("合計：" + total + "円");</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📝 課題2：割引計算 - 解答</h2>
+
+        <div class="subsection">
+            <h3>基本の解答</h3>
+            <div class="code-block">let price = 1000;
+let discountRate = 20;
+let discount = price * discountRate / 100;
+let finalPrice = price - discount;
+
+console.log("元の価格：" + price + "円");
+console.log("割引率：" + discountRate + "%");
+console.log("割引額：" + discount + "円");
+console.log("支払い額：" + finalPrice + "円");</div>
+
+            <div class="explanation">
+                <h4>📖 コードの説明</h4>
+
+                <p><strong>1〜2行目：</strong> 基本情報を保存</p>
+                <ul>
+                    <li><code>price</code> = 1000（元の価格）</li>
+                    <li><code>discountRate</code> = 20（割引率20%）</li>
+                </ul>
+
+                <p><strong>3行目：</strong> <code>let discount = price * discountRate / 100;</code></p>
+                <ul>
+                    <li>割引額を計算：1000 × 20 ÷ 100 = 200</li>
+                    <li>20%は「20 / 100」または「0.2」</li>
+                    <li>1000 × 0.2 = 200 でも同じ結果</li>
+                </ul>
+
+                <p><strong>4行目：</strong> <code>let finalPrice = price - discount;</code></p>
+                <ul>
+                    <li>支払い額を計算：1000 - 200 = 800</li>
+                    <li>元の価格から割引額を引く</li>
+                </ul>
+            </div>
+
+            <div class="output-example">
+                <h4>🖥️ コンソール出力</h4>
+                <pre>元の価格：1000円
+割引率：20%
+割引額：200円
+支払い額：800円</pre>
+            </div>
+
+            <div class="important">
+                <h4>💡 計算の流れ</h4>
+                <ol>
+                    <li>元の価格：1000円</li>
+                    <li>割引率：20%</li>
+                    <li>割引額：1000 × 20 / 100 = 200円</li>
+                    <li>支払い額：1000 - 200 = 800円</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="variation">
+            <h3>バリエーション例</h3>
+
+            <h4>例1：別の割引率（30%オフ）</h4>
+            <div class="code-block">let price = 1500;
+let discountRate = 30;
+let discount = price * discountRate / 100;
+let finalPrice = price - discount;
+
+console.log("元の価格：" + price + "円");
+console.log("割引率：" + discountRate + "%");
+console.log("割引額：" + discount + "円");
+console.log("支払い額：" + finalPrice + "円");</div>
+            <p><strong>計算：</strong> 1500 × 30 / 100 = 450円引き → 1050円</p>
+
+            <h4>例2：小数を使った計算</h4>
+            <div class="code-block">let price = 1000;
+let discount = price * 0.2;  // 20%
+let finalPrice = price - discount;
+
+console.log("元の価格：" + price + "円");
+console.log("割引額：" + discount + "円");
+console.log("支払い額：" + finalPrice + "円");</div>
+            <p><strong>説明：</strong> 0.2は20%と同じ意味</p>
+
+            <h4>例3：1行で計算</h4>
+            <div class="code-block">let price = 1000;
+let discountRate = 20;
+let finalPrice = price - (price * discountRate / 100);
+
+console.log("元の価格：" + price + "円");
+console.log("割引率：" + discountRate + "%");
+console.log("支払い額：" + finalPrice + "円");</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📝 課題3：買い物リスト - 解答</h2>
+
+        <div class="subsection">
+            <h3>基本の解答</h3>
+            <div class="code-block">let notebookPrice = 150;
+let notebookCount = 2;
+let notebookTotal = notebookPrice * notebookCount;
+
+let penPrice = 100;
+let penCount = 3;
+let penTotal = penPrice * penCount;
+
+let eraserPrice = 80;
+let eraserCount = 1;
+let eraserTotal = eraserPrice * eraserCount;
+
+let grandTotal = notebookTotal + penTotal + eraserTotal;
+
+console.log("ノート：" + notebookTotal + "円");
+console.log("ペン：" + penTotal + "円");
+console.log("消しゴム：" + eraserTotal + "円");
+console.log("合計：" + grandTotal + "円");</div>
+
+            <div class="explanation">
+                <h4>📖 コードの説明</h4>
+
+                <p><strong>ノートの計算（1〜3行目）：</strong></p>
+                <ul>
+                    <li>単価：150円、個数：2冊</li>
+                    <li>小計：150 × 2 = 300円</li>
+                </ul>
+
+                <p><strong>ペンの計算（5〜7行目）：</strong></p>
+                <ul>
+                    <li>単価：100円、個数：3本</li>
+                    <li>小計：100 × 3 = 300円</li>
+                </ul>
+
+                <p><strong>消しゴムの計算（9〜11行目）：</strong></p>
+                <ul>
+                    <li>単価：80円、個数：1個</li>
+                    <li>小計：80 × 1 = 80円</li>
+                </ul>
+
+                <p><strong>総合計（13行目）：</strong></p>
+                <ul>
+                    <li>すべての小計を足す</li>
+                    <li>300 + 300 + 80 = 680円</li>
+                </ul>
+            </div>
+
+            <div class="output-example">
+                <h4>🖥️ コンソール出力</h4>
+                <pre>ノート：300円
+ペン：300円
+消しゴム：80円
+合計：680円</pre>
+            </div>
+        </div>
+
+        <div class="variation">
+            <h3>バリエーション例</h3>
+
+            <h4>例1：別の買い物リスト</h4>
+            <div class="code-block">let applePrice = 120;
+let appleCount = 4;
+let appleTotal = applePrice * appleCount;
+
+let milkPrice = 180;
+let milkCount = 2;
+let milkTotal = milkPrice * milkCount;
+
+let breadPrice = 200;
+let breadCount = 1;
+let breadTotal = breadPrice * breadCount;
+
+let grandTotal = appleTotal + milkTotal + breadTotal;
+
+console.log("りんご：" + appleTotal + "円");
+console.log("牛乳：" + milkTotal + "円");
+console.log("パン：" + breadTotal + "円");
+console.log("合計：" + grandTotal + "円");</div>
+            <p><strong>合計：</strong> 480 + 360 + 200 = 1040円</p>
+
+            <h4>例2：詳細な表示</h4>
+            <div class="code-block">let notebookPrice = 150;
+let notebookCount = 2;
+let notebookTotal = notebookPrice * notebookCount;
+
+let penPrice = 100;
+let penCount = 3;
+let penTotal = penPrice * penCount;
+
+let grandTotal = notebookTotal + penTotal;
+
+console.log("--- 買い物リスト ---");
+console.log("ノート：" + notebookPrice + "円 × " + notebookCount + "冊 = " + notebookTotal + "円");
+console.log("ペン：" + penPrice + "円 × " + penCount + "本 = " + penTotal + "円");
+console.log("-------------------");
+console.log("合計：" + grandTotal + "円");</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📝 課題4：お釣り計算 - 解答</h2>
+
+        <div class="subsection">
+            <h3>基本の解答</h3>
+            <div class="code-block">let payment = 1000;
+let cost = 680;
+let change = payment - cost;
+
+console.log("支払い：" + payment + "円");
+console.log("金額：" + cost + "円");
+console.log("お釣り：" + change + "円");</div>
+
+            <div class="explanation">
+                <h4>📖 コードの説明</h4>
+
+                <p><strong>1〜2行目：</strong> 金額を保存</p>
+                <ul>
+                    <li><code>payment</code> = 1000（支払った金額）</li>
+                    <li><code>cost</code> = 680（商品の金額）</li>
+                </ul>
+
+                <p><strong>3行目：</strong> <code>let change = payment - cost;</code></p>
+                <ul>
+                    <li>お釣りを計算：1000 - 680 = 320</li>
+                    <li>引き算（<code>-</code>）を使用</li>
+                </ul>
+            </div>
+
+            <div class="output-example">
+                <h4>🖥️ コンソール出力</h4>
+                <pre>支払い：1000円
+金額：680円
+お釣り：320円</pre>
+            </div>
+        </div>
+
+        <div class="variation">
+            <h3>バリエーション例</h3>
+
+            <h4>例1：別の金額</h4>
+            <div class="code-block">let payment = 2000;
+let cost = 1350;
+let change = payment - cost;
+
+console.log("支払い：" + payment + "円");
+console.log("金額：" + cost + "円");
+console.log("お釣り：" + change + "円");</div>
+            <p><strong>計算：</strong> 2000 - 1350 = 650円</p>
+
+            <h4>例2：ぴったりの場合</h4>
+            <div class="code-block">let payment = 500;
+let cost = 500;
+let change = payment - cost;
+
+console.log("支払い：" + payment + "円");
+console.log("金額：" + cost + "円");
+console.log("お釣り：" + change + "円");
+
+if (change === 0) {
+    console.log("ぴったりです！");
+}</div>
+            <p><strong>注：</strong> if文は後のレッスンで学びます</p>
+
+            <h4>例3：複数の商品を買った場合</h4>
+            <div class="code-block">let item1 = 250;
+let item2 = 180;
+let item3 = 350;
+let totalCost = item1 + item2 + item3;
+
+let payment = 1000;
+let change = payment - totalCost;
+
+console.log("商品1：" + item1 + "円");
+console.log("商品2：" + item2 + "円");
+console.log("商品3：" + item3 + "円");
+console.log("合計：" + totalCost + "円");
+console.log("支払い：" + payment + "円");
+console.log("お釣り：" + change + "円");</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>❌ よくある間違いと修正方法</h2>
+
+        <div class="subsection">
+            <h3>間違い1：計算順序の間違い</h3>
+            <div class="error">
+                <h4>❌ 間違ったコード</h4>
+                <div class="code-block">let a = 10;
+let b = 20;
+console.log("合計：" + a + b);
+// 出力：合計：1020</div>
+                <p><strong>問題：</strong> 文字列連結が先に行われ、計算されない</p>
+            </div>
+            <div class="success">
+                <h4>✅ 正しいコード</h4>
+                <div class="code-block">let a = 10;
+let b = 20;
+console.log("合計：" + (a + b));
+// 出力：合計：30</div>
+                <p><strong>括弧を使って計算を先に実行！</strong></p>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3>間違い2：変数名のスペルミス</h3>
+            <div class="error">
+                <h4>❌ 間違ったコード</h4>
+                <div class="code-block">let price = 200;
+let count = 4;
+let total = prise * count;  // priceではなくprise
+// エラー：priseは定義されていない</div>
+            </div>
+            <div class="success">
+                <h4>✅ 正しいコード</h4>
+                <div class="code-block">let price = 200;
+let count = 4;
+let total = price * count;  // 正しいスペル</div>
+                <p><strong>変数名のスペルに注意！</strong></p>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3>間違い3：計算結果を保存し忘れる</h3>
+            <div class="error">
+                <h4>❌ 間違ったコード</h4>
+                <div class="code-block">let price = 200;
+let count = 4;
+price * count;  // 計算だけして保存していない
+console.log(total);  // totalは定義されていない
+// エラー：totalは定義されていない</div>
+            </div>
+            <div class="success">
+                <h4>✅ 正しいコード</h4>
+                <div class="code-block">let price = 200;
+let count = 4;
+let total = price * count;  // 計算結果を保存
+console.log(total);  // 800</div>
+                <p><strong>計算結果は変数に保存する！</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🎓 まとめ</h2>
+
+        <h3>変数を使った計算の基本</h3>
+        <ul>
+            <li>変数に保存された数値を使って四則演算ができる</li>
+            <li>計算結果を変数に保存できる</li>
+            <li>変数を使うとコードが読みやすく、変更しやすくなる</li>
+        </ul>
+
+        <h3>文字列と変数の連結</h3>
+        <ul>
+            <li><code>+</code>記号で文字列と変数を連結できる</li>
+            <li>数値は自動的に文字列に変換される</li>
+            <li>計算を先にしたい場合は括弧を使う：<code>(a + b)</code></li>
+        </ul>
+
+        <h3>実用的なプログラム</h3>
+        <ul>
+            <li>買い物計算機のような実用的なプログラムが作れる</li>
+            <li>複数の変数を組み合わせて複雑な計算ができる</li>
+            <li>わかりやすい変数名をつけることが重要</li>
+        </ul>
+
+        <h3>覚えておくべきポイント</h3>
+        <ol>
+            <li>変数を使うと<strong>意味が明確</strong>になる</li>
+            <li>変数を使うと<strong>変更が簡単</strong>になる</li>
+            <li>計算結果は<strong>変数に保存</strong>する</li>
+            <li>文字列連結では<strong>括弧</strong>に注意する</li>
+            <li><strong>コメント</strong>を使ってコードを説明する</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2>🎯 次のステップ</h2>
+        <p>このレッスンで学んだことを活かして、自分だけの買い物計算機を作ってみましょう！</p>
+
+        <h3>チャレンジ課題</h3>
+        <ol>
+            <li><strong>5つの商品の買い物リスト</strong>を作る</li>
+            <li><strong>消費税（10%）を含めた計算</strong>をする</li>
+            <li><strong>割引とお釣りを組み合わせた計算</strong>をする</li>
+        </ol>
+
+        <p>次のレッスンでは、<strong>変数の値を変更する方法</strong>を学びます。楽しみにしていてください！</p>
+    </div>
+
+    <script>
+        // このファイルを開くと、すべての解答例がコンソールに出力されます。
+
+        console.log("=== 課題1：基本の計算 ===");
+        let price1 = 200;
+        let count1 = 4;
+        let total1 = price1 * count1;
+        console.log("単価：" + price1 + "円");
+        console.log("個数：" + count1 + "個");
+        console.log("合計：" + total1 + "円");
+        console.log("");
+
+        console.log("=== 課題2：割引計算 ===");
+        let price2 = 1000;
+        let discountRate = 20;
+        let discount = price2 * discountRate / 100;
+        let finalPrice = price2 - discount;
+        console.log("元の価格：" + price2 + "円");
+        console.log("割引率：" + discountRate + "%");
+        console.log("割引額：" + discount + "円");
+        console.log("支払い額：" + finalPrice + "円");
+        console.log("");
+
+        console.log("=== 課題3：買い物リスト ===");
+        let notebookPrice = 150;
+        let notebookCount = 2;
+        let notebookTotal = notebookPrice * notebookCount;
+        let penPrice = 100;
+        let penCount = 3;
+        let penTotal = penPrice * penCount;
+        let eraserPrice = 80;
+        let eraserCount = 1;
+        let eraserTotal = eraserPrice * eraserCount;
+        let grandTotal = notebookTotal + penTotal + eraserTotal;
+        console.log("ノート：" + notebookTotal + "円");
+        console.log("ペン：" + penTotal + "円");
+        console.log("消しゴム：" + eraserTotal + "円");
+        console.log("合計：" + grandTotal + "円");
+        console.log("");
+
+        console.log("=== 課題4：お釣り計算 ===");
+        let payment = 1000;
+        let cost = 680;
+        let change = payment - cost;
+        console.log("支払い：" + payment + "円");
+        console.log("金額：" + cost + "円");
+        console.log("お釣り：" + change + "円");
+        console.log("");
+
+        console.log("✅ すべての解答コードをコンソールに出力しました。");
+    </script>
+</body>
+</html>

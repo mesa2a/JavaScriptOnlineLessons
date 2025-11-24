@@ -1,4 +1,515 @@
-<script>
-// ここにコードを書いてください
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>レッスン8：変数を使った計算 - 演習</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            border-bottom: 3px solid #4CAF50;
+            padding-bottom: 15px;
+        }
+        .section {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #4CAF50;
+            margin-top: 0;
+        }
+        .important {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .steps {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .steps ol {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        .steps li {
+            margin: 8px 0;
+        }
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d32f2f;
+        }
+        .example {
+            background-color: #263238;
+            color: #aed581;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+        }
+        .task {
+            background-color: #f3e5f5;
+            border-left: 4px solid #9C27B0;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .task h3 {
+            margin-top: 0;
+            color: #7B1FA2;
+        }
+        .comparison {
+            display: flex;
+            gap: 20px;
+            margin: 15px 0;
+        }
+        .comparison > div {
+            flex: 1;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .direct-calc {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+        .variable-calc {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+        }
+        .concept {
+            background-color: #e8eaf6;
+            border-left: 4px solid #3F51B5;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .output-box {
+            background-color: #fff3e0;
+            border: 2px solid #FF9800;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>レッスン8：変数を使った計算 - 演習</h1>
 
-</script>
+    <div class="section">
+        <h2>🎯 今回の目標</h2>
+        <p>この演習では、<strong>変数を使って計算する方法</strong>を学びます。</p>
+        <ul>
+            <li>✅ 変数を使って計算ができる</li>
+            <li>✅ 計算結果を変数に保存できる</li>
+            <li>✅ 文字列と変数を組み合わせて表示できる</li>
+            <li>✅ 実用的な買い物計算機を作れる</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>🧮 変数を使った計算の基本</h2>
+
+        <h3>なぜ変数を使うのか？</h3>
+        <div class="comparison">
+            <div class="direct-calc">
+                <h4>❌ 直接数値を書く場合</h4>
+                <div class="example">let total = 100 * 3;
+console.log(total);  // 300</div>
+                <p><strong>問題：</strong></p>
+                <ul>
+                    <li>100が何を表すか不明</li>
+                    <li>3が何を表すか不明</li>
+                    <li>価格を変えたいとき、すべての100を探す必要がある</li>
+                </ul>
+            </div>
+            <div class="variable-calc">
+                <h4>✅ 変数を使う場合</h4>
+                <div class="example">let price = 100;
+let count = 3;
+let total = price * count;
+console.log(total);  // 300</div>
+                <p><strong>利点：</strong></p>
+                <ul>
+                    <li>意味が明確（価格×個数）</li>
+                    <li>priceを変えるだけで済む</li>
+                    <li>何度でも再利用できる</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3>計算の流れ</h3>
+        <div class="concept">
+            <ol>
+                <li><code>price</code>に100を保存</li>
+                <li><code>count</code>に3を保存</li>
+                <li><code>price * count</code>を計算（100 × 3 = 300）</li>
+                <li>結果の300を<code>total</code>に保存</li>
+                <li><code>total</code>の値を表示</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>➕ 四則演算の復習</h2>
+        <p>変数を使っても、四則演算はすべて同じように使えます。</p>
+
+        <table>
+            <tr>
+                <th>演算</th>
+                <th>記号</th>
+                <th>例</th>
+                <th>結果</th>
+            </tr>
+            <tr>
+                <td>足し算</td>
+                <td><code>+</code></td>
+                <td><code>let a = 10; let b = 20; let c = a + b;</code></td>
+                <td>30</td>
+            </tr>
+            <tr>
+                <td>引き算</td>
+                <td><code>-</code></td>
+                <td><code>let a = 100; let b = 30; let c = a - b;</code></td>
+                <td>70</td>
+            </tr>
+            <tr>
+                <td>掛け算</td>
+                <td><code>*</code></td>
+                <td><code>let a = 5; let b = 6; let c = a * b;</code></td>
+                <td>30</td>
+            </tr>
+            <tr>
+                <td>割り算</td>
+                <td><code>/</code></td>
+                <td><code>let a = 100; let b = 4; let c = a / b;</code></td>
+                <td>25</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>🔗 文字列と変数の連結</h2>
+        <p><code>+</code>記号は、文字列が含まれる場合は<strong>連結</strong>をします。</p>
+
+        <h3>連結の仕組み</h3>
+        <div class="example">console.log(1 + 2);        // 3（数値の足し算）
+console.log("1" + "2");    // "12"（文字列の連結）
+console.log("合計：" + 3);  // "合計：3"（文字列と数値の連結）</div>
+
+        <div class="important">
+            <strong>🚨 重要ポイント</strong>
+            <ul>
+                <li>数値同士の場合 → <strong>足し算</strong></li>
+                <li>文字列が含まれる場合 → <strong>連結</strong></li>
+                <li>数値は自動的に文字列に変換される</li>
+            </ul>
+        </div>
+
+        <h3>変数を使った連結</h3>
+        <div class="example">let total = 300;
+console.log("合計：" + total + "円");
+// 出力：合計：300円</div>
+
+        <h3>複数の変数を連結</h3>
+        <div class="example">let item = "りんご";
+let price = 150;
+let count = 3;
+let total = price * count;
+
+console.log(item + "を" + count + "個買いました");
+console.log("合計は" + total + "円です");
+// 出力：
+// りんごを3個買いました
+// 合計は450円です</div>
+    </div>
+
+    <div class="section">
+        <h2>⚠️ よくある間違い</h2>
+
+        <h3>間違い1：計算順序</h3>
+        <div class="comparison">
+            <div class="direct-calc">
+                <h4>❌ 間違い</h4>
+                <div class="example">let a = 10;
+let b = 20;
+console.log("合計：" + a + b);
+// 出力：合計：1020（文字列連結）</div>
+                <p>「合計：」に10が連結され、さらに20が連結される</p>
+            </div>
+            <div class="variable-calc">
+                <h4>✅ 正しい</h4>
+                <div class="example">let a = 10;
+let b = 20;
+console.log("合計：" + (a + b));
+// 出力：合計：30（正しく計算）</div>
+                <p>括弧の中が先に計算される</p>
+            </div>
+        </div>
+
+        <h3>間違い2：変数名をクォーテーションで囲む</h3>
+        <div class="comparison">
+            <div class="direct-calc">
+                <h4>❌ 間違い</h4>
+                <div class="example">let price = 100;
+console.log("price");
+// 出力：price（文字列）</div>
+            </div>
+            <div class="variable-calc">
+                <h4>✅ 正しい</h4>
+                <div class="example">let price = 100;
+console.log(price);
+// 出力：100（変数の値）</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📝 課題1：基本の計算</h2>
+        <p>単価200円の商品を4個買った場合の合計金額を計算し、以下の形式で表示してください。</p>
+
+        <div class="output-box">
+            <strong>期待される出力：</strong>
+            <pre>単価：200円
+個数：4個
+合計：800円</pre>
+        </div>
+
+        <div class="steps">
+            <strong>手順：</strong>
+            <ol>
+                <li><code>price</code>という変数に200を保存</li>
+                <li><code>count</code>という変数に4を保存</li>
+                <li><code>total</code>という変数に<code>price * count</code>の計算結果を保存</li>
+                <li>3つのconsole.log()で結果を表示</li>
+            </ol>
+        </div>
+
+        <div class="example">let price = 200;
+let count = 4;
+let total = price * count;
+
+console.log("単価：" + price + "円");
+console.log("個数：" + count + "個");
+console.log("合計：" + total + "円");</div>
+
+        <div class="important">
+            <strong>確認方法：</strong>
+            <ol>
+                <li>上のコードを下の<code>&lt;script&gt;</code>タグに書く</li>
+                <li>ファイルを保存（Ctrl + S）</li>
+                <li>ブラウザでこのファイルを開く</li>
+                <li>F12を押して開発者ツールを開く</li>
+                <li>コンソールタブを確認</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📝 課題2：割引計算</h2>
+        <p>1000円の商品に20%の割引を適用した金額を計算し、表示してください。</p>
+
+        <div class="output-box">
+            <strong>期待される出力：</strong>
+            <pre>元の価格：1000円
+割引率：20%
+割引額：200円
+支払い額：800円</pre>
+        </div>
+
+        <div class="steps">
+            <strong>計算の流れ：</strong>
+            <ol>
+                <li>元の価格：1000円</li>
+                <li>割引率：20%</li>
+                <li>割引額 = 元の価格 × 割引率 ÷ 100</li>
+                <li>支払い額 = 元の価格 - 割引額</li>
+            </ol>
+        </div>
+
+        <div class="concept">
+            <strong>💡 ヒント</strong>
+            <p>20%は「20 / 100」または「0.2」です。</p>
+            <p>割引額の計算：<code>price * discountRate / 100</code></p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📝 課題3：買い物リスト</h2>
+        <p>以下の買い物リストの合計を計算してください。</p>
+
+        <ul>
+            <li>ノート：150円 × 2冊</li>
+            <li>ペン：100円 × 3本</li>
+            <li>消しゴム：80円 × 1個</li>
+        </ul>
+
+        <div class="output-box">
+            <strong>期待される出力：</strong>
+            <pre>ノート：300円
+ペン：300円
+消しゴム：80円
+合計：680円</pre>
+        </div>
+
+        <div class="steps">
+            <strong>手順：</strong>
+            <ol>
+                <li>各商品の価格と個数を変数に保存</li>
+                <li>各商品の小計を計算</li>
+                <li>すべての小計を足して総合計を計算</li>
+                <li>結果を表示</li>
+            </ol>
+        </div>
+
+        <div class="concept">
+            <strong>💡 ヒント</strong>
+            <p>変数名の例：</p>
+            <ul>
+                <li><code>notebookPrice</code>, <code>notebookCount</code>, <code>notebookTotal</code></li>
+                <li><code>penPrice</code>, <code>penCount</code>, <code>penTotal</code></li>
+                <li><code>eraserPrice</code>, <code>eraserCount</code>, <code>eraserTotal</code></li>
+                <li><code>grandTotal</code>（総合計）</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📝 課題4：お釣り計算</h2>
+        <p>1000円札を出して680円の買い物をした場合のお釣りを計算し、表示してください。</p>
+
+        <div class="output-box">
+            <strong>期待される出力：</strong>
+            <pre>支払い：1000円
+金額：680円
+お釣り：320円</pre>
+        </div>
+
+        <div class="steps">
+            <strong>計算の流れ：</strong>
+            <ol>
+                <li>支払い金額：1000円</li>
+                <li>購入金額：680円</li>
+                <li>お釣り = 支払い金額 - 購入金額</li>
+            </ol>
+        </div>
+
+        <div class="concept">
+            <strong>💡 ヒント</strong>
+            <p>引き算（<code>-</code>）を使います。</p>
+            <p>変数名の例：<code>payment</code>（支払い）、<code>cost</code>（金額）、<code>change</code>（お釣り）</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>💬 コメントについて</h2>
+        <p><code>//</code>で始まる行は「コメント」と呼ばれ、プログラムの実行には影響しません。</p>
+
+        <div class="example">// これはコメントです
+let price = 100;  // 変数の横にも書けます
+
+/*
+  複数行のコメントは
+  このように書きます
+*/</div>
+
+        <div class="concept">
+            <strong>コメントの用途：</strong>
+            <ul>
+                <li>コードの説明を書く</li>
+                <li>後で見返したときにわかりやすくする</li>
+                <li>一時的にコードを無効化する（デバッグ時）</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🎓 学習のポイント</h2>
+
+        <h3>式と値</h3>
+        <ul>
+            <li><strong>式</strong>：計算や操作を表すコード（例：<code>100 * 3</code>）</li>
+            <li><strong>値</strong>：式が評価された結果（例：<code>300</code>）</li>
+            <li>変数は値を持っているので、式の中で使える</li>
+        </ul>
+
+        <h3>変数を使う利点</h3>
+        <ol>
+            <li><strong>わかりやすい</strong>：<code>price * count</code>は意味が明確</li>
+            <li><strong>変更が簡単</strong>：価格を変えるのは1箇所だけ</li>
+            <li><strong>再利用できる</strong>：同じ値を何度も使える</li>
+            <li><strong>計算を分割できる</strong>：複雑な計算を段階的に行える</li>
+        </ol>
+
+        <h3>文字列連結の注意点</h3>
+        <ul>
+            <li><code>+</code>は文字列連結と数値加算の両方に使われる</li>
+            <li>文字列が含まれると連結になる</li>
+            <li>計算を先にしたい場合は括弧を使う：<code>(a + b)</code></li>
+        </ul>
+    </div>
+
+    <div class="task">
+        <h3>✅ チェックリスト</h3>
+        <p>以下がすべてできるようになったか確認してください：</p>
+        <ul>
+            <li>□ 変数を使って四則演算ができる</li>
+            <li>□ 計算結果を変数に保存できる</li>
+            <li>□ 文字列と変数を<code>+</code>で連結できる</li>
+            <li>□ 複数の変数を使った計算ができる</li>
+            <li>□ 計算順序に注意して括弧を使える</li>
+            <li>□ わかりやすい変数名をつけられる</li>
+            <li>□ コメントを書ける</li>
+            <li>□ 買い物計算機のような実用的なプログラムが作れる</li>
+        </ul>
+        <p><strong>すべてチェックできたら、次のレッスンへ進みましょう！</strong></p>
+    </div>
+
+    <script>
+        // ここにコードを書いてください
+        //
+        // 課題1の例：
+        // let price = 200;
+        // let count = 4;
+        // let total = price * count;
+        // console.log("単価：" + price + "円");
+        // console.log("個数：" + count + "個");
+        // console.log("合計：" + total + "円");
+        //
+        // 書いたら保存（Ctrl + S）して、ブラウザをリロード（F5）してください！
+        // F12を押して、コンソールタブで結果を確認しましょう！
+
+    </script>
+</body>
+</html>

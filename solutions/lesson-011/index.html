@@ -1,79 +1,1121 @@
-<script>
-// 課題1：基本のカウンター
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 011: letとconstの使い分け - 解答例</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Mequilibrium, Arial, sans-serif;
+            line-height: 1.8;
+            padding: 20px;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #11998e;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #11998e;
+        }
+
+        h2 {
+            color: #38ef7d;
+            font-size: 1.8em;
+            margin: 30px 0 15px 0;
+            padding-left: 15px;
+            border-left: 5px solid #38ef7d;
+        }
+
+        h3 {
+            color: #11998e;
+            font-size: 1.4em;
+            margin: 20px 0 10px 0;
+        }
+
+        h4 {
+            color: #0d7377;
+            font-size: 1.2em;
+            margin: 15px 0 10px 0;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .info-box h3 {
+            color: white;
+            margin-top: 0;
+        }
+
+        .solution {
+            background: #f0fff4;
+            border: 3px solid #38ef7d;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .solution h3 {
+            color: #11998e;
+            margin-top: 0;
+        }
+
+        .code-box {
+            background: #f5f5f5;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-box code {
+            color: #d63384;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .explanation {
+            background: #fff9e6;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .explanation h4 {
+            color: #f57c00;
+            margin-top: 0;
+        }
+
+        .step-by-step {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .step-by-step strong {
+            color: #11998e;
+        }
+
+        .console-output {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .console-output .output-line {
+            margin: 5px 0;
+            color: #ce9178;
+        }
+
+        .variation {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .variation h4 {
+            color: #1976d2;
+            margin-top: 0;
+        }
+
+        .key-point {
+            background: #e8f5e9;
+            border-left: 5px solid #4caf50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .key-point strong {
+            color: #2e7d32;
+            font-size: 1.1em;
+        }
+
+        .warning {
+            background: #ffebee;
+            border-left: 5px solid #f44336;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .warning strong {
+            color: #c62828;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .comparison-table td {
+            padding: 15px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .highlight {
+            background: #fff9c4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .counter-visualization {
+            background: white;
+            border: 3px solid #11998e;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .counter-step {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin: 5px 0;
+            background: #f0fff4;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .counter-value {
+            background: #11998e;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 5px;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .code-box {
+                padding: 15px;
+            }
+        }
+
+        .best-practice {
+            background: #fff3e0;
+            border: 2px solid #ff9800;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .best-practice h4 {
+            color: #f57c00;
+            margin-top: 0;
+        }
+
+        .common-mistake {
+            background: #fce4ec;
+            border: 2px solid #e91e63;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .common-mistake h4 {
+            color: #c2185b;
+            margin-top: 0;
+        }
+
+        ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lesson 011: letとconstの使い分け</h1>
+        <p class="subtitle">詳しい解答例と解説</p>
+
+        <div class="info-box">
+            <h3>📚 このページについて</h3>
+            <p>このページには、全課題の解答例、詳しい解説、そして応用例が含まれています。</p>
+            <p style="margin-top: 10px;"><strong>開発者ツール（F12キー）のConsoleタブ</strong>を開いて、各コードの実行結果を確認してください。</p>
+        </div>
+
+        <h2>✅ 課題1：基本のカウンター</h2>
+
+        <div class="solution">
+            <h3>解答例</h3>
+            <div class="code-box">
+                <code>
+let counter = 0;<br>
+<br>
+counter = counter + 1;<br>
+console.log("カウント：" + counter);<br>
+<br>
+counter = counter + 1;<br>
+console.log("カウント：" + counter);<br>
+<br>
+counter = counter + 1;<br>
+console.log("カウント：" + counter);<br>
+<br>
+counter = counter + 1;<br>
+console.log("カウント：" + counter);<br>
+<br>
+counter = counter + 1;<br>
+console.log("カウント：" + counter);
+                </code>
+            </div>
+
+            <div class="console-output">
+                <div class="output-line">カウント：1</div>
+                <div class="output-line">カウント：2</div>
+                <div class="output-line">カウント：3</div>
+                <div class="output-line">カウント：4</div>
+                <div class="output-line">カウント：5</div>
+            </div>
+        </div>
+
+        <div class="explanation">
+            <h4>📖 詳しい解説</h4>
+
+            <div class="counter-visualization">
+                <h4>カウンターの値の変化</h4>
+                <div class="counter-step">
+                    <span>let counter = 0</span>
+                    <span class="counter-value">0</span>
+                </div>
+                <div class="counter-step">
+                    <span>counter = counter + 1  // 0 + 1</span>
+                    <span class="counter-value">1</span>
+                </div>
+                <div class="counter-step">
+                    <span>counter = counter + 1  // 1 + 1</span>
+                    <span class="counter-value">2</span>
+                </div>
+                <div class="counter-step">
+                    <span>counter = counter + 1  // 2 + 1</span>
+                    <span class="counter-value">3</span>
+                </div>
+                <div class="counter-step">
+                    <span>counter = counter + 1  // 3 + 1</span>
+                    <span class="counter-value">4</span>
+                </div>
+                <div class="counter-step">
+                    <span>counter = counter + 1  // 4 + 1</span>
+                    <span class="counter-value">5</span>
+                </div>
+            </div>
+
+            <p><strong>ポイント1：</strong>カウンターは <span class="highlight">let</span> で宣言します。値が変わるからです。</p>
+            <p><strong>ポイント2：</strong><code>counter = counter + 1</code> は、「現在の値に1を足して、その結果をcounterに保存する」という意味です。</p>
+            <p><strong>ポイント3：</strong>各ステップでcounterの値が1ずつ増えていきます。</p>
+        </div>
+
+        <div class="key-point">
+            <strong>🎯 重要：</strong>counter = counter + 1 は、プログラミングで最もよく使うパターンの一つです。しっかり理解しましょう！
+        </div>
+
+        <h2>✅ 課題2：上限付きカウンター</h2>
+
+        <div class="solution">
+            <h3>解答例</h3>
+            <div class="code-box">
+                <code>
+const maxCount = 10;<br>
+let counter = 0;<br>
+<br>
+counter = counter + 1;<br>
+console.log(counter + " / " + maxCount);<br>
+<br>
+counter = counter + 1;<br>
+console.log(counter + " / " + maxCount);<br>
+<br>
+counter = counter + 1;<br>
+console.log(counter + " / " + maxCount);
+                </code>
+            </div>
+
+            <div class="console-output">
+                <div class="output-line">1 / 10</div>
+                <div class="output-line">2 / 10</div>
+                <div class="output-line">3 / 10</div>
+            </div>
+        </div>
+
+        <div class="explanation">
+            <h4>📖 詳しい解説</h4>
+
+            <div class="step-by-step">
+                <strong>ステップ1：上限を定義</strong>
+                <div class="code-box" style="margin-top: 10px;">
+                    <code>const maxCount = 10;</code>
+                </div>
+                <p>上限値は変わらないので、<span class="highlight">const</span> を使います。</p>
+            </div>
+
+            <div class="step-by-step">
+                <strong>ステップ2：カウンターを初期化</strong>
+                <div class="code-box" style="margin-top: 10px;">
+                    <code>let counter = 0;</code>
+                </div>
+                <p>カウンターは値が変わるので、<span class="highlight">let</span> を使います。</p>
+            </div>
+
+            <div class="step-by-step">
+                <strong>ステップ3：カウントアップと表示</strong>
+                <div class="code-box" style="margin-top: 10px;">
+                    <code>
+counter = counter + 1;<br>
+console.log(counter + " / " + maxCount);
+                    </code>
+                </div>
+                <p>「現在のカウント / 上限」の形式で表示します。</p>
+            </div>
+        </div>
+
+        <div class="key-point">
+            <strong>🎯 使い分けのコツ：</strong>
+            <ul>
+                <li><code>const maxCount = 10</code> → 上限は変わらない → const</li>
+                <li><code>let counter = 0</code> → カウンターは変わる → let</li>
+            </ul>
+        </div>
+
+        <h2>✅ 課題3：合計計算</h2>
+
+        <div class="solution">
+            <h3>解答例</h3>
+            <div class="code-box">
+                <code>
+let total = 0;<br>
+<br>
+total = total + 500;<br>
+console.log("追加後の合計：" + total + "円");<br>
+<br>
+total = total + 300;<br>
+console.log("追加後の合計：" + total + "円");<br>
+<br>
+total = total + 700;<br>
+console.log("追加後の合計：" + total + "円");<br>
+<br>
+console.log("最終合計：" + total + "円");
+                </code>
+            </div>
+
+            <div class="console-output">
+                <div class="output-line">追加後の合計：500円</div>
+                <div class="output-line">追加後の合計：800円</div>
+                <div class="output-line">追加後の合計：1500円</div>
+                <div class="output-line">最終合計：1500円</div>
+            </div>
+        </div>
+
+        <div class="explanation">
+            <h4>📖 詳しい解説</h4>
+
+            <div class="counter-visualization">
+                <h4>totalの値の変化</h4>
+                <div class="counter-step">
+                    <span>let total = 0</span>
+                    <span class="counter-value">0円</span>
+                </div>
+                <div class="counter-step">
+                    <span>total = total + 500  // 0 + 500</span>
+                    <span class="counter-value">500円</span>
+                </div>
+                <div class="counter-step">
+                    <span>total = total + 300  // 500 + 300</span>
+                    <span class="counter-value">800円</span>
+                </div>
+                <div class="counter-step">
+                    <span>total = total + 700  // 800 + 700</span>
+                    <span class="counter-value">1500円</span>
+                </div>
+            </div>
+
+            <p><strong>ポイント1：</strong><code>total = total + 金額</code> のパターンで合計を累積していきます。</p>
+            <p><strong>ポイント2：</strong>totalは値が変わっていくので、<span class="highlight">let</span> を使います。</p>
+            <p><strong>ポイント3：</strong>このパターンは、買い物カゴの合計計算などでよく使います。</p>
+        </div>
+
+        <h2>✅ 課題4：カウントダウン</h2>
+
+        <div class="solution">
+            <h3>解答例</h3>
+            <div class="code-box">
+                <code>
+const initialCount = 10;<br>
+let counter = initialCount;<br>
+<br>
+console.log("開始：" + counter);<br>
+<br>
+counter = counter - 1;<br>
+console.log(counter);<br>
+<br>
+counter = counter - 1;<br>
+console.log(counter);<br>
+<br>
+counter = counter - 1;<br>
+console.log(counter);<br>
+<br>
+console.log("残り：" + counter);
+                </code>
+            </div>
+
+            <div class="console-output">
+                <div class="output-line">開始：10</div>
+                <div class="output-line">9</div>
+                <div class="output-line">8</div>
+                <div class="output-line">7</div>
+                <div class="output-line">残り：7</div>
+            </div>
+        </div>
+
+        <div class="explanation">
+            <h4>📖 詳しい解説</h4>
+
+            <div class="counter-visualization">
+                <h4>カウントダウンの流れ</h4>
+                <div class="counter-step">
+                    <span>const initialCount = 10</span>
+                    <span class="counter-value">初期値</span>
+                </div>
+                <div class="counter-step">
+                    <span>let counter = initialCount</span>
+                    <span class="counter-value">10</span>
+                </div>
+                <div class="counter-step">
+                    <span>counter = counter - 1  // 10 - 1</span>
+                    <span class="counter-value">9</span>
+                </div>
+                <div class="counter-step">
+                    <span>counter = counter - 1  // 9 - 1</span>
+                    <span class="counter-value">8</span>
+                </div>
+                <div class="counter-step">
+                    <span>counter = counter - 1  // 8 - 1</span>
+                    <span class="counter-value">7</span>
+                </div>
+            </div>
+
+            <p><strong>ポイント1：</strong>初期値 <code>initialCount</code> は変わらないので、<span class="highlight">const</span> を使います。</p>
+            <p><strong>ポイント2：</strong><code>counter = counter - 1</code> で値を1ずつ減らします。</p>
+            <p><strong>ポイント3：</strong>増やすときは <code>+ 1</code>、減らすときは <code>- 1</code> を使います。</p>
+        </div>
+
+        <h2>✅ 課題5：適切な使い分け</h2>
+
+        <div class="solution">
+            <h3>解答例</h3>
+            <div class="code-box">
+                <code>
+const taxRate = 1.1;<br>
+const price1 = 200;<br>
+const price2 = 350;<br>
+<br>
+let total = 0;<br>
+<br>
+total = total + price1;<br>
+console.log("商品1追加：" + total + "円");<br>
+<br>
+total = total + price2;<br>
+console.log("商品2追加：" + total + "円");<br>
+<br>
+const totalWithTax = total * taxRate;<br>
+console.log("税込合計：" + totalWithTax + "円");
+                </code>
+            </div>
+
+            <div class="console-output">
+                <div class="output-line">商品1追加：200円</div>
+                <div class="output-line">商品2追加：550円</div>
+                <div class="output-line">税込合計：605円</div>
+            </div>
+        </div>
+
+        <div class="explanation">
+            <h4>📖 詳しい解説：なぜこの使い分けなのか</h4>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>変数名</th>
+                    <th>使ったキーワード</th>
+                    <th>理由</th>
+                </tr>
+                <tr>
+                    <td><code>taxRate</code></td>
+                    <td><strong>const</strong></td>
+                    <td>消費税率は固定値。プログラムの中で変更しない。</td>
+                </tr>
+                <tr>
+                    <td><code>price1</code></td>
+                    <td><strong>const</strong></td>
+                    <td>商品価格は決まっている。変更しない。</td>
+                </tr>
+                <tr>
+                    <td><code>price2</code></td>
+                    <td><strong>const</strong></td>
+                    <td>商品価格は決まっている。変更しない。</td>
+                </tr>
+                <tr>
+                    <td><code>total</code></td>
+                    <td><strong>let</strong></td>
+                    <td>合計は商品を追加するたびに変わる。</td>
+                </tr>
+                <tr>
+                    <td><code>totalWithTax</code></td>
+                    <td><strong>const</strong></td>
+                    <td>一度計算したら、その後変更しない。</td>
+                </tr>
+            </table>
+
+            <div class="key-point">
+                <strong>🎯 判断基準：</strong>
+                <p>「この値は後で変わる？」と自分に聞いてみましょう。</p>
+                <ul>
+                    <li>変わる → <code>let</code></li>
+                    <li>変わらない → <code>const</code></li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>🎨 応用例と発展的な使い方</h2>
+
+        <div class="variation">
+            <h4>応用例1：ポイント計算システム</h4>
+            <div class="code-box">
+                <code>
+// 設定値（変わらない）<br>
+const pointRate = 0.05;  // 5%還元<br>
+const bonusThreshold = 1000;  // ボーナス発生の金額<br>
+const bonusPoints = 50;<br>
+<br>
+// 変わる値<br>
+let purchaseAmount = 0;<br>
+let totalPoints = 0;<br>
+<br>
+// 商品購入<br>
+purchaseAmount = purchaseAmount + 800;<br>
+let earnedPoints1 = purchaseAmount * pointRate;<br>
+totalPoints = totalPoints + earnedPoints1;<br>
+console.log("購入額：" + purchaseAmount + "円、獲得ポイント：" + earnedPoints1);<br>
+<br>
+// さらに購入<br>
+purchaseAmount = purchaseAmount + 500;<br>
+let earnedPoints2 = 500 * pointRate;<br>
+totalPoints = totalPoints + earnedPoints2;<br>
+console.log("購入額：" + purchaseAmount + "円、獲得ポイント：" + earnedPoints2);<br>
+<br>
+// ボーナスチェック<br>
+if (purchaseAmount >= bonusThreshold) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;totalPoints = totalPoints + bonusPoints;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("ボーナス" + bonusPoints + "ポイント獲得！");<br>
+}<br>
+<br>
+console.log("合計購入額：" + purchaseAmount + "円");<br>
+console.log("合計ポイント：" + totalPoints);
+                </code>
+            </div>
+            <p><strong>解説：</strong>還元率やボーナス設定は固定値なので <code>const</code>、購入額とポイントは変わるので <code>let</code> を使います。</p>
+        </div>
+
+        <div class="variation">
+            <h4>応用例2：試験の採点システム</h4>
+            <div class="code-box">
+                <code>
+// 設定値<br>
+const totalQuestions = 10;<br>
+const passingScore = 6;<br>
+<br>
+// 変わる値<br>
+let correctAnswers = 0;<br>
+<br>
+// 問題に答えていく<br>
+correctAnswers = correctAnswers + 1;  // 問題1：正解<br>
+correctAnswers = correctAnswers + 1;  // 問題2：正解<br>
+// 問題3は不正解（カウントしない）<br>
+correctAnswers = correctAnswers + 1;  // 問題4：正解<br>
+correctAnswers = correctAnswers + 1;  // 問題5：正解<br>
+<br>
+console.log("正解数：" + correctAnswers + " / " + totalQuestions);<br>
+<br>
+// 計算結果（一度計算したら変わらない）<br>
+const scorePercentage = (correctAnswers / totalQuestions) * 100;<br>
+<br>
+console.log("得点率：" + scorePercentage + "%");<br>
+<br>
+if (correctAnswers >= passingScore) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("合格！");<br>
+} else {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("不合格...");<br>
+}
+                </code>
+            </div>
+            <p><strong>解説：</strong>問題数と合格ラインは固定値、正解数は変わる値です。得点率は一度計算したら変わらないので <code>const</code> です。</p>
+        </div>
+
+        <div class="variation">
+            <h4>応用例3：在庫管理システム</h4>
+            <div class="code-box">
+                <code>
+// 設定値<br>
+const maxStock = 100;  // 最大在庫数<br>
+const reorderPoint = 20;  // 発注ポイント<br>
+<br>
+// 変わる値<br>
+let currentStock = 50;<br>
+<br>
+console.log("初期在庫：" + currentStock + " / " + maxStock);<br>
+<br>
+// 販売<br>
+currentStock = currentStock - 15;<br>
+console.log("販売後：" + currentStock + " / " + maxStock);<br>
+<br>
+currentStock = currentStock - 20;<br>
+console.log("販売後：" + currentStock + " / " + maxStock);<br>
+<br>
+// 在庫チェック<br>
+if (currentStock <= reorderPoint) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("⚠️ 在庫が少なくなりました。発注してください。");<br>
+}<br>
+<br>
+// 入荷<br>
+const incomingStock = 30;<br>
+currentStock = currentStock + incomingStock;<br>
+console.log("入荷後：" + currentStock + " / " + maxStock);
+                </code>
+            </div>
+            <p><strong>解説：</strong>最大在庫数と発注ポイントは固定、現在の在庫は変わります。入荷数も一度決めたら変わらないので <code>const</code> です。</p>
+        </div>
+
+        <div class="variation">
+            <h4>応用例4：ゲームのスコアシステム</h4>
+            <div class="code-box">
+                <code>
+// 設定値<br>
+const comboBonus = 5;<br>
+const perfectBonus = 10;<br>
+const targetScore = 100;<br>
+<br>
+// 変わる値<br>
+let score = 0;<br>
+let comboCount = 0;<br>
+<br>
+console.log("ゲーム開始！ 目標スコア：" + targetScore);<br>
+<br>
+// プレイ1<br>
+score = score + 10;<br>
+comboCount = comboCount + 1;<br>
+console.log("スコア：" + score + "、コンボ：" + comboCount);<br>
+<br>
+// プレイ2（コンボ継続）<br>
+score = score + 10;<br>
+comboCount = comboCount + 1;<br>
+score = score + comboBonus;  // コンボボーナス<br>
+console.log("スコア：" + score + "（コンボボーナス+" + comboBonus + "）、コンボ：" + comboCount);<br>
+<br>
+// プレイ3（パーフェクト）<br>
+score = score + 10;<br>
+comboCount = comboCount + 1;<br>
+score = score + perfectBonus;  // パーフェクトボーナス<br>
+console.log("スコア：" + score + "（パーフェクトボーナス+" + perfectBonus + "）、コンボ：" + comboCount);<br>
+<br>
+// 結果<br>
+const finalScore = score;<br>
+const achievement = (finalScore / targetScore) * 100;<br>
+console.log("最終スコア：" + finalScore + " / " + targetScore);<br>
+console.log("達成率：" + achievement + "%");
+                </code>
+            </div>
+            <p><strong>解説：</strong>ボーナスポイントや目標は固定、スコアとコンボ数は変わります。最終スコアと達成率は計算後変わらないので <code>const</code> です。</p>
+        </div>
+
+        <div class="variation">
+            <h4>応用例5：タイマーとカウントダウン</h4>
+            <div class="code-box">
+                <code>
+// 設定値<br>
+const startTime = 60;  // 60秒<br>
+const warningTime = 10;  // 警告を出す残り時間<br>
+<br>
+// 変わる値<br>
+let remainingTime = startTime;<br>
+<br>
+console.log("タイマー開始：" + remainingTime + "秒");<br>
+<br>
+// 時間経過<br>
+remainingTime = remainingTime - 15;<br>
+console.log("残り時間：" + remainingTime + "秒");<br>
+<br>
+remainingTime = remainingTime - 20;<br>
+console.log("残り時間：" + remainingTime + "秒");<br>
+<br>
+remainingTime = remainingTime - 20;<br>
+console.log("残り時間：" + remainingTime + "秒");<br>
+<br>
+// 警告チェック<br>
+if (remainingTime <= warningTime) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("⏰ あと" + remainingTime + "秒です！");<br>
+}<br>
+<br>
+remainingTime = remainingTime - 5;<br>
+console.log("残り時間：" + remainingTime + "秒");<br>
+<br>
+if (remainingTime === 0) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("⏰ 時間切れ！");<br>
+}
+                </code>
+            </div>
+            <p><strong>解説：</strong>開始時間と警告時間は固定、残り時間は変わります。</p>
+        </div>
+
+        <h2>⚠️ よくある間違いと正しい書き方</h2>
+
+        <div class="common-mistake">
+            <h4>間違い1：カウンターにconstを使う</h4>
+            <div class="code-box">
+                <code>
+// ❌ 間違い<br>
+const counter = 0;<br>
+counter = counter + 1;  // エラー！Assignment to constant variable
+                </code>
+            </div>
+            <div class="code-box">
+                <code>
+// ✅ 正しい<br>
+let counter = 0;<br>
+counter = counter + 1;  // OK！
+                </code>
+            </div>
+            <p><strong>理由：</strong>カウンターは値が変わるので、<code>let</code> を使う必要があります。</p>
+        </div>
+
+        <div class="common-mistake">
+            <h4>間違い2：上限値にletを使う</h4>
+            <div class="code-box">
+                <code>
+// ❌ 良くない（動くけど推奨されない）<br>
+let maxCount = 10;<br>
 let counter = 0;
+                </code>
+            </div>
+            <div class="code-box">
+                <code>
+// ✅ 良い<br>
+const maxCount = 10;<br>
+let counter = 0;
+                </code>
+            </div>
+            <p><strong>理由：</strong>変わらない値は <code>const</code> で宣言することで、意図が明確になります。</p>
+        </div>
 
-counter = counter + 1;
-console.log("カウント：" + counter);
+        <div class="common-mistake">
+            <h4>間違い3：代入を忘れる</h4>
+            <div class="code-box">
+                <code>
+// ❌ 間違い<br>
+let counter = 0;<br>
+counter + 1;  // 計算するだけで、代入していない<br>
+console.log(counter);  // まだ0のまま！
+                </code>
+            </div>
+            <div class="code-box">
+                <code>
+// ✅ 正しい<br>
+let counter = 0;<br>
+counter = counter + 1;  // 代入する<br>
+console.log(counter);  // 1になっている
+                </code>
+            </div>
+            <p><strong>理由：</strong><code>counter + 1</code> だけでは計算結果が保存されません。<code>counter = counter + 1</code> と代入が必要です。</p>
+        </div>
 
-counter = counter + 1;
-console.log("カウント：" + counter);
+        <div class="common-mistake">
+            <h4>間違い4：すべての値にletを使う</h4>
+            <div class="code-box">
+                <code>
+// ❌ 良くない<br>
+let pi = 3.14;<br>
+let taxRate = 1.1;<br>
+let maxCount = 10;
+                </code>
+            </div>
+            <div class="code-box">
+                <code>
+// ✅ 良い<br>
+const pi = 3.14;<br>
+const taxRate = 1.1;<br>
+const maxCount = 10;
+                </code>
+            </div>
+            <p><strong>理由：</strong>変わらない値は <code>const</code> で宣言することで、うっかり変更してしまうミスを防げます。</p>
+        </div>
 
-counter = counter + 1;
-console.log("カウント：" + counter);
+        <div class="common-mistake">
+            <h4>間違い5：計算結果をletで宣言する</h4>
+            <div class="code-box">
+                <code>
+// ❌ 良くない<br>
+const price = 100;<br>
+const tax = 1.1;<br>
+let total = price * tax;  // 計算後は変わらないのに
+                </code>
+            </div>
+            <div class="code-box">
+                <code>
+// ✅ 良い<br>
+const price = 100;<br>
+const tax = 1.1;<br>
+const total = price * tax;  // 計算後は変わらない
+                </code>
+            </div>
+            <p><strong>理由：</strong>一度計算したら変わらない値は <code>const</code> で宣言します。</p>
+        </div>
 
-counter = counter + 1;
-console.log("カウント：" + counter);
+        <h2>📚 ベストプラクティス</h2>
 
-counter = counter + 1;
-console.log("カウント：" + counter);
+        <div class="best-practice">
+            <h4>ベストプラクティス1：迷ったらconstを使う</h4>
+            <p>基本的には <code>const</code> で宣言し、再代入が必要になったら <code>let</code> に変えるという順番で考えましょう。</p>
+            <div class="code-box">
+                <code>
+// まずconstで宣言<br>
+const value = 10;<br>
+<br>
+// 後で再代入が必要だとわかったら<br>
+// constをletに変える
+                </code>
+            </div>
+        </div>
 
-// 課題2：上限付きカウンター
-// const maxCount = 10;
-// let counter = 0;
+        <div class="best-practice">
+            <h4>ベストプラクティス2：変数名でconstかletかわかるようにする</h4>
+            <p>変数名を工夫することで、値が変わるかどうかを明確にできます。</p>
+            <div class="code-box">
+                <code>
+// 設定値や上限値はわかりやすい名前に<br>
+const MAX_RETRY_COUNT = 3;<br>
+const TAX_RATE = 1.1;<br>
+const DEFAULT_PRICE = 100;<br>
+<br>
+// カウンターや合計は「変わる」とわかる名前に<br>
+let currentCount = 0;<br>
+let totalAmount = 0;<br>
+let remainingTime = 60;
+                </code>
+            </div>
+        </div>
 
-// counter = counter + 1;
-// console.log(counter + " / " + maxCount);
+        <div class="best-practice">
+            <h4>ベストプラクティス3：関連する変数をまとめて宣言</h4>
+            <p>設定値と変数を分けて宣言すると、コードが読みやすくなります。</p>
+            <div class="code-box">
+                <code>
+// 設定値（const）をまとめる<br>
+const maxScore = 100;<br>
+const bonusPoint = 10;<br>
+const penaltyPoint = 5;<br>
+<br>
+// 変わる値（let）をまとめる<br>
+let currentScore = 0;<br>
+let attempts = 0;
+                </code>
+            </div>
+        </div>
 
-// counter = counter + 1;
-// console.log(counter + " / " + maxCount);
+        <div class="best-practice">
+            <h4>ベストプラクティス4：マジックナンバーを避ける</h4>
+            <p>直接数値を書くのではなく、定数に名前を付けましょう。</p>
+            <div class="code-box">
+                <code>
+// ❌ マジックナンバー（何の数値かわからない）<br>
+let total = price * 1.1;<br>
+<br>
+// ✅ 定数に名前を付ける<br>
+const TAX_RATE = 1.1;<br>
+let total = price * TAX_RATE;
+                </code>
+            </div>
+        </div>
 
-// counter = counter + 1;
-// console.log(counter + " / " + maxCount);
+        <h2>🎯 まとめ：letとconstの選び方</h2>
 
-// 課題3：合計計算
-// let total = 0;
+        <div class="key-point">
+            <strong>判断フローチャート</strong>
+            <div style="margin-top: 15px; padding: 15px; background: white; border-radius: 8px;">
+                <p style="margin: 10px 0;"><strong>質問1：</strong>この値は後で変わる？</p>
+                <p style="margin: 10px 0 10px 30px;">→ <strong>はい</strong>：<code>let</code> を使う（例：counter, total, score）</p>
+                <p style="margin: 10px 0 10px 30px;">→ <strong>いいえ</strong>：<code>const</code> を使う（例：maxCount, taxRate, pi）</p>
 
-// total = total + 500;
-// console.log("追加後の合計：" + total + "円");
+                <p style="margin: 20px 0 10px 0;"><strong>質問2：</strong>一度計算したら変わらない値？</p>
+                <p style="margin: 10px 0 10px 30px;">→ <strong>はい</strong>：<code>const</code> を使う（例：totalWithTax, finalScore）</p>
 
-// total = total + 300;
-// console.log("追加後の合計：" + total + "円");
+                <p style="margin: 20px 0 10px 0;"><strong>迷ったとき：</strong></p>
+                <p style="margin: 10px 0 10px 30px;">→ まず <code>const</code> で宣言し、エラーが出たら <code>let</code> に変える</p>
+            </div>
+        </div>
 
-// total = total + 700;
-// console.log("追加後の合計：" + total + "円");
+        <div class="info-box" style="margin-top: 30px;">
+            <h3>🎉 お疲れさまでした！</h3>
+            <p>letとconstの使い分けは、プログラミングの基本中の基本です。</p>
+            <p style="margin-top: 15px;"><strong>覚えておくこと：</strong></p>
+            <ul style="margin-top: 10px;">
+                <li><code>counter = counter + 1</code> は値を1増やす基本パターン</li>
+                <li>カウンターや合計など、変わる値には <code>let</code></li>
+                <li>設定値や上限値など、変わらない値には <code>const</code></li>
+                <li>迷ったら <code>const</code> から始める</li>
+            </ul>
+            <p style="margin-top: 15px;">次のレッスンでは、これまでの学習内容を総復習します！</p>
+        </div>
+    </div>
 
-// console.log("最終合計：" + total + "円");
+    <script>
+        // 課題1のコードを実行（コンソールで確認）
+        console.log("=== 課題1：基本のカウンター ===");
+        let counter = 0;
 
-// 課題4：カウントダウン
-// const initialCount = 10;
-// let counter = initialCount;
+        counter = counter + 1;
+        console.log("カウント：" + counter);
 
-// console.log("開始：" + counter);
+        counter = counter + 1;
+        console.log("カウント：" + counter);
 
-// counter = counter - 1;
-// console.log(counter);
+        counter = counter + 1;
+        console.log("カウント：" + counter);
 
-// counter = counter - 1;
-// console.log(counter);
+        counter = counter + 1;
+        console.log("カウント：" + counter);
 
-// counter = counter - 1;
-// console.log(counter);
+        counter = counter + 1;
+        console.log("カウント：" + counter);
 
-// console.log("残り：" + counter);
+        // 課題2のコードを実行
+        console.log("\n=== 課題2：上限付きカウンター ===");
+        const maxCount = 10;
+        let counter2 = 0;
 
-// 課題5：適切な使い分け
-// const taxRate = 1.1;
-// const price1 = 200;
-// const price2 = 350;
+        counter2 = counter2 + 1;
+        console.log(counter2 + " / " + maxCount);
 
-// let total = 0;
+        counter2 = counter2 + 1;
+        console.log(counter2 + " / " + maxCount);
 
-// total = total + price1;
-// console.log("商品1追加：" + total + "円");
+        counter2 = counter2 + 1;
+        console.log(counter2 + " / " + maxCount);
 
-// total = total + price2;
-// console.log("商品2追加：" + total + "円");
+        // 課題3のコードを実行
+        console.log("\n=== 課題3：合計計算 ===");
+        let total = 0;
 
-// const totalWithTax = total * taxRate;
-// console.log("税込合計：" + totalWithTax + "円");
-</script>
+        total = total + 500;
+        console.log("追加後の合計：" + total + "円");
+
+        total = total + 300;
+        console.log("追加後の合計：" + total + "円");
+
+        total = total + 700;
+        console.log("追加後の合計：" + total + "円");
+
+        console.log("最終合計：" + total + "円");
+
+        // 課題4のコードを実行
+        console.log("\n=== 課題4：カウントダウン ===");
+        const initialCount = 10;
+        let counter3 = initialCount;
+
+        console.log("開始：" + counter3);
+
+        counter3 = counter3 - 1;
+        console.log(counter3);
+
+        counter3 = counter3 - 1;
+        console.log(counter3);
+
+        counter3 = counter3 - 1;
+        console.log(counter3);
+
+        console.log("残り：" + counter3);
+
+        // 課題5のコードを実行
+        console.log("\n=== 課題5：適切な使い分け ===");
+        const taxRate = 1.1;
+        const price1 = 200;
+        const price2 = 350;
+
+        let total2 = 0;
+
+        total2 = total2 + price1;
+        console.log("商品1追加：" + total2 + "円");
+
+        total2 = total2 + price2;
+        console.log("商品2追加：" + total2 + "円");
+
+        const totalWithTax = total2 * taxRate;
+        console.log("税込合計：" + totalWithTax + "円");
+    </script>
+</body>
+</html>

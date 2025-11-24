@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 137</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .info-box {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+        }
+        .info-item {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: white;
+            border-left: 4px solid #4CAF50;
+            border-radius: 4px;
+        }
+        .info-item strong {
+            color: #2c5f2d;
+        }
+        .hint {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>図書館情報システム</h1>
+
+    <div class="info-box">
+        <div class="info-item">
+            <strong>図書館名:</strong> <span id="libraryName"></span>
+        </div>
+        <div class="info-item">
+            <strong>住所:</strong> <span id="libraryAddress"></span>
+        </div>
+        <div class="info-item">
+            <strong>利用可能な本の数:</strong> <span id="availableCount"></span>冊
+        </div>
+        <div class="info-item">
+            <strong>最初の本:</strong> <span id="firstBook"></span>
+        </div>
+    </div>
+
+    <div class="hint">
+        <strong>ヒント:</strong> ネストされたオブジェクトや配列にアクセスするには、ドット記法を連続して使います。例: library.location.city
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

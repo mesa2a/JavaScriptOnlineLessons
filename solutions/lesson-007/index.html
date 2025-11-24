@@ -1,41 +1,722 @@
-<script>
-// 課題1：基本の変数作成
-let name = "山田太郎";
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>レッスン7：値を保存する - 解答</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            border-bottom: 3px solid #4CAF50;
+            padding-bottom: 15px;
+        }
+        .section {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #4CAF50;
+            margin-top: 0;
+        }
+        .subsection {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #2196F3;
+            border-radius: 4px;
+        }
+        .code-block {
+            background-color: #263238;
+            color: #aed581;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+        }
+        .explanation {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .important {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .error {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .success {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d32f2f;
+        }
+        .comparison {
+            display: flex;
+            gap: 20px;
+            margin: 15px 0;
+        }
+        .comparison > div {
+            flex: 1;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .output-example {
+            background-color: #fff3e0;
+            border: 2px solid #FF9800;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .variation {
+            background-color: #f3e5f5;
+            border-left: 4px solid #9C27B0;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>レッスン7：値を保存する - 解答</h1>
+
+    <div class="section">
+        <h2>📝 課題1：基本の変数作成 - 解答</h2>
+
+        <div class="subsection">
+            <h3>基本の解答</h3>
+            <div class="code-block">let name = "山田太郎";
 let age = 25;
 let color = "青";
 
 console.log(name);
 console.log(age);
-console.log(color);
+console.log(color);</div>
 
-// 課題2：5つの変数を作成
-// let name = "山田太郎";
-// let age = 25;
-// let birthplace = "東京";
-// let occupation = "エンジニア";
-// let dream = "世界一周";
+            <div class="explanation">
+                <h4>📖 コードの説明</h4>
 
-// console.log(name);
-// console.log(age);
-// console.log(birthplace);
-// console.log(occupation);
-// console.log(dream);
+                <p><strong>1行目：</strong> <code>let name = "山田太郎";</code></p>
+                <ul>
+                    <li><code>let</code> - 変数を作るためのキーワード</li>
+                    <li><code>name</code> - 変数の名前（自由に決められる）</li>
+                    <li><code>=</code> - 代入演算子（右の値を左の変数に入れる）</li>
+                    <li><code>"山田太郎"</code> - 文字列の値（必ずクォーテーションで囲む）</li>
+                    <li><code>;</code> - 命令の終わりを示す</li>
+                </ul>
 
-// 課題3：数値の変数を作成
-// let temperature = 20;
-// let height = 170;
-// let favoriteNumber = 7;
-// let sleepHours = 7;
+                <p><strong>2行目：</strong> <code>let age = 25;</code></p>
+                <ul>
+                    <li>数値を保存する場合は、クォーテーションをつけない</li>
+                    <li><code>25</code>は数値なので、そのまま書く</li>
+                </ul>
 
-// console.log(temperature);
-// console.log(height);
-// console.log(favoriteNumber);
-// console.log(sleepHours);
+                <p><strong>3行目：</strong> <code>let color = "青";</code></p>
+                <ul>
+                    <li>色の名前も文字列なので、クォーテーションで囲む</li>
+                </ul>
 
-// 課題4：alertで自己紹介
-// alert(name);
-// alert(age);
-// alert(birthplace);
-// alert(occupation);
-// alert(dream);
-</script>
+                <p><strong>5〜7行目：</strong> <code>console.log()</code>で出力</p>
+                <ul>
+                    <li>変数名を書くと、その変数に保存されている値が取り出される</li>
+                    <li><code>console.log(name)</code> → 「山田太郎」と表示される</li>
+                    <li>クォーテーションはつけない（<code>console.log("name")</code>とすると、「name」という文字列が表示される）</li>
+                </ul>
+            </div>
+
+            <div class="output-example">
+                <h4>🖥️ コンソール出力</h4>
+                <pre>山田太郎
+25
+青</pre>
+            </div>
+        </div>
+
+        <div class="variation">
+            <h3>バリエーション例</h3>
+
+            <h4>例1：別の自己紹介</h4>
+            <div class="code-block">let name = "佐藤花子";
+let age = 30;
+let color = "赤";
+
+console.log(name);
+console.log(age);
+console.log(color);</div>
+
+            <h4>例2：英語の名前</h4>
+            <div class="code-block">let name = "John Smith";
+let age = 22;
+let color = "green";
+
+console.log(name);
+console.log(age);
+console.log(color);</div>
+
+            <h4>例3：小数点を含む年齢</h4>
+            <div class="code-block">let name = "田中次郎";
+let age = 25.5;  // 小数点も使える
+let color = "黄色";
+
+console.log(name);
+console.log(age);
+console.log(color);</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📝 課題2：5つの変数を作成 - 解答</h2>
+
+        <div class="subsection">
+            <h3>基本の解答</h3>
+            <div class="code-block">let name = "山田太郎";
+let age = 25;
+let birthplace = "東京";
+let occupation = "エンジニア";
+let dream = "世界一周";
+
+console.log(name);
+console.log(age);
+console.log(birthplace);
+console.log(occupation);
+console.log(dream);</div>
+
+            <div class="explanation">
+                <h4>📖 コードの説明</h4>
+
+                <p><strong>変数の宣言部分（1〜5行目）：</strong></p>
+                <ul>
+                    <li><code>name</code> - 文字列なのでクォーテーションで囲む</li>
+                    <li><code>age</code> - 数値なのでクォーテーションなし</li>
+                    <li><code>birthplace</code> - 文字列（キャメルケースを使用）</li>
+                    <li><code>occupation</code> - 文字列（職業）</li>
+                    <li><code>dream</code> - 文字列（夢）</li>
+                </ul>
+
+                <p><strong>出力部分（7〜11行目）：</strong></p>
+                <ul>
+                    <li>5つの変数を順番に出力</li>
+                    <li>変数名だけを書く（クォーテーションはつけない）</li>
+                </ul>
+            </div>
+
+            <div class="output-example">
+                <h4>🖥️ コンソール出力</h4>
+                <pre>山田太郎
+25
+東京
+エンジニア
+世界一周</pre>
+            </div>
+
+            <div class="important">
+                <h4>💡 ポイント</h4>
+                <ul>
+                    <li><strong>文字列</strong>：name, birthplace, occupation, dream → クォーテーション必要</li>
+                    <li><strong>数値</strong>：age → クォーテーション不要</li>
+                    <li><strong>変数名</strong>：キャメルケース（birthplace, occupation）を使用</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="variation">
+            <h3>バリエーション例</h3>
+
+            <h4>例1：学生の場合</h4>
+            <div class="code-block">let name = "鈴木一郎";
+let age = 18;
+let birthplace = "大阪";
+let occupation = "高校3年生";
+let dream = "医者になる";
+
+console.log(name);
+console.log(age);
+console.log(birthplace);
+console.log(occupation);
+console.log(dream);</div>
+
+            <h4>例2：社会人の場合</h4>
+            <div class="code-block">let name = "田中美咲";
+let age = 32;
+let birthplace = "福岡";
+let occupation = "デザイナー";
+let dream = "独立して会社を作る";
+
+console.log(name);
+console.log(age);
+console.log(birthplace);
+console.log(occupation);
+console.log(dream);</div>
+
+            <h4>例3：英語版</h4>
+            <div class="code-block">let name = "Emily Johnson";
+let age = 28;
+let birthplace = "New York";
+let occupation = "Teacher";
+let dream = "Write a book";
+
+console.log(name);
+console.log(age);
+console.log(birthplace);
+console.log(occupation);
+console.log(dream);</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📝 課題3：数値の変数を作成 - 解答</h2>
+
+        <div class="subsection">
+            <h3>基本の解答</h3>
+            <div class="code-block">let temperature = 20;
+let height = 170;
+let favoriteNumber = 7;
+let sleepHours = 7;
+
+console.log(temperature);
+console.log(height);
+console.log(favoriteNumber);
+console.log(sleepHours);</div>
+
+            <div class="explanation">
+                <h4>📖 コードの説明</h4>
+
+                <p><strong>すべて数値の変数：</strong></p>
+                <ul>
+                    <li><code>temperature</code> - 気温（20度）</li>
+                    <li><code>height</code> - 身長（170cm）</li>
+                    <li><code>favoriteNumber</code> - 好きな数字（7）</li>
+                    <li><code>sleepHours</code> - 睡眠時間（7時間）</li>
+                </ul>
+
+                <p><strong>重要ポイント：</strong></p>
+                <ul>
+                    <li>すべて数値なので、クォーテーションをつけない</li>
+                    <li>変数名はキャメルケースを使用（favoriteNumber, sleepHours）</li>
+                </ul>
+            </div>
+
+            <div class="output-example">
+                <h4>🖥️ コンソール出力</h4>
+                <pre>20
+170
+7
+7</pre>
+            </div>
+
+            <div class="important">
+                <h4>🚨 よくある間違い</h4>
+                <div class="comparison">
+                    <div class="error">
+                        <h5>❌ 間違い</h5>
+                        <div class="code-block">let temperature = "20";  // 文字列になる
+let height = "170";          // 文字列になる</div>
+                        <p>クォーテーションをつけると文字列になり、計算ができなくなります。</p>
+                    </div>
+                    <div class="success">
+                        <h5>✅ 正しい</h5>
+                        <div class="code-block">let temperature = 20;   // 数値
+let height = 170;           // 数値</div>
+                        <p>数値はそのまま書く。後で計算に使えます。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="variation">
+            <h3>バリエーション例</h3>
+
+            <h4>例1：小数点を含む数値</h4>
+            <div class="code-block">let temperature = 23.5;
+let height = 165.3;
+let favoriteNumber = 3.14;
+let sleepHours = 7.5;
+
+console.log(temperature);
+console.log(height);
+console.log(favoriteNumber);
+console.log(sleepHours);</div>
+
+            <h4>例2：大きな数値</h4>
+            <div class="code-block">let temperature = 35;
+let height = 180;
+let favoriteNumber = 777;
+let sleepHours = 8;
+
+console.log(temperature);
+console.log(height);
+console.log(favoriteNumber);
+console.log(sleepHours);</div>
+
+            <h4>例3：負の数</h4>
+            <div class="code-block">let temperature = -5;     // マイナス5度
+let height = 155;
+let favoriteNumber = -10;  // 負の数も使える
+let sleepHours = 6;
+
+console.log(temperature);
+console.log(height);
+console.log(favoriteNumber);
+console.log(sleepHours);</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📝 課題4：alertで自己紹介 - 解答</h2>
+
+        <div class="subsection">
+            <h3>基本の解答</h3>
+            <div class="code-block">let name = "山田太郎";
+let age = 25;
+let birthplace = "東京";
+let occupation = "エンジニア";
+let dream = "世界一周";
+
+alert(name);
+alert(age);
+alert(birthplace);
+alert(occupation);
+alert(dream);</div>
+
+            <div class="explanation">
+                <h4>📖 コードの説明</h4>
+
+                <p><strong>変数の宣言（1〜5行目）：</strong></p>
+                <ul>
+                    <li>課題2と同じ5つの変数を作成</li>
+                </ul>
+
+                <p><strong>alertで表示（7〜11行目）：</strong></p>
+                <ul>
+                    <li><code>console.log()</code>の代わりに<code>alert()</code>を使用</li>
+                    <li>変数名だけを書く（クォーテーションなし）</li>
+                    <li>5つのポップアップが順番に表示される</li>
+                    <li>OKを押すたびに次の変数の値が表示される</li>
+                </ul>
+            </div>
+
+            <div class="output-example">
+                <h4>🖥️ 実行結果</h4>
+                <ol>
+                    <li><strong>1つ目のポップアップ：</strong> 「山田太郎」 → OKを押す</li>
+                    <li><strong>2つ目のポップアップ：</strong> 「25」 → OKを押す</li>
+                    <li><strong>3つ目のポップアップ：</strong> 「東京」 → OKを押す</li>
+                    <li><strong>4つ目のポップアップ：</strong> 「エンジニア」 → OKを押す</li>
+                    <li><strong>5つ目のポップアップ：</strong> 「世界一周」 → OKを押す</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="variation">
+            <h3>バリエーション例</h3>
+
+            <h4>例1：説明付きで表示</h4>
+            <div class="code-block">let name = "山田太郎";
+let age = 25;
+let birthplace = "東京";
+let occupation = "エンジニア";
+let dream = "世界一周";
+
+alert("名前: " + name);
+alert("年齢: " + age);
+alert("出身地: " + birthplace);
+alert("職業: " + occupation);
+alert("夢: " + dream);</div>
+            <p><strong>説明：</strong> 文字列と変数を<code>+</code>でつなげることで、説明付きで表示できます。</p>
+
+            <h4>例2：まとめて表示</h4>
+            <div class="code-block">let name = "山田太郎";
+let age = 25;
+let birthplace = "東京";
+let occupation = "エンジニア";
+let dream = "世界一周";
+
+alert("私は" + name + "です。" + age + "歳です。");</div>
+            <p><strong>説明：</strong> 複数の変数と文字列を組み合わせて、1つのalertで表示できます。</p>
+
+            <h4>例3：console.logとalertの両方を使う</h4>
+            <div class="code-block">let name = "山田太郎";
+let age = 25;
+let birthplace = "東京";
+let occupation = "エンジニア";
+let dream = "世界一周";
+
+// コンソールにも出力
+console.log("名前:", name);
+console.log("年齢:", age);
+
+// alertでも表示
+alert("私は" + name + "です。");
+alert(age + "歳です。");</div>
+            <p><strong>説明：</strong> デバッグ用にconsole.log()、ユーザー向けにalert()を使い分けることができます。</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>❌ よくある間違いと修正方法</h2>
+
+        <div class="subsection">
+            <h3>間違い1：文字列のクォーテーションを忘れる</h3>
+            <div class="error">
+                <h4>❌ 間違ったコード</h4>
+                <div class="code-block">let name = 山田太郎;  // クォーテーションがない</div>
+                <p><strong>エラー：</strong> 「山田太郎」が変数として扱われ、エラーになる</p>
+            </div>
+            <div class="success">
+                <h4>✅ 正しいコード</h4>
+                <div class="code-block">let name = "山田太郎";  // クォーテーションで囲む</div>
+                <p><strong>文字列は必ずクォーテーションで囲む！</strong></p>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3>間違い2：数値をクォーテーションで囲む</h3>
+            <div class="error">
+                <h4>❌ 間違ったコード</h4>
+                <div class="code-block">let age = "25";  // 文字列になる</div>
+                <p><strong>問題：</strong> 数値ではなく文字列になり、計算ができなくなる</p>
+            </div>
+            <div class="success">
+                <h4>✅ 正しいコード</h4>
+                <div class="code-block">let age = 25;  // 数値</div>
+                <p><strong>数値はクォーテーションをつけない！</strong></p>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3>間違い3：letを忘れる</h3>
+            <div class="error">
+                <h4>❌ 間違ったコード</h4>
+                <div class="code-block">name = "山田太郎";  // letがない</div>
+                <p><strong>問題：</strong> 動くこともあるが、推奨されない。意図しない動作を引き起こす可能性がある</p>
+            </div>
+            <div class="success">
+                <h4>✅ 正しいコード</h4>
+                <div class="code-block">let name = "山田太郎";  // letをつける</div>
+                <p><strong>変数を作るときは必ずletをつける！</strong></p>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3>間違い4：変数名に数字で始める</h3>
+            <div class="error">
+                <h4>❌ 間違ったコード</h4>
+                <div class="code-block">let 1name = "山田太郎";  // 数字で始まっている</div>
+                <p><strong>エラー：</strong> 変数名は数字で始めることができない</p>
+            </div>
+            <div class="success">
+                <h4>✅ 正しいコード</h4>
+                <div class="code-block">let name1 = "山田太郎";  // 数字は後ろにつける
+let userName = "山田太郎";  // または英字のみ</div>
+                <p><strong>変数名は英字またはアンダースコアで始める！</strong></p>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3>間違い5：変数名にスペースを入れる</h3>
+            <div class="error">
+                <h4>❌ 間違ったコード</h4>
+                <div class="code-block">let user name = "山田太郎";  // スペースが入っている</div>
+                <p><strong>エラー：</strong> 変数名にスペースは使えない</p>
+            </div>
+            <div class="success">
+                <h4>✅ 正しいコード</h4>
+                <div class="code-block">let userName = "山田太郎";   // キャメルケース
+let user_name = "山田太郎";  // アンダースコア</div>
+                <p><strong>複数の単語はキャメルケースまたはアンダースコアでつなぐ！</strong></p>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3>間違い6：console.logで変数名をクォーテーションで囲む</h3>
+            <div class="error">
+                <h4>❌ 間違ったコード</h4>
+                <div class="code-block">let name = "山田太郎";
+console.log("name");  // クォーテーションで囲んでいる</div>
+                <p><strong>出力：</strong> 「name」という文字列が表示される（変数の値ではない）</p>
+            </div>
+            <div class="success">
+                <h4>✅ 正しいコード</h4>
+                <div class="code-block">let name = "山田太郎";
+console.log(name);  // クォーテーションなし</div>
+                <p><strong>出力：</strong> 「山田太郎」という変数の値が表示される</p>
+                <p><strong>変数の値を表示するときは、クォーテーションをつけない！</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🎓 まとめ</h2>
+
+        <h3>変数とは</h3>
+        <p>変数は、データを保存しておく箱のようなもの。一度保存した値は、何度でも取り出して使うことができます。</p>
+
+        <h3>変数の作り方</h3>
+        <div class="code-block">let 変数名 = 値;</div>
+        <ul>
+            <li><code>let</code> - 変数を作るキーワード</li>
+            <li><code>変数名</code> - 自由に決められる（ルールあり）</li>
+            <li><code>=</code> - 代入演算子</li>
+            <li><code>値</code> - 保存したいデータ</li>
+        </ul>
+
+        <h3>文字列と数値の違い</h3>
+        <table>
+            <tr>
+                <th>種類</th>
+                <th>書き方</th>
+                <th>例</th>
+            </tr>
+            <tr>
+                <td>文字列</td>
+                <td>クォーテーションで囲む</td>
+                <td><code>"山田太郎"</code>, <code>"東京"</code></td>
+            </tr>
+            <tr>
+                <td>数値</td>
+                <td>そのまま書く</td>
+                <td><code>25</code>, <code>170</code>, <code>23.5</code></td>
+            </tr>
+        </table>
+
+        <h3>命名規則</h3>
+        <ul>
+            <li>✅ 英字、数字、アンダースコア、ドル記号が使える</li>
+            <li>❌ 数字で始めることはできない</li>
+            <li>❌ スペースは使えない</li>
+            <li>❌ 予約語は使えない</li>
+            <li>✅ キャメルケースが推奨（firstName, userName）</li>
+        </ul>
+
+        <h3>覚えておくべきポイント</h3>
+        <ol>
+            <li>変数を作るときは<strong>letをつける</strong></li>
+            <li>文字列は<strong>必ずクォーテーションで囲む</strong></li>
+            <li>数値は<strong>クォーテーションをつけない</strong></li>
+            <li>変数の値を表示するときは<strong>クォーテーションをつけない</strong></li>
+            <li>変数名は<strong>わかりやすい名前</strong>をつける</li>
+            <li>複数の単語は<strong>キャメルケース</strong>を使う</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2>🎯 次のステップ</h2>
+        <p>このレッスンで学んだことを活かして、自分だけの自己紹介データを作ってみましょう！</p>
+
+        <h3>チャレンジ課題</h3>
+        <ol>
+            <li><strong>10個の変数を作る</strong>
+                <ul>
+                    <li>名前、年齢、出身地、職業、趣味、好きな食べ物、好きな色、身長、体重、好きな数字</li>
+                </ul>
+            </li>
+            <li><strong>複雑な変数名を使う</strong>
+                <ul>
+                    <li>favoriteFood（好きな食べ物）</li>
+                    <li>favoriteColor（好きな色）</li>
+                    <li>phoneNumber（電話番号）</li>
+                </ul>
+            </li>
+            <li><strong>説明付きで表示する</strong>
+                <ul>
+                    <li>console.log("名前: " + name);</li>
+                    <li>alert("私は" + name + "です。");</li>
+                </ul>
+            </li>
+        </ol>
+
+        <p>次のレッスンでは、<strong>変数の値を変更する方法</strong>を学びます。楽しみにしていてください！</p>
+    </div>
+
+    <script>
+        // このファイルを開くと、すべての解答例がコンソールに出力されます。
+        // F12を押して、コンソールタブで確認してください！
+
+        console.log("=== 課題1：基本の変数作成 ===");
+        let name1 = "山田太郎";
+        let age1 = 25;
+        let color1 = "青";
+        console.log(name1);
+        console.log(age1);
+        console.log(color1);
+        console.log("");
+
+        console.log("=== 課題2：5つの変数を作成 ===");
+        let name2 = "山田太郎";
+        let age2 = 25;
+        let birthplace = "東京";
+        let occupation = "エンジニア";
+        let dream = "世界一周";
+        console.log(name2);
+        console.log(age2);
+        console.log(birthplace);
+        console.log(occupation);
+        console.log(dream);
+        console.log("");
+
+        console.log("=== 課題3：数値の変数を作成 ===");
+        let temperature = 20;
+        let height = 170;
+        let favoriteNumber = 7;
+        let sleepHours = 7;
+        console.log(temperature);
+        console.log(height);
+        console.log(favoriteNumber);
+        console.log(sleepHours);
+        console.log("");
+
+        console.log("=== 課題4：alertで自己紹介 ===");
+        console.log("alertのコードは実行されていません（ポップアップが多すぎるため）");
+        console.log("実行したい場合は、下のコードのコメントを外してください：");
+        console.log("alert(name2);");
+        console.log("alert(age2);");
+        console.log("alert(birthplace);");
+        console.log("alert(occupation);");
+        console.log("alert(dream);");
+        console.log("");
+
+        console.log("✅ すべての解答コードをコンソールに出力しました。");
+    </script>
+</body>
+</html>

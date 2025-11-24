@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>レッスン171: DOM操作の復習</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>DOM操作の復習 - 演習問題</h1>
+
+    <!-- 問題1: ボタンクリックで表示切り替え -->
+    <section class="exercise">
+      <h2>問題1: テキスト表示の切り替え</h2>
+      <p>ボタンをクリックすると、下のテキストが表示/非表示されるようにしてください。</p>
+      <button id="toggle-btn">表示/非表示</button>
+      <p id="toggle-text" style="display: none;">これは表示/非表示されるテキストです。</p>
+    </section>
+
+    <!-- 問題2: カウンター -->
+    <section class="exercise">
+      <h2>問題2: カウンター</h2>
+      <p>+ボタンで数値を増やし、-ボタンで数値を減らしてください。</p>
+      <div class="counter">
+        <button id="decrement-btn">-</button>
+        <span id="count">0</span>
+        <button id="increment-btn">+</button>
+      </div>
+    </section>
+
+    <!-- 問題3: リストへの追加 -->
+    <section class="exercise">
+      <h2>問題3: タスクリスト</h2>
+      <p>入力欄に入力して追加ボタンを押すと、リストに項目が追加されるようにしてください。</p>
+      <div class="task-input">
+        <input type="text" id="task-input" placeholder="タスクを入力">
+        <button id="add-task-btn">追加</button>
+      </div>
+      <ul id="task-list"></ul>
+    </section>
+
+    <!-- 問題4: 削除ボタン付きリスト -->
+    <section class="exercise">
+      <h2>問題4: 削除ボタン付きリスト</h2>
+      <p>各項目に削除ボタンを追加し、クリックするとその項目が削除されるようにしてください。</p>
+      <ul id="deletable-list">
+        <li>項目1</li>
+        <li>項目2</li>
+        <li>項目3</li>
+      </ul>
+    </section>
+
+    <!-- 問題5: クラスの切り替え -->
+    <section class="exercise">
+      <h2>問題5: スタイルの切り替え</h2>
+      <p>ボタンをクリックすると、ボックスの色が変わるようにしてください。</p>
+      <button id="style-btn">色を変更</button>
+      <div id="style-box" class="box">このボックスの色が変わります</div>
+    </section>
+
+    <!-- 問題6: フォームのバリデーション -->
+    <section class="exercise">
+      <h2>問題6: フォームのバリデーション</h2>
+      <p>名前とメールアドレスを入力して送信ボタンを押してください。<br>
+        空欄や不正な形式の場合はエラーメッセージを表示してください。</p>
+      <form id="contact-form">
+        <div class="form-group">
+          <label for="name">名前:</label>
+          <input type="text" id="name" placeholder="名前を入力">
+        </div>
+        <div class="form-group">
+          <label for="email">メール:</label>
+          <input type="text" id="email" placeholder="メールアドレスを入力">
+        </div>
+        <button type="submit">送信</button>
+      </form>
+      <div id="form-errors"></div>
+    </section>
+
+    <!-- チャレンジ1: テーブルの動的生成 -->
+    <section class="exercise">
+      <h2>チャレンジ1: ユーザーテーブル</h2>
+      <p>ボタンをクリックすると、ユーザーデータからテーブルが生成されるようにしてください。</p>
+      <button id="create-table-btn">テーブルを生成</button>
+      <div id="table-container"></div>
+    </section>
+
+    <!-- チャレンジ2: アコーディオン -->
+    <section class="exercise">
+      <h2>チャレンジ2: アコーディオンメニュー</h2>
+      <p>各ヘッダーをクリックすると、内容が展開/折りたたまれるようにしてください。</p>
+      <div class="accordion">
+        <div class="accordion-item">
+          <div class="accordion-header">セクション1</div>
+          <div class="accordion-content">セクション1の内容です。</div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header">セクション2</div>
+          <div class="accordion-content">セクション2の内容です。</div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header">セクション3</div>
+          <div class="accordion-content">セクション3の内容です。</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

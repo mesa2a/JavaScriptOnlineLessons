@@ -1,99 +1,904 @@
-<script>
-// 総合確認問題 問題1：税込価格の計算
-const taxRate = 1.1;
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 012: 今週の復習 - 解答例</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-let applePrice = 150;
-let breadPrice = 200;
-let milkPrice = 180;
+        body {
+            font-family: 'Segoe UI', Mequilibrium, Arial, sans-serif;
+            line-height: 1.8;
+            padding: 20px;
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            min-height: 100vh;
+        }
 
-let appleWithTax = applePrice * taxRate;
-let breadWithTax = breadPrice * taxRate;
-let milkWithTax = milkPrice * taxRate;
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
 
-let total = applePrice + breadPrice + milkPrice;
-let totalWithTax = total * taxRate;
+        h1 {
+            color: #fa709a;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
 
-console.log("りんご（税込）：" + appleWithTax + "円");
-console.log("パン（税込）：" + breadWithTax + "円");
-console.log("牛乳（税込）：" + milkWithTax + "円");
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #fa709a;
+        }
+
+        h2 {
+            color: #fee140;
+            font-size: 1.8em;
+            margin: 30px 0 15px 0;
+            padding-left: 15px;
+            border-left: 5px solid #fee140;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        h3 {
+            color: #fa709a;
+            font-size: 1.4em;
+            margin: 20px 0 10px 0;
+        }
+
+        h4 {
+            color: #e91e63;
+            font-size: 1.2em;
+            margin: 15px 0 10px 0;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .info-box h3 {
+            color: white;
+            margin-top: 0;
+        }
+
+        .solution {
+            background: #fff8f0;
+            border: 3px solid #fa709a;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .solution h3 {
+            color: #fa709a;
+            margin-top: 0;
+        }
+
+        .code-box {
+            background: #f5f5f5;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+
+        .code-box code {
+            color: #d63384;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .explanation {
+            background: #fff9e6;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .explanation h4 {
+            color: #f57c00;
+            margin-top: 0;
+        }
+
+        .console-output {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .console-output .output-line {
+            margin: 5px 0;
+            color: #ce9178;
+        }
+
+        .key-point {
+            background: #e8f5e9;
+            border-left: 5px solid #4caf50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .key-point strong {
+            color: #2e7d32;
+            font-size: 1.1em;
+        }
+
+        .step-by-step {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .step-by-step strong {
+            color: #fa709a;
+        }
+
+        .variation {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .variation h4 {
+            color: #1976d2;
+            margin-top: 0;
+        }
+
+        ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+        }
+
+        .highlight {
+            background: #fff9c4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .achievement-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .achievement-box h3 {
+            color: white;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lesson 012: 今週の復習</h1>
+        <p class="subtitle">詳しい解答例と解説 - 第1章完全まとめ</p>
+
+        <div class="info-box">
+            <h3>📚 このページについて</h3>
+            <p>このページには、総合確認問題と実践課題の解答例、詳しい解説が含まれています。</p>
+            <p style="margin-top: 10px;"><strong>開発者ツール（F12キー）のConsoleタブ</strong>を開いて、各コードの実行結果を確認してください。</p>
+        </div>
+
+        <h2>✅ 総合確認問題 - 問題1：税込価格の計算</h2>
+
+        <div class="solution">
+            <h3>解答例</h3>
+            <div class="code-box">
+                <code>
+const taxRate = 1.1;<br>
+<br>
+let applePrice = 150;<br>
+let breadPrice = 200;<br>
+let milkPrice = 180;<br>
+<br>
+let appleWithTax = applePrice * taxRate;<br>
+let breadWithTax = breadPrice * taxRate;<br>
+let milkWithTax = milkPrice * taxRate;<br>
+<br>
+let total = applePrice + breadPrice + milkPrice;<br>
+let totalWithTax = total * taxRate;<br>
+<br>
+console.log("りんご（税込）：" + appleWithTax + "円");<br>
+console.log("パン（税込）：" + breadWithTax + "円");<br>
+console.log("牛乳（税込）：" + milkWithTax + "円");<br>
 console.log("合計（税込）：" + totalWithTax + "円");
+                </code>
+            </div>
 
-// 総合確認問題 問題2：自己紹介文の作成
-// let name = "山田太郎";
-// let age = 25;
-// let hometown = "東京";
-// let hobby = "プログラミング";
+            <div class="console-output">
+                <div class="output-line">りんご（税込）：165円</div>
+                <div class="output-line">パン（税込）：220円</div>
+                <div class="output-line">牛乳（税込）：198円</div>
+                <div class="output-line">合計（税込）：583円</div>
+            </div>
+        </div>
 
-// let intro = name + "は" + age + "歳で、" + hometown + "出身です。趣味は" + hobby + "です。";
-// console.log(intro);
+        <div class="explanation">
+            <h4>📖 詳しい解説</h4>
 
-// 総合確認問題 問題3：カウントアップ
-// let counter = 0;
+            <div class="step-by-step">
+                <strong>ステップ1：消費税率を定数で定義</strong>
+                <div class="code-box" style="margin-top: 10px;">
+                    <code>const taxRate = 1.1;</code>
+                </div>
+                <p>消費税率は変わらない値なので <span class="highlight">const</span> を使います。1.1は「100% + 10%」を意味します。</p>
+            </div>
 
-// counter = counter + 1;
-// console.log("カウント：" + counter);
+            <div class="step-by-step">
+                <strong>ステップ2：各商品の価格を変数に保存</strong>
+                <div class="code-box" style="margin-top: 10px;">
+                    <code>
+let applePrice = 150;<br>
+let breadPrice = 200;<br>
+let milkPrice = 180;
+                    </code>
+                </div>
+                <p>商品の価格を変数に保存します。この例では <code>let</code> を使っていますが、変更しない場合は <code>const</code> でもOKです。</p>
+            </div>
 
-// counter = counter + 1;
-// console.log("カウント：" + counter);
+            <div class="step-by-step">
+                <strong>ステップ3：各商品の税込価格を計算</strong>
+                <div class="code-box" style="margin-top: 10px;">
+                    <code>
+let appleWithTax = applePrice * taxRate;  // 150 * 1.1 = 165<br>
+let breadWithTax = breadPrice * taxRate;  // 200 * 1.1 = 220<br>
+let milkWithTax = milkPrice * taxRate;    // 180 * 1.1 = 198
+                    </code>
+                </div>
+                <p>各価格に消費税率を掛けて、税込価格を計算します。</p>
+            </div>
 
-// counter = counter + 1;
-// console.log("カウント：" + counter);
+            <div class="step-by-step">
+                <strong>ステップ4：合計を計算</strong>
+                <div class="code-box" style="margin-top: 10px;">
+                    <code>
+let total = applePrice + breadPrice + milkPrice;  // 530<br>
+let totalWithTax = total * taxRate;               // 583
+                    </code>
+                </div>
+                <p>まず税抜の合計を計算し、それに消費税率を掛けて税込合計を算出します。</p>
+            </div>
+        </div>
 
-// counter = counter + 1;
-// console.log("カウント：" + counter);
+        <div class="key-point">
+            <strong>🎯 この問題で復習したこと：</strong>
+            <ul>
+                <li><code>const</code> の使い方（消費税率）</li>
+                <li><code>let</code> の使い方（変数への値の保存）</li>
+                <li>四則演算（掛け算と足し算）</li>
+                <li>文字列連結（<code>+</code> で文字列と数値を連結）</li>
+                <li><code>console.log</code> での出力</li>
+            </ul>
+        </div>
 
-// counter = counter + 1;
-// console.log("カウント：" + counter);
+        <h2>✅ 総合確認問題 - 問題2：自己紹介文の作成</h2>
 
-// 課題2：オリジナル自己紹介ページ
-// const currentYear = 2025;
+        <div class="solution">
+            <h3>解答例</h3>
+            <div class="code-box">
+                <code>
+let name = "山田太郎";<br>
+let age = 25;<br>
+let hometown = "東京";<br>
+let hobby = "プログラミング";<br>
+<br>
+let intro = name + "は" + age + "歳で、" + hometown + "出身です。趣味は" + hobby + "です。";<br>
+console.log(intro);
+                </code>
+            </div>
 
-// let name = "山田太郎";
-// let birthYear = 1998;
-// let city = "東京";
-// let hobby = "プログラミング";
-// let favoriteFood = "ラーメン";
+            <div class="console-output">
+                <div class="output-line">山田太郎は25歳で、東京出身です。趣味はプログラミングです。</div>
+            </div>
+        </div>
 
-// let age = currentYear - birthYear;
+        <div class="explanation">
+            <h4>📖 詳しい解説</h4>
 
-// let intro1 = "私の名前は" + name + "です。";
-// let intro2 = birthYear + "年生まれの" + age + "歳です。";
-// let intro3 = city + "に住んでいます。";
-// let intro4 = "趣味は" + hobby + "で、好きな食べ物は" + favoriteFood + "です。";
+            <p><strong>文字列連結のポイント：</strong></p>
+            <ul>
+                <li><code>+</code> 演算子で文字列と変数をつなげます</li>
+                <li>変数名の前後に <code>+</code> を付けます</li>
+                <li>「は」「歳で」などの助詞も忘れずに入れます</li>
+            </ul>
 
-// console.log("=== 自己紹介 ===");
-// console.log(intro1);
-// console.log(intro2);
-// console.log(intro3);
-// console.log(intro4);
+            <div class="step-by-step">
+                <strong>文字列連結の流れ：</strong>
+                <div class="code-box" style="margin-top: 10px;">
+                    <code>
+// 変数の値<br>
+name = "山田太郎"<br>
+age = 25<br>
+hometown = "東京"<br>
+hobby = "プログラミング"<br>
+<br>
+// 連結の過程<br>
+"山田太郎" + "は" + 25 + "歳で、" + "東京" + "出身です。趣味は" + "プログラミング" + "です。"<br>
+↓<br>
+"山田太郎は25歳で、東京出身です。趣味はプログラミングです。"
+                    </code>
+                </div>
+            </div>
+        </div>
 
-// alert(intro1);
-// alert(intro2);
-// alert(intro3);
-// alert(intro4);
+        <h2>✅ 総合確認問題 - 問題3：カウントアップ</h2>
 
-// 課題3：買い物レシート
-// const taxRate = 1.1;
+        <div class="solution">
+            <h3>解答例</h3>
+            <div class="code-box">
+                <code>
+let counter = 0;<br>
+<br>
+counter = counter + 1;<br>
+console.log("カウント：" + counter);<br>
+<br>
+counter = counter + 1;<br>
+console.log("カウント：" + counter);<br>
+<br>
+counter = counter + 1;<br>
+console.log("カウント：" + counter);<br>
+<br>
+counter = counter + 1;<br>
+console.log("カウント：" + counter);<br>
+<br>
+counter = counter + 1;<br>
+console.log("カウント：" + counter);
+                </code>
+            </div>
 
-// let notebookPrice = 150;
-// let notebookCount = 2;
-// let notebookTotal = notebookPrice * notebookCount;
+            <div class="console-output">
+                <div class="output-line">カウント：1</div>
+                <div class="output-line">カウント：2</div>
+                <div class="output-line">カウント：3</div>
+                <div class="output-line">カウント：4</div>
+                <div class="output-line">カウント：5</div>
+            </div>
+        </div>
 
-// let penPrice = 100;
-// let penCount = 3;
-// let penTotal = penPrice * penCount;
+        <div class="explanation">
+            <h4>📖 詳しい解説</h4>
+            <p><code>counter = counter + 1</code> は、レッスン11で学んだ重要なパターンです。</p>
+            <ul>
+                <li>右辺：現在の <code>counter</code> の値に 1 を足す</li>
+                <li>左辺：その結果を <code>counter</code> に保存する</li>
+                <li>これにより、<code>counter</code> の値が 1 ずつ増えていきます</li>
+            </ul>
+        </div>
 
-// let eraserPrice = 80;
-// let eraserCount = 1;
-// let eraserTotal = eraserPrice * eraserCount;
+        <h2>🎯 実践課題 - 課題1：オリジナル自己紹介ページ</h2>
 
-// let subtotal = notebookTotal + penTotal + eraserTotal;
-// let totalWithTax = subtotal * taxRate;
+        <div class="solution">
+            <h3>解答例</h3>
+            <div class="code-box">
+                <code>
+// 定数（変わらない値）<br>
+const currentYear = 2025;<br>
+<br>
+// 変数（個人情報）<br>
+let name = "山田太郎";<br>
+let birthYear = 1998;<br>
+let city = "東京";<br>
+let hobby = "プログラミング";<br>
+let favoriteFood = "ラーメン";<br>
+<br>
+// 年齢を計算<br>
+let age = currentYear - birthYear;<br>
+<br>
+// 自己紹介文を作成<br>
+let intro1 = "私の名前は" + name + "です。";<br>
+let intro2 = birthYear + "年生まれの" + age + "歳です。";<br>
+let intro3 = city + "に住んでいます。";<br>
+let intro4 = "趣味は" + hobby + "で、好きな食べ物は" + favoriteFood + "です。";<br>
+<br>
+// コンソールに出力<br>
+console.log("=== 自己紹介 ===");<br>
+console.log(intro1);<br>
+console.log(intro2);<br>
+console.log(intro3);<br>
+console.log(intro4);<br>
+<br>
+// alertでも表示（任意）<br>
+alert(intro1);<br>
+alert(intro2);<br>
+alert(intro3);<br>
+alert(intro4);<br>
+alert("以上です。よろしくお願いします！");
+                </code>
+            </div>
 
-// console.log("--- 買い物レシート ---");
-// console.log("ノート：" + notebookTotal + "円");
-// console.log("ペン：" + penTotal + "円");
-// console.log("消しゴム：" + eraserTotal + "円");
-// console.log("小計：" + subtotal + "円");
-// console.log("税込合計：" + totalWithTax + "円");
-</script>
+            <div class="console-output">
+                <div class="output-line">=== 自己紹介 ===</div>
+                <div class="output-line">私の名前は山田太郎です。</div>
+                <div class="output-line">1998年生まれの27歳です。</div>
+                <div class="output-line">東京に住んでいます。</div>
+                <div class="output-line">趣味はプログラミングで、好きな食べ物はラーメンです。</div>
+            </div>
+        </div>
+
+        <div class="explanation">
+            <h4>📖 詳しい解説</h4>
+
+            <div class="step-by-step">
+                <strong>使っている知識：</strong>
+                <ul style="margin-top: 10px;">
+                    <li>✅ <code>const currentYear</code> - 定数の使用</li>
+                    <li>✅ 5つの <code>let</code> 変数 - 変数の使用</li>
+                    <li>✅ <code>age = currentYear - birthYear</code> - 計算</li>
+                    <li>✅ 文字列連結 - <code>+</code> 演算子</li>
+                    <li>✅ <code>console.log</code> - コンソール出力</li>
+                    <li>✅ <code>alert</code> - ポップアップ表示（任意）</li>
+                </ul>
+            </div>
+
+            <div class="key-point">
+                <strong>🎯 この課題のポイント：</strong>
+                <p>第1章で学んだすべての知識を組み合わせています。年齢計算では減算、文章作成では文字列連結を使い、出力では console.log と alert の両方を使っています。</p>
+            </div>
+        </div>
+
+        <h2>🎯 実践課題 - 課題2：買い物レシート</h2>
+
+        <div class="solution">
+            <h3>解答例</h3>
+            <div class="code-box">
+                <code>
+const taxRate = 1.1;<br>
+<br>
+let notebookPrice = 150;<br>
+let notebookCount = 2;<br>
+let notebookTotal = notebookPrice * notebookCount;<br>
+<br>
+let penPrice = 100;<br>
+let penCount = 3;<br>
+let penTotal = penPrice * penCount;<br>
+<br>
+let eraserPrice = 80;<br>
+let eraserCount = 1;<br>
+let eraserTotal = eraserPrice * eraserCount;<br>
+<br>
+let subtotal = notebookTotal + penTotal + eraserTotal;<br>
+let totalWithTax = subtotal * taxRate;<br>
+<br>
+console.log("--- 買い物レシート ---");<br>
+console.log("ノート：" + notebookTotal + "円");<br>
+console.log("ペン：" + penTotal + "円");<br>
+console.log("消しゴム：" + eraserTotal + "円");<br>
+console.log("小計：" + subtotal + "円");<br>
+console.log("税込合計：" + totalWithTax + "円");
+                </code>
+            </div>
+
+            <div class="console-output">
+                <div class="output-line">--- 買い物レシート ---</div>
+                <div class="output-line">ノート：300円</div>
+                <div class="output-line">ペン：300円</div>
+                <div class="output-line">消しゴム：80円</div>
+                <div class="output-line">小計：680円</div>
+                <div class="output-line">税込合計：748円</div>
+            </div>
+        </div>
+
+        <div class="explanation">
+            <h4>📖 詳しい解説</h4>
+
+            <div class="step-by-step">
+                <strong>計算の流れ：</strong>
+                <ol style="margin-top: 10px;">
+                    <li><strong>各商品の小計：</strong>単価 × 個数
+                        <ul>
+                            <li>ノート：150 × 2 = 300円</li>
+                            <li>ペン：100 × 3 = 300円</li>
+                            <li>消しゴム：80 × 1 = 80円</li>
+                        </ul>
+                    </li>
+                    <li><strong>合計（税抜）：</strong>300 + 300 + 80 = 680円</li>
+                    <li><strong>税込合計：</strong>680 × 1.1 = 748円</li>
+                </ol>
+            </div>
+
+            <div class="key-point">
+                <strong>🎯 実用的なポイント：</strong>
+                <p>このようなレシート計算は、実際のプログラミングでよく使われるパターンです。ECサイトやPOSレジシステムなど、多くの場所で同じような計算が行われています。</p>
+            </div>
+        </div>
+
+        <h2>🎯 実践課題 - 課題3：学習記録まとめ</h2>
+
+        <div class="solution">
+            <h3>解答例</h3>
+            <div class="code-box">
+                <code>
+// 学習情報<br>
+let startMonth = 1;<br>
+let startDay = 1;<br>
+let currentMonth = 1;<br>
+let currentDay = 20;<br>
+<br>
+// 学習日数を計算（簡易版）<br>
+let studyDays = currentDay - startDay;<br>
+<br>
+// 完了レッスン数<br>
+let completedLessons = 12;<br>
+<br>
+// 1日あたりのレッスン数を計算<br>
+let lessonsPerDay = completedLessons / studyDays;<br>
+<br>
+// 出力<br>
+console.log("=== 第1章 学習記録 ===");<br>
+console.log("学習開始日：2025年" + startMonth + "月" + startDay + "日");<br>
+console.log("学習日数：" + studyDays + "日");<br>
+console.log("完了レッスン数：" + completedLessons + "レッスン");<br>
+console.log("1日あたり：" + lessonsPerDay + "レッスン");<br>
+console.log("おめでとうございます！第1章完了です！");
+                </code>
+            </div>
+
+            <div class="console-output">
+                <div class="output-line">=== 第1章 学習記録 ===</div>
+                <div class="output-line">学習開始日：2025年1月1日</div>
+                <div class="output-line">学習日数：19日</div>
+                <div class="output-line">完了レッスン数：12レッスン</div>
+                <div class="output-line">1日あたり：0.631578947368421レッスン</div>
+                <div class="output-line">おめでとうございます！第1章完了です！</div>
+            </div>
+        </div>
+
+        <div class="explanation">
+            <h4>📖 詳しい解説</h4>
+
+            <div class="step-by-step">
+                <strong>計算のポイント：</strong>
+                <ul style="margin-top: 10px;">
+                    <li><code>studyDays = currentDay - startDay</code> - 学習日数の計算（減算）</li>
+                    <li><code>lessonsPerDay = completedLessons / studyDays</code> - 1日あたりのレッスン数（除算）</li>
+                    <li>割り算の結果は小数になります（JavaScriptは自動的に小数を計算します）</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>🌟 応用例：さらに発展させたバージョン</h2>
+
+        <div class="variation">
+            <h4>応用例1：より詳細な自己紹介ページ</h4>
+            <div class="code-box">
+                <code>
+const currentYear = 2025;<br>
+const hobbyStartYear = 2020;<br>
+<br>
+let name = "田中花子";<br>
+let birthYear = 2000;<br>
+let city = "大阪";<br>
+let hobby = "ピアノ";<br>
+let favoriteColor = "青";<br>
+let bloodType = "A型";<br>
+let dream = "プログラマー";<br>
+<br>
+let age = currentYear - birthYear;<br>
+let hobbyYears = currentYear - hobbyStartYear;<br>
+<br>
+console.log("╔═══════════════════════════╗");<br>
+console.log("║      自己紹介カード      ║");<br>
+console.log("╚═══════════════════════════╝");<br>
+console.log("");<br>
+console.log("👤 名前: " + name);<br>
+console.log("🎂 年齢: " + age + "歳（" + birthYear + "年生まれ）");<br>
+console.log("📍 出身地: " + city);<br>
+console.log("🎨 好きな色: " + favoriteColor);<br>
+console.log("💉 血液型: " + bloodType);<br>
+console.log("🎹 趣味: " + hobby + "（" + hobbyYears + "年継続中）");<br>
+console.log("✨ 夢: " + dream);<br>
+console.log("");<br>
+console.log("よろしくお願いします！");
+                </code>
+            </div>
+            <p><strong>ポイント：</strong>複数の計算と、見やすい出力フォーマットを使っています。</p>
+        </div>
+
+        <div class="variation">
+            <h4>応用例2：複数の店舗での買い物レシート</h4>
+            <div class="code-box">
+                <code>
+const taxRate = 1.1;<br>
+const store1Name = "コンビニA";<br>
+const store2Name = "スーパーB";<br>
+<br>
+// 店舗1での買い物<br>
+let store1Item1 = 150;<br>
+let store1Item2 = 200;<br>
+let store1Total = store1Item1 + store1Item2;<br>
+let store1WithTax = store1Total * taxRate;<br>
+<br>
+// 店舗2での買い物<br>
+let store2Item1 = 500;<br>
+let store2Item2 = 300;<br>
+let store2Item3 = 200;<br>
+let store2Total = store2Item1 + store2Item2 + store2Item3;<br>
+let store2WithTax = store2Total * taxRate;<br>
+<br>
+// 総合計<br>
+let grandTotal = store1WithTax + store2WithTax;<br>
+<br>
+console.log("========== 本日の買い物まとめ ==========");<br>
+console.log("");<br>
+console.log("【" + store1Name + "】");<br>
+console.log("  小計: " + store1Total + "円");<br>
+console.log("  税込: " + store1WithTax + "円");<br>
+console.log("");<br>
+console.log("【" + store2Name + "】");<br>
+console.log("  小計: " + store2Total + "円");<br>
+console.log("  税込: " + store2WithTax + "円");<br>
+console.log("");<br>
+console.log("━━━━━━━━━━━━━━━━━━━━━━━━");<br>
+console.log("  総合計: " + grandTotal + "円");<br>
+console.log("━━━━━━━━━━━━━━━━━━━━━━━━");
+                </code>
+            </div>
+            <p><strong>ポイント：</strong>複数の店舗での計算を管理し、見やすくまとめています。</p>
+        </div>
+
+        <div class="variation">
+            <h4>応用例3：学習進捗ダッシュボード</h4>
+            <div class="code-box">
+                <code>
+const totalLessons = 12;<br>
+const targetDays = 14;  // 目標学習日数<br>
+<br>
+let completedLessons = 12;<br>
+let actualDays = 20;<br>
+let studyHours = 15;<br>
+<br>
+// 進捗率を計算<br>
+let progressRate = (completedLessons / totalLessons) * 100;<br>
+<br>
+// 1日あたりの学習時間<br>
+let hoursPerDay = studyHours / actualDays;<br>
+<br>
+// 目標との比較<br>
+let daysDifference = actualDays - targetDays;<br>
+<br>
+console.log("╔════════════════════════════════════╗");<br>
+console.log("║    第1章 学習進捗ダッシュボード    ║");<br>
+console.log("╚════════════════════════════════════╝");<br>
+console.log("");<br>
+console.log("📊 進捗状況");<br>
+console.log("  完了レッスン: " + completedLessons + " / " + totalLessons);<br>
+console.log("  進捗率: " + progressRate + "%");<br>
+console.log("");<br>
+console.log("⏱️ 学習時間");<br>
+console.log("  総学習日数: " + actualDays + "日");<br>
+console.log("  総学習時間: " + studyHours + "時間");<br>
+console.log("  1日平均: " + hoursPerDay + "時間");<br>
+console.log("");<br>
+console.log("🎯 目標との比較");<br>
+console.log("  目標日数: " + targetDays + "日");<br>
+console.log("  実際の日数: " + actualDays + "日");<br>
+console.log("  差分: " + daysDifference + "日");<br>
+console.log("");<br>
+console.log("🎉 おめでとうございます！");<br>
+console.log("   第1章を完了しました！");
+                </code>
+            </div>
+            <p><strong>ポイント：</strong>複数の計算（割り算、掛け算、引き算）を組み合わせて、詳細な分析を行っています。</p>
+        </div>
+
+        <h2>📚 第1章の知識総まとめ</h2>
+
+        <div class="key-point">
+            <strong>✅ 第1章で習得したスキル：</strong>
+            <ol style="margin-top: 15px;">
+                <li><strong>実行環境：</strong>ブラウザの開発者ツール、HTMLファイル作成</li>
+                <li><strong>出力：</strong>console.log()、alert()、confirm()</li>
+                <li><strong>データ型：</strong>文字列、数値</li>
+                <li><strong>演算子：</strong>+（加算・連結）、-（減算）、*（乗算）、/（除算）</li>
+                <li><strong>変数：</strong>let（再代入可能）、const（再代入不可）</li>
+                <li><strong>文字列操作：</strong>文字列連結（+）</li>
+                <li><strong>プログラムパターン：</strong>counter = counter + 1、total = total + amount</li>
+                <li><strong>実用的計算：</strong>税込価格、合計、平均、進捗率</li>
+            </ol>
+        </div>
+
+        <div class="achievement-box">
+            <h3>🏆 第1章完了！</h3>
+            <p style="font-size: 1.3em; margin: 20px 0;">あなたは第1章のすべての内容を習得しました！</p>
+            <p>console.log、alert、変数、定数、計算、文字列連結など、JavaScriptの基礎をマスターしました。</p>
+            <p style="margin-top: 20px; font-size: 1.2em;">次は第2章で、ブラウザを操作する方法を学びましょう！</p>
+        </div>
+
+        <div class="info-box" style="margin-top: 30px;">
+            <h3>🎉 次のステップ：第2章へ</h3>
+            <p style="margin-top: 15px;"><strong>第2章で学ぶこと：</strong></p>
+            <ul style="margin-top: 10px;">
+                <li>HTMLの要素を取得する（document.getElementById）</li>
+                <li>要素の内容を変更する（textContent、innerHTML）</li>
+                <li>ボタンのクリックイベントを処理する</li>
+                <li>入力フィールドの値を取得する</li>
+                <li>動的にWebページを更新する</li>
+            </ul>
+            <p style="margin-top: 15px;">第2章では、コンソールやalertではなく、Webページに直接結果を表示できるようになります。これにより、よりインタラクティブなWebアプリケーションを作れるようになります！</p>
+        </div>
+    </div>
+
+    <script>
+        // すべての課題のコードを実行（コンソールで確認）
+
+        console.log("========================================");
+        console.log("総合確認問題 - 問題1：税込価格の計算");
+        console.log("========================================");
+
+        const taxRate1 = 1.1;
+
+        let applePrice = 150;
+        let breadPrice = 200;
+        let milkPrice = 180;
+
+        let appleWithTax = applePrice * taxRate1;
+        let breadWithTax = breadPrice * taxRate1;
+        let milkWithTax = milkPrice * taxRate1;
+
+        let total1 = applePrice + breadPrice + milkPrice;
+        let totalWithTax1 = total1 * taxRate1;
+
+        console.log("りんご（税込）：" + appleWithTax + "円");
+        console.log("パン（税込）：" + breadWithTax + "円");
+        console.log("牛乳（税込）：" + milkWithTax + "円");
+        console.log("合計（税込）：" + totalWithTax1 + "円");
+
+        console.log("\n========================================");
+        console.log("総合確認問題 - 問題2：自己紹介文の作成");
+        console.log("========================================");
+
+        let name1 = "山田太郎";
+        let age1 = 25;
+        let hometown = "東京";
+        let hobby1 = "プログラミング";
+
+        let intro = name1 + "は" + age1 + "歳で、" + hometown + "出身です。趣味は" + hobby1 + "です。";
+        console.log(intro);
+
+        console.log("\n========================================");
+        console.log("総合確認問題 - 問題3：カウントアップ");
+        console.log("========================================");
+
+        let counter = 0;
+
+        counter = counter + 1;
+        console.log("カウント：" + counter);
+
+        counter = counter + 1;
+        console.log("カウント：" + counter);
+
+        counter = counter + 1;
+        console.log("カウント：" + counter);
+
+        counter = counter + 1;
+        console.log("カウント：" + counter);
+
+        counter = counter + 1;
+        console.log("カウント：" + counter);
+
+        console.log("\n========================================");
+        console.log("実践課題 - 課題1：オリジナル自己紹介ページ");
+        console.log("========================================");
+
+        const currentYear = 2025;
+
+        let name2 = "山田太郎";
+        let birthYear = 1998;
+        let city = "東京";
+        let hobby2 = "プログラミング";
+        let favoriteFood = "ラーメン";
+
+        let age2 = currentYear - birthYear;
+
+        let intro1 = "私の名前は" + name2 + "です。";
+        let intro2 = birthYear + "年生まれの" + age2 + "歳です。";
+        let intro3 = city + "に住んでいます。";
+        let intro4 = "趣味は" + hobby2 + "で、好きな食べ物は" + favoriteFood + "です。";
+
+        console.log("=== 自己紹介 ===");
+        console.log(intro1);
+        console.log(intro2);
+        console.log(intro3);
+        console.log(intro4);
+
+        console.log("\n========================================");
+        console.log("実践課題 - 課題2：買い物レシート");
+        console.log("========================================");
+
+        const taxRate2 = 1.1;
+
+        let notebookPrice = 150;
+        let notebookCount = 2;
+        let notebookTotal = notebookPrice * notebookCount;
+
+        let penPrice = 100;
+        let penCount = 3;
+        let penTotal = penPrice * penCount;
+
+        let eraserPrice = 80;
+        let eraserCount = 1;
+        let eraserTotal = eraserPrice * eraserCount;
+
+        let subtotal = notebookTotal + penTotal + eraserTotal;
+        let totalWithTax2 = subtotal * taxRate2;
+
+        console.log("--- 買い物レシート ---");
+        console.log("ノート：" + notebookTotal + "円");
+        console.log("ペン：" + penTotal + "円");
+        console.log("消しゴム：" + eraserTotal + "円");
+        console.log("小計：" + subtotal + "円");
+        console.log("税込合計：" + totalWithTax2 + "円");
+
+        console.log("\n========================================");
+        console.log("実践課題 - 課題3：学習記録まとめ");
+        console.log("========================================");
+
+        let startMonth = 1;
+        let startDay = 1;
+        let currentMonth = 1;
+        let currentDay = 20;
+
+        let studyDays = currentDay - startDay;
+        let completedLessons = 12;
+        let lessonsPerDay = completedLessons / studyDays;
+
+        console.log("=== 第1章 学習記録 ===");
+        console.log("学習開始日：2025年" + startMonth + "月" + startDay + "日");
+        console.log("学習日数：" + studyDays + "日");
+        console.log("完了レッスン数：" + completedLessons + "レッスン");
+        console.log("1日あたり：" + lessonsPerDay + "レッスン");
+        console.log("おめでとうございます！第1章完了です！");
+
+        console.log("\n========================================");
+        console.log("🎉 第1章完了おめでとうございます！");
+        console.log("========================================");
+    </script>
+</body>
+</html>

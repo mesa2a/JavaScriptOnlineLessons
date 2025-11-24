@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>レッスン3：計算機として使う - 解答</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .answer-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .answer-section h3 {
+            color: #333;
+            margin-top: 0;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        .code-block {
+            background-color: #263238;
+            color: #aed581;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .result {
+            background-color: #e8f5e9;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #4CAF50;
+        }
+        .explanation {
+            background-color: #fff3e0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #FF9800;
+        }
+        .explanation strong {
+            color: #F57C00;
+        }
+    </style>
+</head>
+<body>
+    <h1>レッスン3：計算機として使う - 解答</h1>
+
+    <div class="answer-section">
+        <h3>演習1：足し算をマスターする - 解答</h3>
+
+        <p><strong>問題1：</strong> <code>5 + 8</code> を計算</p>
+        <div class="code-block">console.log(5 + 8)</div>
+        <div class="result">結果: 13</div>
+
+        <p><strong>問題2：</strong> <code>123 + 456</code> を計算</p>
+        <div class="code-block">console.log(123 + 456)</div>
+        <div class="result">結果: 579</div>
+
+        <p><strong>問題3：</strong> 誕生日の月と日を足す（例：3月15日）</p>
+        <div class="code-block">console.log(3 + 15)</div>
+        <div class="result">結果: 18</div>
+
+        <div class="explanation">
+            <strong>解説：</strong> 足し算は <code>+</code> 記号を使います。数字はクォーテーションで囲みません。
+        </div>
+    </div>
+
+    <div class="answer-section">
+        <h3>演習2：引き算を試す - 解答</h3>
+
+        <p><strong>問題1：</strong> <code>50 - 20</code> を計算</p>
+        <div class="code-block">console.log(50 - 20)</div>
+        <div class="result">結果: 30</div>
+
+        <p><strong>問題2：</strong> <code>100 - 73</code> を計算</p>
+        <div class="code-block">console.log(100 - 73)</div>
+        <div class="result">結果: 27</div>
+
+        <p><strong>問題3：</strong> <code>30 - 50</code> を計算</p>
+        <div class="code-block">console.log(30 - 50)</div>
+        <div class="result">結果: -20</div>
+
+        <div class="explanation">
+            <strong>解説：</strong> 引き算は <code>-</code> 記号を使います。結果がマイナスになっても正しく計算されます。
+        </div>
+    </div>
+
+    <div class="answer-section">
+        <h3>演習3：掛け算を練習する - 解答</h3>
+
+        <p><strong>問題1：</strong> <code>6 * 7</code> を計算</p>
+        <div class="code-block">console.log(6 * 7)</div>
+        <div class="result">結果: 42</div>
+
+        <p><strong>問題2：</strong> <code>12 * 12</code> を計算</p>
+        <div class="code-block">console.log(12 * 12)</div>
+        <div class="result">結果: 144</div>
+
+        <p><strong>問題3：</strong> 九九の計算（例：<code>8 * 8</code>）</p>
+        <div class="code-block">console.log(8 * 8)</div>
+        <div class="result">結果: 64</div>
+
+        <div class="explanation">
+            <strong>解説：</strong> 掛け算は <code>*</code>（アスタリスク）を使います。<code>×</code> ではなく <code>*</code> を使うことに注意してください。
+        </div>
+    </div>
+
+    <div class="answer-section">
+        <h3>演習4：割り算をやってみる - 解答</h3>
+
+        <p><strong>問題1：</strong> <code>100 / 10</code> を計算</p>
+        <div class="code-block">console.log(100 / 10)</div>
+        <div class="result">結果: 10</div>
+
+        <p><strong>問題2：</strong> <code>50 / 4</code> を計算</p>
+        <div class="code-block">console.log(50 / 4)</div>
+        <div class="result">結果: 12.5</div>
+
+        <p><strong>問題3：</strong> <code>20 / 3</code> を計算</p>
+        <div class="code-block">console.log(20 / 3)</div>
+        <div class="result">結果: 6.666666666666667</div>
+
+        <div class="explanation">
+            <strong>解説：</strong> 割り算は <code>/</code>（スラッシュ）を使います。割り切れない場合は小数で表示されます。
+        </div>
+    </div>
+
+    <div class="answer-section">
+        <h3>演習5：余りを求める - 解答</h3>
+
+        <p><strong>問題1：</strong> <code>17 % 5</code> を計算</p>
+        <div class="code-block">console.log(17 % 5)</div>
+        <div class="result">結果: 2</div>
+        <div class="explanation">
+            17 ÷ 5 = 3 余り 2（5 × 3 = 15、17 - 15 = 2）
+        </div>
+
+        <p><strong>問題2：</strong> <code>20 % 6</code> を計算</p>
+        <div class="code-block">console.log(20 % 6)</div>
+        <div class="result">結果: 2</div>
+        <div class="explanation">
+            20 ÷ 6 = 3 余り 2（6 × 3 = 18、20 - 18 = 2）
+        </div>
+
+        <p><strong>問題3：</strong> <code>15 % 2</code> を計算</p>
+        <div class="code-block">console.log(15 % 2)</div>
+        <div class="result">結果: 1</div>
+        <div class="explanation">
+            15は奇数なので、2で割ると1余ります
+        </div>
+
+        <p><strong>問題4：</strong> <code>16 % 2</code> を計算</p>
+        <div class="code-block">console.log(16 % 2)</div>
+        <div class="result">結果: 0</div>
+        <div class="explanation">
+            16は偶数なので、2で割り切れます（余り0）
+        </div>
+    </div>
+
+    <div class="answer-section">
+        <h3>演習6：計算の優先順位を確認する - 解答</h3>
+
+        <p><strong>問題1：</strong> <code>5 + 3 * 2</code> を計算</p>
+        <div class="code-block">console.log(5 + 3 * 2)</div>
+        <div class="result">結果: 11</div>
+        <div class="explanation">
+            先に掛け算: 3 * 2 = 6、次に足し算: 5 + 6 = 11
+        </div>
+
+        <p><strong>問題2：</strong> <code>(5 + 3) * 2</code> を計算</p>
+        <div class="code-block">console.log((5 + 3) * 2)</div>
+        <div class="result">結果: 16</div>
+        <div class="explanation">
+            括弧の中が優先: (5 + 3) = 8、次に掛け算: 8 * 2 = 16
+        </div>
+
+        <p><strong>問題3：</strong> <code>10 - 4 / 2</code> を計算</p>
+        <div class="code-block">console.log(10 - 4 / 2)</div>
+        <div class="result">結果: 8</div>
+        <div class="explanation">
+            先に割り算: 4 / 2 = 2、次に引き算: 10 - 2 = 8
+        </div>
+
+        <p><strong>問題4：</strong> <code>(10 - 4) / 2</code> を計算</p>
+        <div class="code-block">console.log((10 - 4) / 2)</div>
+        <div class="result">結果: 3</div>
+        <div class="explanation">
+            括弧の中が優先: (10 - 4) = 6、次に割り算: 6 / 2 = 3
+        </div>
+    </div>
+
+    <div class="answer-section">
+        <h3>演習7：数字と文字列の違いを理解する - 解答</h3>
+
+        <p><strong>問題1：</strong> <code>2 + 3</code> を計算（数字の足し算）</p>
+        <div class="code-block">console.log(2 + 3)</div>
+        <div class="result">結果: 5</div>
+
+        <p><strong>問題2：</strong> <code>"2" + "3"</code> を計算（文字列の連結）</p>
+        <div class="code-block">console.log("2" + "3")</div>
+        <div class="result">結果: 23</div>
+
+        <div class="explanation">
+            <strong>重要な違い：</strong>
+            <ul>
+                <li>クォーテーションなし（<code>2 + 3</code>）→ 数字として計算される → 5</li>
+                <li>クォーテーションあり（<code>"2" + "3"</code>）→ 文字として連結される → 23</li>
+            </ul>
+            これは数字と文字列が異なるデータ型であるためです。
+        </div>
+    </div>
+
+    <div class="answer-section">
+        <h3>演習8：複雑な計算に挑戦 - 解答</h3>
+
+        <p><strong>問題1：</strong> <code>(8 + 2) * (5 - 3)</code> を計算</p>
+        <div class="code-block">console.log((8 + 2) * (5 - 3))</div>
+        <div class="result">結果: 20</div>
+        <div class="explanation">
+            (8 + 2) = 10、(5 - 3) = 2、10 * 2 = 20
+        </div>
+
+        <p><strong>問題2：</strong> <code>100 / (2 + 3) + 10</code> を計算</p>
+        <div class="code-block">console.log(100 / (2 + 3) + 10)</div>
+        <div class="result">結果: 30</div>
+        <div class="explanation">
+            (2 + 3) = 5、100 / 5 = 20、20 + 10 = 30
+        </div>
+
+        <p><strong>問題3：</strong> <code>3 * 4 + 5 * 6</code> を計算</p>
+        <div class="code-block">console.log(3 * 4 + 5 * 6)</div>
+        <div class="result">結果: 42</div>
+        <div class="explanation">
+            3 * 4 = 12、5 * 6 = 30、12 + 30 = 42
+        </div>
+    </div>
+
+    <div class="answer-section">
+        <h3>演習9：年齢を秒数に変換する - 解答</h3>
+
+        <p><strong>20歳の場合：</strong></p>
+        <div class="code-block">console.log(20 * 365 * 24 * 60 * 60)</div>
+        <div class="result">結果: 630720000</div>
+        <div class="explanation">
+            20歳は約6億3千万秒です。人生は想像以上に長い時間を生きているんですね！
+        </div>
+
+        <p><strong>25歳の場合：</strong></p>
+        <div class="code-block">console.log(25 * 365 * 24 * 60 * 60)</div>
+        <div class="result">結果: 788400000</div>
+
+        <p><strong>30歳の場合：</strong></p>
+        <div class="code-block">console.log(30 * 365 * 24 * 60 * 60)</div>
+        <div class="result">結果: 946080000</div>
+
+        <div class="explanation">
+            <strong>計算式の意味：</strong>
+            <br>年齢 × 365日 × 24時間 × 60分 × 60秒
+            <br>※この計算は閏年を考慮していない簡易的なものです。
+        </div>
+    </div>
+
+    <div class="answer-section">
+        <h3>チャレンジ問題：実用的な計算 - 解答</h3>
+
+        <p><strong>問題1：</strong> 身長170cmをインチに変換</p>
+        <div class="code-block">console.log(170 / 2.54)</div>
+        <div class="result">結果: 66.92913385826772</div>
+        <div class="explanation">170cmは約66.9インチです</div>
+
+        <p><strong>問題2：</strong> 体重60kgをポンドに変換</p>
+        <div class="code-block">console.log(60 * 2.205)</div>
+        <div class="result">結果: 132.3</div>
+        <div class="explanation">60kgは約132.3ポンドです</div>
+
+        <p><strong>問題3：</strong> 時速100km/hを秒速に変換</p>
+        <div class="code-block">console.log(100 * 1000 / 3600)</div>
+        <div class="result">結果: 27.77777777777778</div>
+        <div class="explanation">
+            時速100km/hは秒速約27.8メートルです
+            <br>計算式: 100km = 100,000m、1時間 = 3,600秒、100,000 ÷ 3,600 = 27.78m/s
+        </div>
+    </div>
+
+    <script>
+        // 解答の実行結果をコンソールに表示します
+        console.log("==============================================");
+        console.log("  レッスン3：計算機として使う - 解答実行  ");
+        console.log("==============================================");
+        console.log("");
+
+        // 演習1
+        console.log("--- 演習1：足し算 ---");
+        console.log("5 + 8 =", 5 + 8);
+        console.log("123 + 456 =", 123 + 456);
+        console.log("3 + 15 =", 3 + 15);
+        console.log("");
+
+        // 演習2
+        console.log("--- 演習2：引き算 ---");
+        console.log("50 - 20 =", 50 - 20);
+        console.log("100 - 73 =", 100 - 73);
+        console.log("30 - 50 =", 30 - 50);
+        console.log("");
+
+        // 演習3
+        console.log("--- 演習3：掛け算 ---");
+        console.log("6 * 7 =", 6 * 7);
+        console.log("12 * 12 =", 12 * 12);
+        console.log("8 * 8 =", 8 * 8);
+        console.log("");
+
+        // 演習4
+        console.log("--- 演習4：割り算 ---");
+        console.log("100 / 10 =", 100 / 10);
+        console.log("50 / 4 =", 50 / 4);
+        console.log("20 / 3 =", 20 / 3);
+        console.log("");
+
+        // 演習5
+        console.log("--- 演習5：余り ---");
+        console.log("17 % 5 =", 17 % 5);
+        console.log("20 % 6 =", 20 % 6);
+        console.log("15 % 2 =", 15 % 2);
+        console.log("16 % 2 =", 16 % 2);
+        console.log("");
+
+        // 演習6
+        console.log("--- 演習6：計算の優先順位 ---");
+        console.log("5 + 3 * 2 =", 5 + 3 * 2);
+        console.log("(5 + 3) * 2 =", (5 + 3) * 2);
+        console.log("10 - 4 / 2 =", 10 - 4 / 2);
+        console.log("(10 - 4) / 2 =", (10 - 4) / 2);
+        console.log("");
+
+        // 演習7
+        console.log("--- 演習7：数字と文字列の違い ---");
+        console.log("2 + 3 =", 2 + 3);
+        console.log('"2" + "3" =', "2" + "3");
+        console.log("");
+
+        // 演習8
+        console.log("--- 演習8：複雑な計算 ---");
+        console.log("(8 + 2) * (5 - 3) =", (8 + 2) * (5 - 3));
+        console.log("100 / (2 + 3) + 10 =", 100 / (2 + 3) + 10);
+        console.log("3 * 4 + 5 * 6 =", 3 * 4 + 5 * 6);
+        console.log("");
+
+        // 演習9
+        console.log("--- 演習9：年齢を秒数に変換 ---");
+        console.log("20歳 =", 20 * 365 * 24 * 60 * 60, "秒");
+        console.log("25歳 =", 25 * 365 * 24 * 60 * 60, "秒");
+        console.log("30歳 =", 30 * 365 * 24 * 60 * 60, "秒");
+        console.log("");
+
+        // チャレンジ問題
+        console.log("--- チャレンジ問題 ---");
+        console.log("身長170cm =", 170 / 2.54, "インチ");
+        console.log("体重60kg =", 60 * 2.205, "ポンド");
+        console.log("時速100km/h =", 100 * 1000 / 3600, "m/s");
+        console.log("");
+
+        console.log("==============================================");
+        console.log("  すべての計算結果が表示されました！  ");
+        console.log("==============================================");
+    </script>
+</body>
+</html>

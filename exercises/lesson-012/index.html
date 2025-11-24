@@ -1,4 +1,734 @@
-<script>
-// ここにコードを書いてください
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 012: 今週の復習 - 練習問題</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-</script>
+        body {
+            font-family: 'Segoe UI', Mequilibrium, Arial, sans-serif;
+            line-height: 1.8;
+            padding: 20px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #f093fb;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #f093fb;
+        }
+
+        h2 {
+            color: #f5576c;
+            font-size: 1.8em;
+            margin: 30px 0 15px 0;
+            padding-left: 15px;
+            border-left: 5px solid #f5576c;
+        }
+
+        h3 {
+            color: #f093fb;
+            font-size: 1.4em;
+            margin: 20px 0 10px 0;
+        }
+
+        h4 {
+            color: #e91e63;
+            font-size: 1.2em;
+            margin: 15px 0 10px 0;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .info-box h3 {
+            color: white;
+            margin-top: 0;
+        }
+
+        .review-section {
+            background: #fff0f5;
+            border: 3px solid #f093fb;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .review-section h3 {
+            color: #f5576c;
+            margin-top: 0;
+        }
+
+        .lesson-review {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .lesson-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #f093fb;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .lesson-card h4 {
+            color: #f093fb;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .lesson-card ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .lesson-card li {
+            margin: 5px 0;
+            color: #666;
+        }
+
+        .code-box {
+            background: #f5f5f5;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+
+        .code-box code {
+            color: #d63384;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .task {
+            background: #fff8f0;
+            border-left: 5px solid #f5576c;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .task h3 {
+            color: #f5576c;
+            margin-top: 0;
+        }
+
+        .checklist {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .checklist-item {
+            padding: 10px;
+            margin: 8px 0;
+            background: #f5f5f5;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .checklist-item::before {
+            content: "☐";
+            margin-right: 10px;
+            font-size: 1.3em;
+            color: #f093fb;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .comparison-table td {
+            padding: 15px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .tip {
+            background: #e8f5e9;
+            border-left: 5px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .tip strong {
+            color: #2e7d32;
+        }
+
+        .example {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .example h4 {
+            color: #1976d2;
+            margin-top: 0;
+        }
+
+        .console-output {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .console-output .output-line {
+            margin: 5px 0;
+            color: #ce9178;
+        }
+
+        .practice-area {
+            background: #fafafa;
+            border: 3px dashed #f093fb;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .highlight {
+            background: #fff9c4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .achievement-box {
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .achievement-box h3 {
+            color: white;
+            margin-top: 0;
+            font-size: 2em;
+        }
+
+        .achievement-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .achievement-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.1em;
+        }
+
+        ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .lesson-review {
+                grid-template-columns: 1fr;
+            }
+
+            .achievement-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .step-box {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .step-box strong {
+            color: #f5576c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lesson 012: 今週の復習</h1>
+        <p class="subtitle">第1章の総まとめ！学んだことを振り返り、実践しよう</p>
+
+        <div class="info-box">
+            <h3>🎉 第1章完了おめでとうございます！</h3>
+            <p>この課題では、レッスン1～11で学んだすべての内容を復習し、実践します。</p>
+            <p style="margin-top: 10px;"><strong>目標：</strong>学んだ知識を組み合わせて、実用的なプログラムを作成できるようになる</p>
+            <p style="margin-top: 10px;"><strong>開発者ツールの開き方：</strong>F12キー（Mac: Command + Option + I）</p>
+        </div>
+
+        <h2>📚 第1章で学んだこと</h2>
+
+        <div class="lesson-review">
+            <div class="lesson-card">
+                <h4>📝 レッスン1-3</h4>
+                <p><strong>コンソールと基本操作</strong></p>
+                <ul>
+                    <li>console.log()</li>
+                    <li>文字列と数値</li>
+                    <li>四則演算</li>
+                    <li>演算子の優先順位</li>
+                </ul>
+            </div>
+
+            <div class="lesson-card">
+                <h4>📝 レッスン4-6</h4>
+                <p><strong>HTMLとalert</strong></p>
+                <ul>
+                    <li>HTMLファイル作成</li>
+                    <li>scriptタグ</li>
+                    <li>alert()</li>
+                    <li>confirm()</li>
+                </ul>
+            </div>
+
+            <div class="lesson-card">
+                <h4>📝 レッスン7-9</h4>
+                <p><strong>変数と文字列</strong></p>
+                <ul>
+                    <li>let変数</li>
+                    <li>変数の命名規則</li>
+                    <li>文字列連結（+）</li>
+                    <li>データの保存と利用</li>
+                </ul>
+            </div>
+
+            <div class="lesson-card">
+                <h4>📝 レッスン10-11</h4>
+                <p><strong>定数と使い分け</strong></p>
+                <ul>
+                    <li>const定数</li>
+                    <li>再代入の可否</li>
+                    <li>letとconstの使い分け</li>
+                    <li>カウンター（counter + 1）</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>🔍 重要な概念の復習</h2>
+
+        <div class="review-section">
+            <h3>1. console.log と alert の違い</h3>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>項目</th>
+                    <th>console.log</th>
+                    <th>alert</th>
+                </tr>
+                <tr>
+                    <td><strong>表示場所</strong></td>
+                    <td>コンソール（開発者ツール）</td>
+                    <td>画面（ポップアップ）</td>
+                </tr>
+                <tr>
+                    <td><strong>次の処理</strong></td>
+                    <td>すぐに進む</td>
+                    <td>OKを押すまで止まる</td>
+                </tr>
+                <tr>
+                    <td><strong>主な用途</strong></td>
+                    <td>開発中のデバッグ</td>
+                    <td>ユーザーへの通知</td>
+                </tr>
+                <tr>
+                    <td><strong>例</strong></td>
+                    <td><code>console.log("値: " + x)</code></td>
+                    <td><code>alert("完了しました")</code></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="review-section">
+            <h3>2. let と const の使い分け</h3>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>キーワード</th>
+                    <th>再代入</th>
+                    <th>使う場面</th>
+                    <th>例</th>
+                </tr>
+                <tr>
+                    <td><strong>let</strong></td>
+                    <td>✅ できる</td>
+                    <td>値が変わる変数</td>
+                    <td>
+                        <code>let counter = 0;</code><br>
+                        <code>let total = 0;</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>const</strong></td>
+                    <td>❌ できない</td>
+                    <td>値が変わらない定数</td>
+                    <td>
+                        <code>const taxRate = 1.1;</code><br>
+                        <code>const pi = 3.14;</code>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="tip">
+                <strong>💡 覚えておくこと：</strong>迷ったら <code>const</code> を使い、再代入が必要になったら <code>let</code> に変える
+            </div>
+        </div>
+
+        <div class="review-section">
+            <h3>3. よく使うパターン</h3>
+
+            <div class="step-box">
+                <strong>パターン1：文字列連結</strong>
+                <div class="code-box" style="margin-top: 10px;">
+                    <code>
+let name = "太郎";<br>
+let age = 20;<br>
+let message = name + "は" + age + "歳です";
+                    </code>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <strong>パターン2：カウントアップ</strong>
+                <div class="code-box" style="margin-top: 10px;">
+                    <code>
+let counter = 0;<br>
+counter = counter + 1;  // 1<br>
+counter = counter + 1;  // 2
+                    </code>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <strong>パターン3：計算と累積</strong>
+                <div class="code-box" style="margin-top: 10px;">
+                    <code>
+let total = 0;<br>
+total = total + 100;  // 100<br>
+total = total + 200;  // 300
+                    </code>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <strong>パターン4：税込価格計算</strong>
+                <div class="code-box" style="margin-top: 10px;">
+                    <code>
+const taxRate = 1.1;<br>
+let price = 1000;<br>
+let priceWithTax = price * taxRate;
+                    </code>
+                </div>
+            </div>
+        </div>
+
+        <h2>✏️ 総合確認問題</h2>
+
+        <div class="task">
+            <h3>問題1：税込価格の計算</h3>
+            <p>消費税率10%で、以下の商品の税込価格を計算して表示してください。</p>
+            <ul>
+                <li>りんご：150円</li>
+                <li>パン：200円</li>
+                <li>牛乳：180円</li>
+            </ul>
+            <p><strong>要件：</strong></p>
+            <div class="checklist">
+                <div class="checklist-item">const taxRate = 1.1 を使う</div>
+                <div class="checklist-item">各商品の税込価格を計算</div>
+                <div class="checklist-item">合計の税込価格も計算</div>
+                <div class="checklist-item">console.logで結果を表示</div>
+            </div>
+
+            <div class="example">
+                <h4>期待される出力</h4>
+                <div class="console-output">
+                    <div class="output-line">りんご（税込）：165円</div>
+                    <div class="output-line">パン（税込）：220円</div>
+                    <div class="output-line">牛乳（税込）：198円</div>
+                    <div class="output-line">合計（税込）：583円</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="task">
+            <h3>問題2：自己紹介文の作成</h3>
+            <p>以下の情報を変数に保存し、自己紹介文を作成して表示してください。</p>
+            <ul>
+                <li>名前</li>
+                <li>年齢</li>
+                <li>出身地</li>
+                <li>趣味</li>
+            </ul>
+            <p><strong>形式：</strong>「○○は○○歳で、○○出身です。趣味は○○です。」</p>
+
+            <div class="example">
+                <h4>期待される出力</h4>
+                <div class="console-output">
+                    <div class="output-line">山田太郎は25歳で、東京出身です。趣味はプログラミングです。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="task">
+            <h3>問題3：カウントアップ</h3>
+            <p>0から始めて5まで数え上げるプログラムを作成してください。</p>
+
+            <div class="checklist">
+                <div class="checklist-item">let counter = 0 で開始</div>
+                <div class="checklist-item">counter = counter + 1 で5回増やす</div>
+                <div class="checklist-item">各回「カウント：○」の形式で表示</div>
+            </div>
+
+            <div class="example">
+                <h4>期待される出力</h4>
+                <div class="console-output">
+                    <div class="output-line">カウント：1</div>
+                    <div class="output-line">カウント：2</div>
+                    <div class="output-line">カウント：3</div>
+                    <div class="output-line">カウント：4</div>
+                    <div class="output-line">カウント：5</div>
+                </div>
+            </div>
+        </div>
+
+        <h2>🎯 実践課題</h2>
+
+        <div class="task">
+            <h3>課題1：オリジナル自己紹介ページ</h3>
+            <p>第1章で学んだすべての知識を使って、自分だけのオリジナル自己紹介ページを作成してください。</p>
+
+            <div class="checklist">
+                <div class="checklist-item">最低5つの変数を使う</div>
+                <div class="checklist-item">最低1つの定数を使う</div>
+                <div class="checklist-item">最低1つの計算を含める</div>
+                <div class="checklist-item">文字列連結で文章を作る</div>
+                <div class="checklist-item">console.logで出力</div>
+                <div class="checklist-item">alertでも表示（任意）</div>
+            </div>
+
+            <div class="tip">
+                <strong>💡 アイデア：</strong>
+                <ul style="margin-top: 10px;">
+                    <li>現在の年から生まれ年を引いて年齢を計算</li>
+                    <li>好きな色、血液型、将来の夢なども追加</li>
+                    <li>趣味の開始年から何年続けているか計算</li>
+                    <li>学校や職業の情報も含める</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <h4>実装例の構成</h4>
+                <div class="code-box">
+                    <code>
+// 定数<br>
+const currentYear = 2025;<br>
+<br>
+// 変数（個人情報）<br>
+let name = "あなたの名前";<br>
+let birthYear = あなたの生まれ年;<br>
+let city = "あなたの出身地";<br>
+let hobby = "あなたの趣味";<br>
+let favoriteFood = "好きな食べ物";<br>
+<br>
+// 計算<br>
+let age = currentYear - birthYear;<br>
+<br>
+// 自己紹介文を作成<br>
+let intro1 = "私の名前は" + name + "です。";<br>
+let intro2 = birthYear + "年生まれの" + age + "歳です。";<br>
+// ... 続きを作成<br>
+<br>
+// 出力<br>
+console.log(intro1);<br>
+console.log(intro2);
+                    </code>
+                </div>
+            </div>
+        </div>
+
+        <div class="task">
+            <h3>課題2：買い物レシート</h3>
+            <p>以下の買い物リストのレシートを作成してください。</p>
+            <ul>
+                <li>ノート：150円 × 2冊</li>
+                <li>ペン：100円 × 3本</li>
+                <li>消しゴム：80円 × 1個</li>
+                <li>消費税率：10%</li>
+            </ul>
+
+            <div class="checklist">
+                <div class="checklist-item">各商品の単価と個数を変数に保存</div>
+                <div class="checklist-item">各商品の小計を計算</div>
+                <div class="checklist-item">合計（税抜）を計算</div>
+                <div class="checklist-item">税込合計を計算</div>
+                <div class="checklist-item">レシート形式で出力</div>
+            </div>
+
+            <div class="example">
+                <h4>期待される出力</h4>
+                <div class="console-output">
+                    <div class="output-line">--- 買い物レシート ---</div>
+                    <div class="output-line">ノート：300円</div>
+                    <div class="output-line">ペン：300円</div>
+                    <div class="output-line">消しゴム：80円</div>
+                    <div class="output-line">小計：680円</div>
+                    <div class="output-line">税込合計：748円</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="task">
+            <h3>課題3：学習記録まとめ</h3>
+            <p>第1章で学習した内容を記録するプログラムを作成してください。</p>
+
+            <div class="checklist">
+                <div class="checklist-item">学習開始日と現在日を変数に保存</div>
+                <div class="checklist-item">学習日数を計算</div>
+                <div class="checklist-item">完了したレッスン数を変数に保存</div>
+                <div class="checklist-item">1日あたりの学習レッスン数を計算</div>
+                <div class="checklist-item">成果をまとめて表示</div>
+            </div>
+
+            <div class="example">
+                <h4>期待される出力例</h4>
+                <div class="console-output">
+                    <div class="output-line">=== 第1章 学習記録 ===</div>
+                    <div class="output-line">学習開始日：2025年1月1日</div>
+                    <div class="output-line">学習日数：20日</div>
+                    <div class="output-line">完了レッスン数：12レッスン</div>
+                    <div class="output-line">1日あたり：0.6レッスン</div>
+                    <div class="output-line">おめでとうございます！第1章完了です！</div>
+                </div>
+            </div>
+        </div>
+
+        <h2>🎨 実践エリア</h2>
+
+        <div class="practice-area">
+            <h3>ここでコードを書いて試してみよう</h3>
+            <p>下のscriptタグの中にコードを書いて、このHTMLファイルをブラウザで開くと、開発者ツールのConsoleタブに結果が表示されます。</p>
+
+            <div class="tip">
+                <strong>💡 作業のコツ：</strong>
+                <ul style="margin-top: 10px;">
+                    <li>まず総合確認問題（問題1-3）を解く</li>
+                    <li>次に実践課題（課題1-3）に取り組む</li>
+                    <li>一つの課題が終わったら、そのコードをコメントアウト（//）して次に進む</li>
+                    <li>エラーが出たら、エラーメッセージをよく読んで原因を探す</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="achievement-box">
+            <h3>🏆 第1章の成果</h3>
+            <p style="font-size: 1.2em; margin: 15px 0;">あなたができるようになったこと</p>
+            <div class="achievement-list">
+                <div class="achievement-item">✅ JavaScriptの実行</div>
+                <div class="achievement-item">✅ コンソール出力</div>
+                <div class="achievement-item">✅ ポップアップ表示</div>
+                <div class="achievement-item">✅ 変数の使用</div>
+                <div class="achievement-item">✅ 定数の使用</div>
+                <div class="achievement-item">✅ 四則演算</div>
+                <div class="achievement-item">✅ 文字列連結</div>
+                <div class="achievement-item">✅ カウンター作成</div>
+            </div>
+        </div>
+
+        <div class="info-box" style="margin-top: 30px;">
+            <h3>🎉 次のステップへ</h3>
+            <p>第1章の全課題を完了したら、第2章に進みましょう！</p>
+            <p style="margin-top: 15px;"><strong>第2章で学ぶこと：</strong></p>
+            <ul style="margin-top: 10px;">
+                <li>HTMLの要素を取得する</li>
+                <li>要素の内容を変更する</li>
+                <li>ボタンをクリックしたときの処理</li>
+                <li>Webページを動的に操作する</li>
+            </ul>
+            <p style="margin-top: 15px;">これまでコンソールやalertで結果を表示していましたが、第2章ではWebページに直接結果を表示できるようになります！</p>
+        </div>
+    </div>
+
+    <script>
+        // ここにコードを書いてください
+
+    </script>
+</body>
+</html>

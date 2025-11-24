@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 143</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .section {
+            margin: 30px 0;
+            padding: 25px;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+        }
+        .section h2 {
+            color: #2c5f2d;
+            margin-top: 0;
+        }
+        .card {
+            padding: 20px;
+            margin: 15px 0;
+            background-color: white;
+            border-left: 4px solid #4CAF50;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .card h3 {
+            margin-top: 0;
+            color: #2c5f2d;
+        }
+        .property {
+            margin: 8px 0;
+            padding: 5px 0;
+        }
+        .property strong {
+            display: inline-block;
+            min-width: 150px;
+            color: #555;
+        }
+        .book-item {
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #f9f9f9;
+            border-left: 3px solid #2196F3;
+            border-radius: 3px;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .available {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .borrowed {
+            background-color: #FF9800;
+            color: white;
+        }
+        .overdue {
+            background-color: #F44336;
+            color: white;
+        }
+        .hint {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>図書館管理システム</h1>
+
+    <div class="section">
+        <h2>図書館情報</h2>
+        <div id="libraryInfo" class="card"></div>
+    </div>
+
+    <div class="section">
+        <h2>蔵書リスト</h2>
+        <div id="booksList"></div>
+    </div>
+
+    <div class="section">
+        <h2>会員情報</h2>
+        <div id="memberInfo" class="card"></div>
+    </div>
+
+    <div class="hint">
+        <strong>ヒント:</strong>
+        <ul>
+            <li>オブジェクトには属性（プロパティ）と動作（メソッド）があります</li>
+            <li>配列を使って複数の本や会員を管理できます</li>
+            <li>IDを使ってオブジェクト間の関係を表現します</li>
+            <li>メソッドで貸出・返却などの処理を実装します</li>
+        </ul>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,4 +1,687 @@
-<script>
-// ここにコードを書いてください
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 009: 文字の連結 - 演習</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-</script>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .goal {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .goal h2 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .goal ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .goal li {
+            padding: 8px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .goal li:before {
+            content: "🎯";
+            position: absolute;
+            left: 0;
+        }
+
+        .concept {
+            background: #f8f9ff;
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+
+        .concept h3 {
+            color: #667eea;
+            margin-bottom: 12px;
+            font-size: 1.3em;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 25px 0;
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 10px;
+        }
+
+        .comparison > div {
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .addition {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+        }
+
+        .concatenation {
+            background: #fff3e0;
+            border: 2px solid #ff9800;
+        }
+
+        .comparison h4 {
+            margin-bottom: 12px;
+            font-size: 1.2em;
+        }
+
+        .example {
+            background: white;
+            padding: 12px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            border-left: 3px solid #667eea;
+        }
+
+        .task {
+            background: white;
+            border: 3px solid #667eea;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .task h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .task-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+            text-align: center;
+            border-radius: 50%;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .steps {
+            background: #f0f7ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .steps h4 {
+            color: #667eea;
+            margin-bottom: 12px;
+            font-size: 1.2em;
+        }
+
+        .steps ol {
+            padding-left: 25px;
+        }
+
+        .steps li {
+            margin: 8px 0;
+            padding: 5px 0;
+        }
+
+        .hint {
+            background: #fff9e6;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .hint strong {
+            color: #f57c00;
+        }
+
+        .important {
+            background: #ffebee;
+            border-left: 4px solid #e53935;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .important strong {
+            color: #c62828;
+            font-size: 1.1em;
+        }
+
+        .code-template {
+            background: #263238;
+            color: #aed581;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+            line-height: 1.6;
+        }
+
+        .comment {
+            color: #90a4ae;
+        }
+
+        .string {
+            color: #ffeb3b;
+        }
+
+        .keyword {
+            color: #81d4fa;
+        }
+
+        .checklist {
+            background: #f1f8e9;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+        }
+
+        .checklist h3 {
+            color: #558b2f;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .checklist ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .checklist li {
+            padding: 8px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .checklist li:before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            font-size: 1.3em;
+            color: #558b2f;
+        }
+
+        .output-example {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            border-left: 4px solid #4caf50;
+        }
+
+        .output-label {
+            color: #4caf50;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-size: 1.1em;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        .operator-role {
+            background: #fff8e1;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #ffc107;
+        }
+
+        .operator-role h4 {
+            color: #f57c00;
+            margin-bottom: 12px;
+            font-size: 1.2em;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #666;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📝 Lesson 009: 文字の連結</h1>
+        <div class="subtitle">String Concatenation - 名前合成マシンを作ろう！</div>
+
+        <div class="goal">
+            <h2>🎯 今回の目標</h2>
+            <ul>
+                <li>文字列同士を連結できるようになる</li>
+                <li>変数を使って文章を組み立てられるようになる</li>
+                <li>+演算子の2つの役割を理解する</li>
+                <li>名前合成マシンを作れるようになる</li>
+            </ul>
+        </div>
+
+        <div class="concept">
+            <h3>💡 文字列の連結とは</h3>
+            <p>複数の文字列を1つにつなげることを「連結（concatenation）」と言います。JavaScriptでは、<strong>+</strong>演算子を使って文字列を連結します。</p>
+
+            <div class="example">
+                <strong>例：</strong><br>
+                let greeting = "こんにちは" + "世界";<br>
+                console.log(greeting);  <span style="color: #90a4ae">// "こんにちは世界"</span>
+            </div>
+
+            <p style="margin-top: 15px;">これは、2つの文字列をくっつけて1つの新しい文字列を作っています！</p>
+        </div>
+
+        <div class="comparison">
+            <div class="addition">
+                <h4>➕ 数値の場合（足し算）</h4>
+                <div class="example">
+                    let a = 10;<br>
+                    let b = 20;<br>
+                    let result = a + b;<br>
+                    <span style="color: #2196f3">// result = 30</span>
+                </div>
+                <p><strong>計算</strong>が行われます</p>
+            </div>
+
+            <div class="concatenation">
+                <h4>📝 文字列の場合（連結）</h4>
+                <div class="example">
+                    let first = "山田";<br>
+                    let last = "太郎";<br>
+                    let full = first + last;<br>
+                    <span style="color: #ff9800">// full = "山田太郎"</span>
+                </div>
+                <p><strong>連結</strong>が行われます</p>
+            </div>
+        </div>
+
+        <div class="operator-role">
+            <h4>⚠️ +演算子の2つの役割</h4>
+            <p><strong>+演算子は状況によって動作が変わります！</strong></p>
+
+            <table style="margin-top: 15px;">
+                <thead>
+                    <tr>
+                        <th>オペランドの型</th>
+                        <th>動作</th>
+                        <th>例</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>両方が数値</strong></td>
+                        <td>足し算</td>
+                        <td>10 + 20 = 30</td>
+                    </tr>
+                    <tr>
+                        <td><strong>少なくとも一方が文字列</strong></td>
+                        <td>連結</td>
+                        <td>"10" + "20" = "1020"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>文字列と数値</strong></td>
+                        <td>連結（数値が文字列に変換される）</td>
+                        <td>"合計:" + 100 = "合計:100"</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="important">
+            <strong>🚨 注意が必要なケース</strong>
+            <p style="margin-top: 10px;">文字列として保存された数字は、足し算ではなく連結になります！</p>
+            <div class="example" style="margin-top: 10px;">
+                let a = "10";  <span class="comment">// 文字列</span><br>
+                let b = "20";  <span class="comment">// 文字列</span><br>
+                console.log(a + b);  <span class="comment">// "1020" （連結）</span>
+            </div>
+        </div>
+
+        <!-- 課題1 -->
+        <div class="task">
+            <h3><span class="task-number">1</span>基本の名前合成</h3>
+            <p>自分の名字と名前を変数に保存し、フルネームを作成して表示してください。</p>
+
+            <div class="steps">
+                <h4>📋 手順</h4>
+                <ol>
+                    <li><code>firstName</code>という変数に名字を保存する</li>
+                    <li><code>lastName</code>という変数に名前を保存する</li>
+                    <li><code>fullName</code>という変数に、firstName + lastNameの結果を保存する</li>
+                    <li>それぞれの値をconsole.logで表示する</li>
+                </ol>
+            </div>
+
+            <div class="hint">
+                <strong>💡 ヒント：</strong>
+                文字列は "（ダブルクォーテーション）で囲みます。+演算子で文字列をつなげることができます。
+            </div>
+
+            <div class="code-template">
+<span class="keyword">let</span> firstName = <span class="string">"山田"</span>;<br>
+<span class="keyword">let</span> lastName = <span class="string">"太郎"</span>;<br>
+<span class="keyword">let</span> fullName = firstName + lastName;<br>
+<br>
+console.log(<span class="string">"名字："</span> + firstName);<br>
+console.log(<span class="string">"名前："</span> + lastName);<br>
+console.log(<span class="string">"フルネーム："</span> + fullName);
+            </div>
+
+            <div class="output-example">
+                <div class="output-label">📺 期待される出力（コンソール）：</div>
+                名字：山田<br>
+                名前：太郎<br>
+                フルネーム：山田太郎
+            </div>
+        </div>
+
+        <!-- 課題2 -->
+        <div class="task">
+            <h3><span class="task-number">2</span>挨拶文の作成</h3>
+            <p>名前と時間帯を変数に保存し、挨拶文を作成してください。</p>
+
+            <div class="steps">
+                <h4>📋 手順</h4>
+                <ol>
+                    <li><code>name</code>という変数に名前を保存する</li>
+                    <li><code>timeOfDay</code>という変数に時間帯（"朝"、"昼"、"夜"など）を保存する</li>
+                    <li>文字列を連結して挨拶文を作成する</li>
+                    <li>console.logで挨拶文を表示する</li>
+                </ol>
+            </div>
+
+            <div class="hint">
+                <strong>💡 ヒント：</strong>
+                "さん"や"、"などの記号も文字列として連結できます。例：name + "さん、おはようございます。"
+            </div>
+
+            <div class="code-template">
+<span class="comment">// あなたのコードをここに書いてください</span><br>
+<span class="keyword">let</span> name = <span class="string">"あなたの名前"</span>;<br>
+<span class="keyword">let</span> timeOfDay = <span class="string">"朝"</span>;<br>
+<br>
+<span class="comment">// 挨拶文を作成して表示</span>
+            </div>
+
+            <div class="output-example">
+                <div class="output-label">📺 期待される出力例：</div>
+                山田さん、おはようございます。<br>
+                または<br>
+                太郎さん、こんばんは。
+            </div>
+        </div>
+
+        <!-- 課題3 -->
+        <div class="task">
+            <h3><span class="task-number">3</span>プロフィール文の作成</h3>
+            <p>複数の情報を変数に保存し、1つの文章にまとめて表示してください。</p>
+
+            <div class="steps">
+                <h4>📋 手順</h4>
+                <ol>
+                    <li>以下の情報を変数に保存する：
+                        <ul>
+                            <li>名前（name）</li>
+                            <li>年齢（age）</li>
+                            <li>出身地（hometown）</li>
+                            <li>趣味（hobby）</li>
+                        </ul>
+                    </li>
+                    <li>これらの変数を連結してプロフィール文を作成する</li>
+                    <li><code>profile</code>という変数に保存する</li>
+                    <li>console.logで表示する</li>
+                </ol>
+            </div>
+
+            <div class="hint">
+                <strong>💡 ヒント：</strong>
+                数値（age）も+で連結できます。JavaScriptが自動的に文字列に変換してくれます！
+            </div>
+
+            <div class="code-template">
+<span class="keyword">let</span> name = <span class="string">"山田太郎"</span>;<br>
+<span class="keyword">let</span> age = 25;<br>
+<span class="keyword">let</span> hometown = <span class="string">"東京"</span>;<br>
+<span class="keyword">let</span> hobby = <span class="string">"読書"</span>;<br>
+<br>
+<span class="keyword">let</span> profile = name + <span class="string">"は"</span> + age + <span class="string">"歳で、"</span> + hometown + <span class="string">"出身です。趣味は"</span> + hobby + <span class="string">"です。"</span>;<br>
+console.log(profile);
+            </div>
+
+            <div class="output-example">
+                <div class="output-label">📺 期待される出力：</div>
+                山田太郎は25歳で、東京出身です。趣味は読書です。
+            </div>
+        </div>
+
+        <!-- 課題4 -->
+        <div class="task">
+            <h3><span class="task-number">4</span>家族の名前合成</h3>
+            <p>3人の家族の名字と名前を変数に保存し、それぞれのフルネームと全員の名前を表示してください。</p>
+
+            <div class="steps">
+                <h4>📋 手順</h4>
+                <ol>
+                    <li>3人分の名字と名前を変数に保存する
+                        <ul>
+                            <li>person1First, person1Last</li>
+                            <li>person2First, person2Last</li>
+                            <li>person3First, person3Last</li>
+                        </ul>
+                    </li>
+                    <li>それぞれのフルネームを作成する（person1Full, person2Full, person3Full）</li>
+                    <li>各フルネームを表示する</li>
+                    <li>全員の名前をカンマで区切って連結し、1つの文字列として表示する</li>
+                </ol>
+            </div>
+
+            <div class="hint">
+                <strong>💡 ヒント：</strong>
+                カンマ（、）も文字列の一部として連結できます。例：person1Full + "、" + person2Full
+            </div>
+
+            <div class="code-template">
+<span class="keyword">let</span> person1First = <span class="string">"山田"</span>;<br>
+<span class="keyword">let</span> person1Last = <span class="string">"太郎"</span>;<br>
+<span class="keyword">let</span> person1Full = person1First + person1Last;<br>
+<br>
+<span class="comment">// 残りの2人の情報も同様に作成してください</span><br>
+<br>
+console.log(<span class="string">"家族1："</span> + person1Full);<br>
+<span class="comment">// 残りの家族も表示</span><br>
+<br>
+<span class="keyword">let</span> allNames = person1Full + <span class="string">"、"</span> + person2Full + <span class="string">"、"</span> + person3Full;<br>
+console.log(<span class="string">"全員："</span> + allNames);
+            </div>
+
+            <div class="output-example">
+                <div class="output-label">📺 期待される出力例：</div>
+                家族1：山田太郎<br>
+                家族2：山田花子<br>
+                家族3：山田次郎<br>
+                全員：山田太郎、山田花子、山田次郎
+            </div>
+        </div>
+
+        <!-- 課題5 -->
+        <div class="task">
+            <h3><span class="task-number">5</span>計算と連結の組み合わせ（チャレンジ！）</h3>
+            <p>生まれ年と現在の年を変数に保存し、年齢を計算して、文章を作成してください。</p>
+
+            <div class="steps">
+                <h4>📋 手順</h4>
+                <ol>
+                    <li><code>birthYear</code>という変数に生まれ年を保存する</li>
+                    <li><code>currentYear</code>という変数に現在の年（2025）を保存する</li>
+                    <li><code>age</code>という変数に年齢を計算して保存する（currentYear - birthYear）</li>
+                    <li>文字列連結を使って「私は○○年生まれで、今年○○歳になります。」という文章を作成する</li>
+                    <li>console.logで表示する</li>
+                </ol>
+            </div>
+
+            <div class="hint">
+                <strong>💡 ヒント：</strong>
+                まず計算（-）を行い、その結果を変数に保存してから、文字列連結（+）で文章を作ります。
+            </div>
+
+            <div class="important">
+                <strong>🚨 重要：</strong>
+                このタスクでは、計算（減算）と連結（+）の両方を使います。birthYearとcurrentYearは<strong>数値</strong>として保存してください！
+            </div>
+
+            <div class="code-template">
+<span class="keyword">let</span> birthYear = 1998;<br>
+<span class="keyword">let</span> currentYear = 2025;<br>
+<span class="keyword">let</span> age = currentYear - birthYear;  <span class="comment">// 計算</span><br>
+<br>
+<span class="keyword">let</span> message = <span class="string">"私は"</span> + birthYear + <span class="string">"年生まれで、今年"</span> + age + <span class="string">"歳になります。"</span>;<br>
+console.log(message);
+            </div>
+
+            <div class="output-example">
+                <div class="output-label">📺 期待される出力：</div>
+                私は1998年生まれで、今年27歳になります。
+            </div>
+        </div>
+
+        <div class="checklist">
+            <h3>✅ 完了チェックリスト</h3>
+            <p>すべての課題を終えたら、以下を確認しましょう：</p>
+            <ul>
+                <li>課題1：基本の名前合成ができた</li>
+                <li>課題2：挨拶文を作成できた</li>
+                <li>課題3：プロフィール文を作成できた</li>
+                <li>課題4：複数人の名前を合成できた</li>
+                <li>課題5：計算と連結を組み合わせることができた</li>
+                <li>F12キーで開発者ツールを開き、コンソールで結果を確認した</li>
+                <li>+演算子の2つの役割（足し算と連結）を理解した</li>
+                <li>文字列と数値の違いを理解した</li>
+            </ul>
+        </div>
+
+        <div class="concept">
+            <h3>🎓 学習のポイント</h3>
+            <ul style="list-style-type: none; padding-left: 0;">
+                <li style="margin: 10px 0;">✨ <strong>文字列の連結</strong>：+演算子で複数の文字列を1つにつなげることができる</li>
+                <li style="margin: 10px 0;">✨ <strong>+演算子の2つの役割</strong>：数値なら足し算、文字列なら連結</li>
+                <li style="margin: 10px 0;">✨ <strong>自動型変換</strong>：文字列と数値を+で連結すると、数値が自動的に文字列に変換される</li>
+                <li style="margin: 10px 0;">✨ <strong>スペースの挿入</strong>：" "（スペースを含む文字列）を使って単語の間にスペースを入れられる</li>
+                <li style="margin: 10px 0;">✨ <strong>複雑な文章の構築</strong>：複数の変数と文字列を組み合わせて、意味のある文章を作れる</li>
+            </ul>
+        </div>
+
+        <footer>
+            <p><strong>📚 Lesson 009: 文字の連結</strong></p>
+            <p>解答例は solutions/lesson-009/index.html で確認できます</p>
+            <p style="margin-top: 10px; color: #999;">学習を終えたら、次は「レッスン10：値の再代入」に進みましょう！</p>
+        </footer>
+    </div>
+
+    <script>
+        // ここにコードを書いてください
+        // F12キーで開発者ツールを開き、コンソールタブで結果を確認しましょう
+
+    </script>
+</body>
+</html>

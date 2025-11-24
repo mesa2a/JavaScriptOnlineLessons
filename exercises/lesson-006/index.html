@@ -1,4 +1,298 @@
-<script>
-// ここにコードを書いてください
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>レッスン6：alertで画面に表示 - 演習</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            border-bottom: 3px solid #4CAF50;
+            padding-bottom: 15px;
+        }
+        .section {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #4CAF50;
+            margin-top: 0;
+        }
+        .important {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .steps {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .steps ol {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        .steps li {
+            margin: 8px 0;
+        }
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d32f2f;
+        }
+        .example {
+            background-color: #263238;
+            color: #aed581;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+        .task {
+            background-color: #f3e5f5;
+            border-left: 4px solid #9C27B0;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .task h3 {
+            margin-top: 0;
+            color: #7B1FA2;
+        }
+        .comparison {
+            display: flex;
+            gap: 20px;
+            margin: 15px 0;
+        }
+        .comparison > div {
+            flex: 1;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .console-output {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+        }
+        .alert-output {
+            background-color: #fff3e0;
+            border-left: 4px solid #FF9800;
+        }
+    </style>
+</head>
+<body>
+    <h1>レッスン6：alertで画面に表示 - 演習</h1>
 
-</script>
+    <div class="section">
+        <h2>🎯 今回の目標</h2>
+        <p>この演習では、<strong>alert()とconfirm()を使ってユーザーにメッセージを表示する方法</strong>を学びます。</p>
+        <ul>
+            <li>✅ alert()でポップアップを表示できる</li>
+            <li>✅ 複数のalert()を連続で使える</li>
+            <li>✅ confirm()で確認ダイアログを表示できる</li>
+            <li>✅ console.log()との違いを理解する</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>📚 console.log() と alert() の違い</h2>
+        <p><code>console.log()</code>と<code>alert()</code>は、どちらも何かを表示する命令ですが、表示する場所が異なります。</p>
+
+        <div class="comparison">
+            <div class="console-output">
+                <h3>console.log()</h3>
+                <ul>
+                    <li>📝 <strong>コンソールに表示</strong></li>
+                    <li>開発者ツール（F12）を開かないと見えない</li>
+                    <li>プログラマー向けのツール</li>
+                    <li>デバッグ（バグ探し）に使う</li>
+                    <li>実行を止めない</li>
+                </ul>
+            </div>
+            <div class="alert-output">
+                <h3>alert()</h3>
+                <ul>
+                    <li>💬 <strong>画面にポップアップ表示</strong></li>
+                    <li>誰でも見える</li>
+                    <li>ユーザー向けのメッセージ</li>
+                    <li>お知らせや警告に使う</li>
+                    <li>OKを押すまで実行が止まる</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="important">
+        <strong>🚨 重要ポイント</strong>
+        <p><code>alert()</code>は「OKボタンを押すまで次に進まない」という特徴があります。これは3コマ漫画のように、順番にストーリーを見せたいときに便利です。</p>
+    </div>
+
+    <div class="section">
+        <h2>📝 課題1：自己紹介を3コマで表示する</h2>
+        <p>自分の名前、趣味、あいさつを、3つの<code>alert()</code>で順番に表示してください。</p>
+
+        <div class="steps">
+            <strong>手順：</strong>
+            <ol>
+                <li>下のscriptタグの中にコードを書く</li>
+                <li>ファイルを保存する（Ctrl + S）</li>
+                <li>ブラウザでこのファイルを開く（またはリロード F5）</li>
+                <li>ポップアップが表示されたら、OKボタンを押す</li>
+                <li>次のポップアップが表示される → また OKを押す</li>
+                <li>3つ目のポップアップが表示される → OKを押す</li>
+            </ol>
+        </div>
+
+        <div class="example">
+&lt;script&gt;
+alert("私の名前は山田太郎です。");
+alert("趣味は読書です。");
+alert("よろしくお願いします。");
+&lt;/script&gt;</div>
+
+        <p><strong>期待される表示：</strong></p>
+        <ol>
+            <li>最初のポップアップ：「私の名前は山田太郎です。」</li>
+            <li>OKを押すと次：「趣味は読書です。」</li>
+            <li>OKを押すと最後：「よろしくお願いします。」</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2>📝 課題2：朝の1日を5コマで表示する</h2>
+        <p>朝起きてから家を出るまでの行動を、5つの<code>alert()</code>で順番に表示してください。</p>
+
+        <div class="important">
+            <strong>重要：</strong> 課題1のコードを残したまま、課題2のコードを追加してください。そうすると、ポップアップが合計8つ（3+5）表示されます。確認したら、課題1の3行を削除またはコメントアウトして、課題2だけが動くようにしましょう。
+        </div>
+
+        <div class="example">
+&lt;script&gt;
+// 課題1はコメントアウト
+// alert("私の名前は山田太郎です。");
+// alert("趣味は読書です。");
+// alert("よろしくお願いします。");
+
+// 課題2
+alert("目が覚めました。");
+alert("顔を洗いました。");
+alert("朝ごはんを食べました。");
+alert("歯を磨きました。");
+alert("家を出ました。");
+&lt;/script&gt;</div>
+
+        <p><strong>ヒント：</strong> 自分の朝の行動を思い出して書いてみましょう。例えば、「目が覚めた」「朝ごはんを食べた」「学校に行った」などです。</p>
+    </div>
+
+    <div class="section">
+        <h2>📝 課題3：計算物語を作る</h2>
+        <p>お金の計算をストーリー形式で表示してください。</p>
+
+        <div class="steps">
+            <strong>ストーリーの流れ：</strong>
+            <ol>
+                <li>「100円持っています」</li>
+                <li>「50円のお菓子を買いました」</li>
+                <li>「残りは...」</li>
+                <li>計算結果（<code>alert(100 - 50)</code>）</li>
+                <li>「50円です」</li>
+            </ol>
+        </div>
+
+        <div class="example">
+&lt;script&gt;
+alert("100円持っています。");
+alert("50円のお菓子を買いました。");
+alert("残りは...");
+alert(100 - 50);
+alert("50円です。");
+&lt;/script&gt;</div>
+
+        <div class="important">
+            <strong>注目：</strong> <code>alert(100 - 50)</code>のように、クォーテーション（引用符）をつけないと、計算された結果（50）が表示されます。
+        </div>
+
+        <p><strong>応用：</strong> 金額や商品を変えて、自分だけの計算物語を作ってみましょう！</p>
+    </div>
+
+    <div class="section">
+        <h2>📝 課題4：confirmを使った確認</h2>
+        <p><code>confirm()</code>は、ユーザーに「はい」か「いいえ」を選んでもらうためのポップアップです。</p>
+
+        <div class="example">
+&lt;script&gt;
+confirm("この先に進みますか？");
+alert("ありがとうございます。");
+&lt;/script&gt;</div>
+
+        <p><strong>試してみよう：</strong></p>
+        <ol>
+            <li>上のコードを実行する</li>
+            <li>confirmのポップアップが表示される</li>
+            <li>「OK」または「キャンセル」をクリック</li>
+            <li>どちらを選んでも次のalertが表示される</li>
+        </ol>
+
+        <div class="important">
+            <strong>メモ：</strong> <code>confirm()</code>は、ユーザーが「OK」を押したか「キャンセル」を押したかを判定できますが、それは後のレッスンで学びます。今は「確認ダイアログが表示される」ことを体験してください。
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🎓 学習のポイント</h2>
+
+        <h3>alertの特徴</h3>
+        <ul>
+            <li><strong>画面に表示される</strong> - F12を開かなくても見える</li>
+            <li><strong>順番に表示される</strong> - OKを押すまで次に進まない</li>
+            <li><strong>ストーリーが作れる</strong> - 3コマ漫画のように表現できる</li>
+            <li><strong>ユーザーへの通知</strong> - お知らせや警告に使う</li>
+        </ul>
+
+        <h3>console.logとの使い分け</h3>
+        <ul>
+            <li><code>console.log()</code> → プログラムの動作確認（開発者用）</li>
+            <li><code>alert()</code> → ユーザーへのメッセージ（ユーザー用）</li>
+        </ul>
+    </div>
+
+    <div class="task">
+        <h3>✅ チェックリスト</h3>
+        <p>以下がすべてできるようになったか確認してください：</p>
+        <ul>
+            <li>□ alert()を書いて実行できる</li>
+            <li>□ 複数のalert()を順番に表示できる</li>
+            <li>□ 文字列と数値をalert()で表示できる</li>
+            <li>□ confirm()を使って確認ダイアログを表示できる</li>
+            <li>□ console.log()とalert()の違いを説明できる</li>
+            <li>□ alert()を使って3コマ物語を作れる</li>
+        </ul>
+        <p><strong>すべてチェックできたら、次のレッスンへ進みましょう！</strong></p>
+    </div>
+
+    <script>
+        // ここにコードを書いてください
+        //
+        // 課題1の例：
+        // alert("私の名前は山田太郎です。");
+        // alert("趣味は読書です。");
+        // alert("よろしくお願いします。");
+        //
+        // 書いたら保存（Ctrl + S）して、ブラウザをリロード（F5）してください！
+
+    </script>
+</body>
+</html>

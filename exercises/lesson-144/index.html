@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 144</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .section {
+            margin: 30px 0;
+            padding: 25px;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+        }
+        .section h2 {
+            color: #2c5f2d;
+            margin-top: 0;
+        }
+        .result-box {
+            padding: 15px;
+            margin: 15px 0;
+            background-color: white;
+            border-left: 4px solid #4CAF50;
+            border-radius: 4px;
+        }
+        .product-card {
+            padding: 15px;
+            margin: 10px 0;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .property {
+            margin: 8px 0;
+            padding: 5px 0;
+        }
+        .property strong {
+            display: inline-block;
+            min-width: 120px;
+            color: #555;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .stat-card {
+            padding: 20px;
+            background-color: white;
+            border-radius: 4px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin: 10px 0;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+        }
+        .hint {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>オブジェクトと関数の組み合わせ</h1>
+
+    <div class="section">
+        <h2>1. 商品に税込価格を追加</h2>
+        <div id="productWithTax"></div>
+    </div>
+
+    <div class="section">
+        <h2>2. ユーザー検索</h2>
+        <div id="searchResults"></div>
+    </div>
+
+    <div class="section">
+        <h2>3. 注文統計</h2>
+        <div id="orderStats" class="stats-grid"></div>
+    </div>
+
+    <div class="hint">
+        <strong>ヒント:</strong>
+        <ul>
+            <li>関数の引数としてオブジェクトを渡せます</li>
+            <li>関数からオブジェクトを返すことができます</li>
+            <li>スプレッド構文 <code>{ ...obj, newProp: value }</code> で新しいプロパティを追加できます</li>
+            <li>forループで配列を処理して、条件に合うものだけを新しい配列に追加します</li>
+        </ul>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

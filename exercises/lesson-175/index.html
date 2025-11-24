@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ToDoリスト - レッスン175</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📝 ToDoリスト</h1>
+      <div class="stats">
+        <span id="total-count">全て: 0</span>
+        <span id="active-count">未完了: 0</span>
+        <span id="completed-count">完了: 0</span>
+      </div>
+    </header>
+
+    <!-- タスク追加フォーム -->
+    <form id="add-task-form" class="add-form">
+      <input
+        type="text"
+        id="task-input"
+        placeholder="新しいタスクを入力..."
+        required
+      >
+      <select id="priority-select">
+        <option value="low">低</option>
+        <option value="medium" selected>中</option>
+        <option value="high">高</option>
+      </select>
+      <input type="date" id="due-date-input">
+      <button type="submit">追加</button>
+    </form>
+
+    <!-- フィルターボタン -->
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">全て</button>
+      <button class="filter-btn" data-filter="active">未完了</button>
+      <button class="filter-btn" data-filter="completed">完了済み</button>
+    </div>
+
+    <!-- タスク一覧 -->
+    <ul id="task-list" class="task-list">
+      <!-- タスクがここに表示される -->
+    </ul>
+
+    <!-- 空の状態 -->
+    <div id="empty-state" class="empty-state" style="display: none;">
+      <p>タスクがありません</p>
+      <p class="hint">上のフォームから新しいタスクを追加してください</p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

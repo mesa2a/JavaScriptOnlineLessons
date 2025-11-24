@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>タイマー＆ストップウォッチ - レッスン180</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <div class="app-header">
+      <h1>⏱️ タイマー＆ストップウォッチ</h1>
+    </div>
+
+    <!-- タブ切り替え -->
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="stopwatch">ストップウォッチ</button>
+      <button class="tab-btn" data-tab="timer">タイマー</button>
+    </div>
+
+    <!-- ストップウォッチセクション -->
+    <div class="tab-content active" id="stopwatch-tab">
+      <!-- 時間表示 -->
+      <div class="time-display">
+        <span id="stopwatch-time">00:00:00.00</span>
+      </div>
+
+      <!-- コントロールボタン -->
+      <div class="controls">
+        <button id="stopwatch-start" class="btn btn-primary">スタート</button>
+        <button id="stopwatch-lap" class="btn btn-secondary" disabled>ラップ</button>
+        <button id="stopwatch-reset" class="btn btn-danger" disabled>リセット</button>
+      </div>
+
+      <!-- ラップタイム一覧 -->
+      <div class="laps-container">
+        <h3>ラップタイム</h3>
+        <div id="laps-list" class="laps-list">
+          <p class="empty-message">ラップタイムはありません</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- タイマーセクション -->
+    <div class="tab-content" id="timer-tab">
+      <!-- 時間表示 -->
+      <div class="time-display">
+        <span id="timer-time">00:00:00</span>
+      </div>
+
+      <!-- 時間設定 -->
+      <div class="time-input">
+        <div class="input-group">
+          <label>時</label>
+          <input type="number" id="hours-input" min="0" max="23" value="0">
+        </div>
+        <div class="input-group">
+          <label>分</label>
+          <input type="number" id="minutes-input" min="0" max="59" value="0">
+        </div>
+        <div class="input-group">
+          <label>秒</label>
+          <input type="number" id="seconds-input" min="0" max="59" value="0">
+        </div>
+      </div>
+
+      <!-- コントロールボタン -->
+      <div class="controls">
+        <button id="timer-start" class="btn btn-primary">スタート</button>
+        <button id="timer-reset" class="btn btn-danger" disabled>リセット</button>
+      </div>
+
+      <!-- プリセット -->
+      <div class="presets-container">
+        <h3>プリセット</h3>
+        <div class="presets-list">
+          <button class="preset-btn" data-seconds="60">1分</button>
+          <button class="preset-btn" data-seconds="180">3分</button>
+          <button class="preset-btn" data-seconds="300">5分</button>
+          <button class="preset-btn" data-seconds="600">10分</button>
+          <button class="preset-btn" data-seconds="900">15分</button>
+          <button class="preset-btn" data-seconds="1800">30分</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>天気情報アプリ - レッスン177</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>🌤️ 天気情報アプリ</h1>
+      <div class="unit-toggle">
+        <button id="unit-toggle-btn" class="toggle-btn">°F</button>
+      </div>
+    </header>
+
+    <!-- 検索セクション -->
+    <section class="search-section">
+      <div class="search-container">
+        <input
+          type="text"
+          id="search-input"
+          class="search-input"
+          placeholder="都市名を入力してください（例：東京、大阪）"
+        >
+        <button id="search-btn" class="btn btn-primary">検索</button>
+      </div>
+
+      <!-- 検索候補 -->
+      <div id="suggestions" class="suggestions" style="display: none;">
+        <!-- 候補がここに表示される -->
+      </div>
+
+      <!-- 検索履歴 -->
+      <div id="search-history" class="search-history" style="display: none;">
+        <h3>最近の検索</h3>
+        <div id="history-list" class="history-list">
+          <!-- 履歴がここに表示される -->
+        </div>
+      </div>
+    </section>
+
+    <!-- お気に入りセクション -->
+    <section class="favorites-section">
+      <h2>⭐ お気に入り</h2>
+      <div id="favorites-list" class="favorites-list">
+        <p class="empty-message">お気に入りの都市がありません</p>
+      </div>
+    </section>
+
+    <!-- ローディングスピナー -->
+    <div id="loading" class="loading" style="display: none;">
+      <div class="spinner"></div>
+      <p>読み込み中...</p>
+    </div>
+
+    <!-- エラーメッセージ -->
+    <div id="error" class="error" style="display: none;">
+      <p id="error-message"></p>
+    </div>
+
+    <!-- 現在の天気セクション -->
+    <section id="weather-section" class="weather-section" style="display: none;">
+      <!-- 天気ヘッダー -->
+      <div class="weather-header">
+        <div class="city-info">
+          <h2 id="city-name">東京</h2>
+          <button id="add-favorite-btn" class="favorite-btn">⭐ お気に入りに追加</button>
+        </div>
+      </div>
+
+      <!-- 現在の天気 -->
+      <div class="current-weather">
+        <div class="weather-main">
+          <div class="weather-icon" id="weather-icon">☀️</div>
+          <div class="temperature-display">
+            <span id="temperature" class="temperature">22</span>
+            <span id="unit" class="unit">°C</span>
+          </div>
+        </div>
+        <div id="weather-description" class="weather-description">晴れ</div>
+      </div>
+
+      <!-- 天気の詳細 -->
+      <div class="weather-details">
+        <div class="detail-item">
+          <span class="detail-icon">💧</span>
+          <span class="detail-label">湿度</span>
+          <span id="humidity" class="detail-value">65%</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-icon">💨</span>
+          <span class="detail-label">風速</span>
+          <span id="wind-speed" class="detail-value">12 m/s</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-icon">🌡️</span>
+          <span class="detail-label">気圧</span>
+          <span id="pressure" class="detail-value">1013 hPa</span>
+        </div>
+      </div>
+
+      <!-- 5日間の予報 -->
+      <div class="forecast-section">
+        <h3>5日間の予報</h3>
+        <div id="forecast-list" class="forecast-list">
+          <!-- 予報がここに表示される -->
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="weather-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

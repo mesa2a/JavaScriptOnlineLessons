@@ -1,4 +1,227 @@
-<script>
-// ここにコードを書いてください
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>レッスン5：ブラウザで実行 - 演習</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            border-bottom: 3px solid #4CAF50;
+            padding-bottom: 15px;
+        }
+        .section {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #4CAF50;
+            margin-top: 0;
+        }
+        .important {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .steps {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .steps ol {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        .steps li {
+            margin: 8px 0;
+        }
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d32f2f;
+        }
+        .example {
+            background-color: #263238;
+            color: #aed581;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+        .task {
+            background-color: #f3e5f5;
+            border-left: 4px solid #9C27B0;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .task h3 {
+            margin-top: 0;
+            color: #7B1FA2;
+        }
+    </style>
+</head>
+<body>
+    <h1>レッスン5：ブラウザで実行 - 演習</h1>
 
-</script>
+    <div class="section">
+        <h2>🎯 今回の目標</h2>
+        <p>この演習では、<strong>開発サイクル（編集 → 保存 → リロード → 確認）</strong>を完全に身につけます。</p>
+        <ul>
+            <li>✅ コードを編集できる</li>
+            <li>✅ ファイルを保存できる（Ctrl + S）</li>
+            <li>✅ ブラウザをリロードできる（F5）</li>
+            <li>✅ コンソールで結果を確認できる（F12）</li>
+        </ul>
+    </div>
+
+    <div class="important">
+        <strong>🚨 超重要ポイント</strong>
+        <p>コードを変更したら、必ず以下の手順を踏んでください：</p>
+        <ol>
+            <li><strong>保存する</strong>（Ctrl + S） → 保存しないと変更が反映されません</li>
+            <li><strong>リロードする</strong>（F5） → リロードしないと古いコードが実行されます</li>
+            <li><strong>コンソールを見る</strong>（F12） → 結果はコンソールに表示されます</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2>📝 課題1：自己紹介を出力する</h2>
+        <p>自分の名前、年齢、住んでいる都道府県を出力してください。</p>
+
+        <div class="steps">
+            <strong>手順：</strong>
+            <ol>
+                <li>下のscriptタグの中にコードを書く</li>
+                <li>ファイルを保存する（Ctrl + S）</li>
+                <li>ブラウザでこのファイルを開く（ダブルクリック）</li>
+                <li>F12キーを押してコンソールを開く</li>
+                <li>F5キーを押してリロードする</li>
+                <li>コンソールに正しく表示されているか確認する</li>
+            </ol>
+        </div>
+
+        <div class="example">
+&lt;script&gt;
+console.log("名前：山田太郎");
+console.log("年齢：20歳");
+console.log("住所：東京都");
+&lt;/script&gt;</div>
+
+        <p><strong>期待される出力：</strong></p>
+        <div class="example">
+名前：山田太郎
+年齢：20歳
+住所：東京都</div>
+    </div>
+
+    <div class="section">
+        <h2>📝 課題2：今日の予定を出力する</h2>
+        <p>今日やることを3つ出力してください。</p>
+
+        <div class="important">
+            <strong>重要：</strong> 課題1のコードを消して、課題2のコードに書き換えてください。そして保存 → リロード → 確認の手順を行ってください。
+        </div>
+
+        <div class="example">
+&lt;script&gt;
+console.log("今日の予定");
+console.log("1. JavaScript学習");
+console.log("2. 買い物");
+console.log("3. 読書");
+&lt;/script&gt;</div>
+
+        <p><strong>期待される出力：</strong></p>
+        <div class="example">
+今日の予定
+1. JavaScript学習
+2. 買い物
+3. 読書</div>
+    </div>
+
+    <div class="section">
+        <h2>📝 課題3：計算結果を出力する</h2>
+        <p>100から1を引き続けて、5回の計算結果を出力してください。</p>
+
+        <div class="important">
+            <strong>重要：</strong> また課題2のコードを消して、課題3のコードに書き換えてください。この「書き換える → 保存 → リロード → 確認」のサイクルを体で覚えることが重要です！
+        </div>
+
+        <div class="example">
+&lt;script&gt;
+console.log(100 - 1);
+console.log(100 - 1 - 1);
+console.log(100 - 1 - 1 - 1);
+console.log(100 - 1 - 1 - 1 - 1);
+console.log(100 - 1 - 1 - 1 - 1 - 1);
+&lt;/script&gt;</div>
+
+        <p><strong>期待される出力：</strong></p>
+        <div class="example">
+99
+98
+97
+96
+95</div>
+    </div>
+
+    <div class="section">
+        <h2>🎓 学習のポイント</h2>
+        <p>この演習では、同じファイルを何度も書き換えて実行しました。これが<strong>プログラミングの基本的な開発サイクル</strong>です。</p>
+
+        <div class="steps">
+            <strong>開発サイクル：</strong>
+            <ol>
+                <li><strong>編集</strong> - VSCodeでコードを書く</li>
+                <li><strong>保存</strong> - Ctrl + S を押す</li>
+                <li><strong>リロード</strong> - F5 を押す</li>
+                <li><strong>確認</strong> - F12 でコンソールを見る</li>
+                <li>もう一度 1 に戻る</li>
+            </ol>
+        </div>
+
+        <p>このサイクルをスムーズにできるようになることが、今回の最も重要な目標です。</p>
+    </div>
+
+    <div class="task">
+        <h3>✅ チェックリスト</h3>
+        <p>以下がすべてできるようになったか確認してください：</p>
+        <ul>
+            <li>□ VSCodeでHTMLファイルを開いて編集できる</li>
+            <li>□ Ctrl + S でファイルを保存できる</li>
+            <li>□ HTMLファイルをダブルクリックしてブラウザで開ける</li>
+            <li>□ F12 キーで開発者ツールを開ける</li>
+            <li>□ Consoleタブをクリックして出力を確認できる</li>
+            <li>□ F5 キーでブラウザをリロードできる</li>
+            <li>□ コードを変更 → 保存 → リロード → 確認のサイクルができる</li>
+        </ul>
+        <p><strong>すべてチェックできたら、次のレッスンへ進みましょう！</strong></p>
+    </div>
+
+    <script>
+        // ここにコードを書いてください
+        //
+        // 課題1の例：
+        // console.log("名前：山田太郎");
+        // console.log("年齢：20歳");
+        // console.log("住所：東京都");
+        //
+        // 書いたら保存（Ctrl + S）して、ブラウザをリロード（F5）してください！
+
+    </script>
+</body>
+</html>

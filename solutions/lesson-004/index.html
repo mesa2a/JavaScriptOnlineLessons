@@ -1,6 +1,315 @@
-<script>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>レッスン4：初めてのHTMLファイル - 解答</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .solution-section {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .solution-section h2 {
+            color: #333;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        .code-block {
+            background-color: #263238;
+            color: #aed581;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            line-height: 1.6;
+        }
+        .output {
+            background-color: #e8f5e9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #4CAF50;
+        }
+        .output-title {
+            font-weight: bold;
+            color: #2E7D32;
+            margin-bottom: 10px;
+        }
+        .explanation {
+            background-color: #fff3e0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #FF9800;
+        }
+        .explanation h3 {
+            margin-top: 0;
+            color: #F57C00;
+        }
+        .key-point {
+            background-color: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #2196F3;
+        }
+        .key-point strong {
+            color: #1976D2;
+        }
+        pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+        .step {
+            margin: 10px 0;
+            padding-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>レッスン4：初めてのHTMLファイル - 解答</h1>
+
+    <div class="solution-section">
+        <h2>✅ 解答コード</h2>
+
+        <div class="code-block"><pre>&lt;script&gt;
 console.log("山田太郎");
 console.log(7);
 console.log(7 * 2);
 console.log("完了");
-</script>
+&lt;/script&gt;</pre></div>
+
+        <div class="output">
+            <div class="output-title">📊 コンソール出力結果：</div>
+            <pre>山田太郎
+7
+14
+完了</pre>
+        </div>
+    </div>
+
+    <div class="solution-section">
+        <h2>📖 コード解説</h2>
+
+        <div class="explanation">
+            <h3>1行目：console.log("山田太郎");</h3>
+            <p><strong>説明：</strong> 名前を文字列として出力しています。</p>
+            <ul>
+                <li>「山田太郎」は文字列（テキストデータ）なので、ダブルクォーテーション <code>"</code> で囲みます</li>
+                <li>文字列は <code>"</code> で囲まないとエラーになります</li>
+                <li>好きな名前に変更してOKです</li>
+            </ul>
+        </div>
+
+        <div class="explanation">
+            <h3>2行目：console.log(7);</h3>
+            <p><strong>説明：</strong> 好きな数字をそのまま出力しています。</p>
+            <ul>
+                <li>数字は <code>"</code> で囲みません</li>
+                <li><code>"</code> で囲むと文字列になってしまいます</li>
+                <li>好きな数字に変更してOKです（例：42、100など）</li>
+            </ul>
+        </div>
+
+        <div class="explanation">
+            <h3>3行目：console.log(7 * 2);</h3>
+            <p><strong>説明：</strong> 好きな数字を2倍した値を計算して出力しています。</p>
+            <ul>
+                <li><code>7 * 2</code> は掛け算です。JavaScriptが自動的に計算して <code>14</code> を出力します</li>
+                <li><code>*</code> は掛け算の演算子（レッスン3で学びました）</li>
+                <li>計算式をそのまま書くことができます</li>
+            </ul>
+        </div>
+
+        <div class="explanation">
+            <h3>4行目：console.log("完了");</h3>
+            <p><strong>説明：</strong> 「完了」という文字列を出力しています。</p>
+            <ul>
+                <li>文字列なので <code>"</code> で囲みます</li>
+                <li>プログラムの終わりを示すメッセージです</li>
+                <li>「終了」「おわり」など、他の言葉に変更してもOKです</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="solution-section">
+        <h2>🔑 重要なポイント</h2>
+
+        <div class="key-point">
+            <strong>ポイント1：文字列と数字の違い</strong>
+            <ul>
+                <li>文字列：<code>"山田太郎"</code> → <code>"</code> で囲む</li>
+                <li>数字：<code>7</code> → <code>"</code> で囲まない</li>
+                <li>計算式：<code>7 * 2</code> → <code>"</code> で囲まない</li>
+            </ul>
+        </div>
+
+        <div class="key-point">
+            <strong>ポイント2：順次実行</strong>
+            <p>JavaScriptは上から順番に実行されます。</p>
+            <div class="step">
+                1行目 → 2行目 → 3行目 → 4行目 の順に実行されます
+            </div>
+        </div>
+
+        <div class="key-point">
+            <strong>ポイント3：セミコロン</strong>
+            <p>各命令の最後には <code>;</code>（セミコロン）をつけます。</p>
+            <ul>
+                <li>セミコロンは「この命令はここで終わり」という意味です</li>
+                <li>忘れるとエラーになる場合があります</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="solution-section">
+        <h2>🎨 バリエーション例</h2>
+
+        <p>同じ課題でも、いろいろな書き方ができます：</p>
+
+        <h3>例1：別の名前と数字</h3>
+        <div class="code-block"><pre>&lt;script&gt;
+console.log("田中花子");
+console.log(42);
+console.log(42 * 2);
+console.log("完了");
+&lt;/script&gt;</pre></div>
+        <div class="output">
+            <div class="output-title">出力結果：</div>
+            <pre>田中花子
+42
+84
+完了</pre>
+        </div>
+
+        <h3>例2：計算式を変える</h3>
+        <div class="code-block"><pre>&lt;script&gt;
+console.log("佐藤次郎");
+console.log(10);
+console.log(10 + 10);  // 足し算でも2倍になる
+console.log("終了");
+&lt;/script&gt;</pre></div>
+        <div class="output">
+            <div class="output-title">出力結果：</div>
+            <pre>佐藤次郎
+10
+20
+終了</pre>
+        </div>
+
+        <h3>例3：複数の計算</h3>
+        <div class="code-block"><pre>&lt;script&gt;
+console.log("山田太郎");
+console.log(5);
+console.log(5 * 2);
+console.log(5 * 3);  // 3倍も追加
+console.log(5 * 4);  // 4倍も追加
+console.log("完了");
+&lt;/script&gt;</pre></div>
+        <div class="output">
+            <div class="output-title">出力結果：</div>
+            <pre>山田太郎
+5
+10
+15
+20
+完了</pre>
+        </div>
+    </div>
+
+    <div class="solution-section">
+        <h2>❓ よくある間違いとその修正</h2>
+
+        <h3>間違い1：数字を文字列で囲んでしまう</h3>
+        <div class="code-block"><pre>// ❌ 間違い
+console.log("7");      // 文字列の "7" になる
+console.log("7 * 2");  // 文字列の "7 * 2" になる（計算されない）</pre></div>
+
+        <div class="code-block"><pre>// ✅ 正しい
+console.log(7);        // 数字の 7
+console.log(7 * 2);    // 計算されて 14 になる</pre></div>
+
+        <h3>間違い2：文字列を囲み忘れる</h3>
+        <div class="code-block"><pre>// ❌ 間違い
+console.log(山田太郎);  // エラー！変数として扱われる
+console.log(完了);      // エラー！</pre></div>
+
+        <div class="code-block"><pre>// ✅ 正しい
+console.log("山田太郎");  // 文字列として正しく表示される
+console.log("完了");      // 文字列として正しく表示される</pre></div>
+
+        <h3>間違い3：セミコロンを忘れる</h3>
+        <div class="code-block"><pre>// ❌ 間違い（動く場合もあるが推奨されない）
+console.log("山田太郎")
+console.log(7)</pre></div>
+
+        <div class="code-block"><pre>// ✅ 正しい
+console.log("山田太郎");
+console.log(7);</pre></div>
+    </div>
+
+    <div class="solution-section">
+        <h2>🎓 次のステップ</h2>
+        <p>このレッスンでは、HTMLファイルを作成してJavaScriptを実行する方法を学びました。</p>
+        <ul>
+            <li>✅ HTMLファイルの作成方法</li>
+            <li>✅ scriptタグの使い方</li>
+            <li>✅ コードを保存して何度でも実行できること</li>
+        </ul>
+        <p><strong>次のレッスン（レッスン5）では：</strong> ファイルを更新してリロードする方法を学びます。</p>
+    </div>
+
+    <script>
+        // 実際に動作するコード
+        console.log("==============================================");
+        console.log("  レッスン4：初めてのHTMLファイル - 解答実行  ");
+        console.log("==============================================");
+        console.log("");
+        console.log("--- 基本の解答 ---");
+        console.log("山田太郎");
+        console.log(7);
+        console.log(7 * 2);
+        console.log("完了");
+        console.log("");
+        console.log("--- バリエーション1 ---");
+        console.log("田中花子");
+        console.log(42);
+        console.log(42 * 2);
+        console.log("完了");
+        console.log("");
+        console.log("--- バリエーション2 ---");
+        console.log("佐藤次郎");
+        console.log(10);
+        console.log(10 + 10);
+        console.log("終了");
+        console.log("");
+        console.log("--- バリエーション3 ---");
+        console.log("山田太郎");
+        console.log(5);
+        console.log(5 * 2);
+        console.log(5 * 3);
+        console.log(5 * 4);
+        console.log("完了");
+        console.log("");
+        console.log("==============================================");
+        console.log("  すべての解答が実行されました！  ");
+        console.log("==============================================");
+    </script>
+</body>
+</html>

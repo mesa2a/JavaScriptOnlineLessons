@@ -1,0 +1,273 @@
+/* リセット */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  padding: 30px;
+}
+
+/* ヘッダー */
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 32px;
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  color: #666;
+  font-size: 14px;
+}
+
+.stats span {
+  background: #f0f0f0;
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
+/* フォーム */
+.add-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+#task-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+#task-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+#priority-select,
+#due-date-input {
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#priority-select:focus,
+#due-date-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.add-form button {
+  padding: 12px 24px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.add-form button:hover {
+  background: #5568d3;
+}
+
+.add-form button:active {
+  transform: scale(0.98);
+}
+
+/* フィルター */
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.filter-btn {
+  padding: 8px 16px;
+  background: #f0f0f0;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.filter-btn:hover {
+  background: #e0e0e0;
+}
+
+.filter-btn.active {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+}
+
+/* タスクリスト */
+.task-list {
+  list-style: none;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px;
+  background: #f9f9f9;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  transition: all 0.3s;
+  border-left: 4px solid transparent;
+}
+
+.task-item:hover {
+  background: #f0f0f0;
+  transform: translateX(5px);
+}
+
+.task-item.completed {
+  opacity: 0.6;
+}
+
+.task-item.completed .task-title {
+  text-decoration: line-through;
+  color: #999;
+}
+
+/* 優先度の色 */
+.task-item.priority-high {
+  border-left-color: #ff4757;
+}
+
+.task-item.priority-medium {
+  border-left-color: #ffa502;
+}
+
+.task-item.priority-low {
+  border-left-color: #2ed573;
+}
+
+.task-checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #667eea;
+}
+
+.task-title {
+  flex: 1;
+  font-size: 16px;
+  color: #333;
+  word-break: break-word;
+}
+
+.task-due-date {
+  font-size: 12px;
+  color: #999;
+  background: #e0e0e0;
+  padding: 4px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.delete-btn {
+  padding: 6px 12px;
+  background: #ff4757;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+.delete-btn:hover {
+  background: #e84118;
+}
+
+.delete-btn:active {
+  transform: scale(0.95);
+}
+
+/* 空の状態 */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+}
+
+.empty-state p {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.empty-state .hint {
+  font-size: 14px;
+  color: #bbb;
+}
+
+/* レスポンシブ */
+@media (max-width: 600px) {
+  .container {
+    padding: 20px;
+  }
+
+  .add-form {
+    flex-direction: column;
+  }
+
+  #task-input {
+    width: 100%;
+  }
+
+  .add-form button {
+    width: 100%;
+  }
+
+  .stats {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .filters {
+    flex-wrap: wrap;
+  }
+
+  .task-item {
+    flex-wrap: wrap;
+  }
+
+  .task-title {
+    flex-basis: 100%;
+  }
+}

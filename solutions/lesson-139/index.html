@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 139</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .container {
+            margin: 30px 0;
+            padding: 25px;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+        }
+        .info-box {
+            padding: 15px;
+            margin: 15px 0;
+            background-color: white;
+            border-left: 4px solid #4CAF50;
+            border-radius: 4px;
+        }
+        .button-group {
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button:active {
+            background-color: #3d8b40;
+        }
+        .result {
+            padding: 15px;
+            margin: 15px 0;
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            border-radius: 4px;
+            font-size: 18px;
+        }
+        .hint {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>商品管理システム</h1>
+
+    <div class="container">
+        <h2>商品情報</h2>
+        <div id="productInfo" class="info-box"></div>
+
+        <div class="button-group">
+            <button id="sellBtn">販売（1個）</button>
+            <button id="restockBtn">入荷（5個）</button>
+            <button id="showPriceBtn">税込価格を表示</button>
+        </div>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <div class="hint">
+        <strong>ヒント:</strong>
+        <ul>
+            <li>メソッドの中では <code>this</code> を使って自分自身のプロパティにアクセスします</li>
+            <li>税込価格は <code>price * (1 + taxRate)</code> で計算できます</li>
+            <li>在庫が足りない場合は、メソッド内で条件分岐を使います</li>
+        </ul>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

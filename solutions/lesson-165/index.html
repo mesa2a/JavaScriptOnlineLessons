@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>予算管理アプリ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="app-header">
+            <h1>💰 予算管理アプリ</h1>
+        </header>
+
+        <div class="tab-menu">
+            <button class="tab-button active" data-tab="income">収入</button>
+            <button class="tab-button" data-tab="expense">支出</button>
+            <button class="tab-button" data-tab="stats">統計</button>
+            <button class="tab-button" data-tab="settings">設定</button>
+        </div>
+
+        <div class="tab-content">
+            <!-- 収入タブ -->
+            <div id="income-tab" class="tab-pane active">
+                <div class="input-form">
+                    <h2>新しい収入を追加</h2>
+
+                    <div class="form-group">
+                        <label for="income-date">日付</label>
+                        <input type="date" id="income-date" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="income-amount">金額</label>
+                        <input type="number" id="income-amount" class="form-input" placeholder="0">
+                        <span class="unit">円</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="income-category">カテゴリ</label>
+                        <select id="income-category" class="form-input">
+                            <option value="">選択してください</option>
+                            <option value="給料">給料</option>
+                            <option value="ボーナス">ボーナス</option>
+                            <option value="副業">副業</option>
+                            <option value="お小遣い">お小遣い</option>
+                            <option value="その他">その他</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="income-memo">メモ</label>
+                        <input type="text" id="income-memo" class="form-input" placeholder="メモを入力（任意）">
+                    </div>
+
+                    <button class="add-button" id="add-income-button">追加する</button>
+                </div>
+
+                <div class="transaction-list">
+                    <h2>収入一覧</h2>
+
+                    <div class="list-header">
+                        <span class="col-date">日付</span>
+                        <span class="col-category">カテゴリ</span>
+                        <span class="col-amount">金額</span>
+                        <span class="col-memo">メモ</span>
+                        <span class="col-actions">操作</span>
+                    </div>
+
+                    <div id="income-items" class="list-items">
+                        <div class="empty-message">データがありません</div>
+                    </div>
+                </div>
+
+                <div class="stats-summary">
+                    <div class="stat-card income-card">
+                        <div class="stat-label">今月の収入</div>
+                        <div class="stat-value" id="income-total">¥0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 支出タブ -->
+            <div id="expense-tab" class="tab-pane">
+                <div class="input-form">
+                    <h2>新しい支出を追加</h2>
+
+                    <div class="form-group">
+                        <label for="expense-date">日付</label>
+                        <input type="date" id="expense-date" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="expense-amount">金額</label>
+                        <input type="number" id="expense-amount" class="form-input" placeholder="0">
+                        <span class="unit">円</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="expense-category">カテゴリ</label>
+                        <select id="expense-category" class="form-input">
+                            <option value="">選択してください</option>
+                            <option value="食費">食費</option>
+                            <option value="交通費">交通費</option>
+                            <option value="娯楽">娯楽</option>
+                            <option value="光熱費">光熱費</option>
+                            <option value="家賃">家賃</option>
+                            <option value="通信費">通信費</option>
+                            <option value="医療費">医療費</option>
+                            <option value="日用品">日用品</option>
+                            <option value="被服費">被服費</option>
+                            <option value="その他">その他</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="expense-memo">メモ</label>
+                        <input type="text" id="expense-memo" class="form-input" placeholder="メモを入力（任意）">
+                    </div>
+
+                    <button class="add-button" id="add-expense-button">追加する</button>
+                </div>
+
+                <div class="transaction-list">
+                    <h2>支出一覧</h2>
+
+                    <div class="list-header">
+                        <span class="col-date">日付</span>
+                        <span class="col-category">カテゴリ</span>
+                        <span class="col-amount">金額</span>
+                        <span class="col-memo">メモ</span>
+                        <span class="col-actions">操作</span>
+                    </div>
+
+                    <div id="expense-items" class="list-items">
+                        <div class="empty-message">データがありません</div>
+                    </div>
+                </div>
+
+                <div class="stats-summary">
+                    <div class="stat-card expense-card">
+                        <div class="stat-label">今月の支出</div>
+                        <div class="stat-value" id="expense-total">¥0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 統計タブ -->
+            <div id="stats-tab" class="tab-pane">
+                <div class="stats-summary">
+                    <div class="stat-card income-card">
+                        <div class="stat-label">今月の収入</div>
+                        <div class="stat-value" id="stats-income">¥0</div>
+                    </div>
+
+                    <div class="stat-card expense-card">
+                        <div class="stat-label">今月の支出</div>
+                        <div class="stat-value" id="stats-expense">¥0</div>
+                    </div>
+
+                    <div class="stat-card balance-card">
+                        <div class="stat-label">収支</div>
+                        <div class="stat-value" id="balance">¥0</div>
+                    </div>
+                </div>
+
+                <div class="chart-section">
+                    <h2>カテゴリ別支出（円グラフ）</h2>
+                    <div class="chart-container">
+                        <canvas id="pie-chart" width="300" height="300"></canvas>
+                        <div id="pie-legend" class="chart-legend"></div>
+                    </div>
+                </div>
+
+                <div class="chart-section">
+                    <h2>収入と支出（棒グラフ）</h2>
+                    <div class="chart-container">
+                        <canvas id="bar-chart" width="400" height="300"></canvas>
+                    </div>
+                </div>
+
+                <div class="report-section">
+                    <h2>サマリー</h2>
+                    <div id="summary-container"></div>
+                </div>
+
+                <div class="report-section">
+                    <h2>月次レポート</h2>
+                    <table class="report-table">
+                        <thead>
+                            <tr>
+                                <th>年月</th>
+                                <th>収入</th>
+                                <th>支出</th>
+                                <th>収支</th>
+                            </tr>
+                        </thead>
+                        <tbody id="monthly-report-body">
+                            <tr>
+                                <td colspan="4">データがありません</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="report-section">
+                    <h2>カテゴリ別分析</h2>
+                    <table class="report-table">
+                        <thead>
+                            <tr>
+                                <th>カテゴリ</th>
+                                <th>合計</th>
+                                <th>件数</th>
+                                <th>平均</th>
+                            </tr>
+                        </thead>
+                        <tbody id="category-analysis-body">
+                            <tr>
+                                <td colspan="4">データがありません</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 設定タブ -->
+            <div id="settings-tab" class="tab-pane">
+                <div class="settings-section">
+                    <h2>データ管理</h2>
+
+                    <div class="storage-info">
+                        <h3>ストレージ情報</h3>
+                        <div id="storage-info-content">
+                            <p>データ件数: <span id="data-count">0</span>件</p>
+                            <p>使用容量: <span id="storage-size">0</span> KB</p>
+                        </div>
+                    </div>
+
+                    <h3>エクスポート</h3>
+                    <div class="button-group">
+                        <button class="secondary-button" id="export-csv-button">CSVエクスポート</button>
+                        <button class="secondary-button" id="export-json-button">JSONエクスポート</button>
+                    </div>
+
+                    <h3>データ削除</h3>
+                    <div class="button-group">
+                        <button class="danger-button" id="clear-all-button">すべてのデータを削除</button>
+                    </div>
+
+                    <p class="note">インポート機能はレッスン166で実装します</p>
+
+                    <div class="button-group">
+                        <button class="secondary-button" disabled>データインポート</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

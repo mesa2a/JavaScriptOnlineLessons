@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>計算機アプリ - レッスン178</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="calculator">
+      <!-- ディスプレイ -->
+      <div class="display">
+        <div id="previous-operand" class="previous-operand"></div>
+        <div id="current-operand" class="current-operand">0</div>
+      </div>
+
+      <!-- ボタン -->
+      <div class="buttons">
+        <!-- 行1: AC, C, ⌫, ÷ -->
+        <button id="btn-ac" class="btn btn-function">AC</button>
+        <button id="btn-c" class="btn btn-function">C</button>
+        <button id="btn-backspace" class="btn btn-function">⌫</button>
+        <button class="btn btn-operator" data-operation="÷">÷</button>
+
+        <!-- 行2: 7, 8, 9, × -->
+        <button class="btn btn-number" data-value="7">7</button>
+        <button class="btn btn-number" data-value="8">8</button>
+        <button class="btn btn-number" data-value="9">9</button>
+        <button class="btn btn-operator" data-operation="×">×</button>
+
+        <!-- 行3: 4, 5, 6, - -->
+        <button class="btn btn-number" data-value="4">4</button>
+        <button class="btn btn-number" data-value="5">5</button>
+        <button class="btn btn-number" data-value="6">6</button>
+        <button class="btn btn-operator" data-operation="-">-</button>
+
+        <!-- 行4: 1, 2, 3, + -->
+        <button class="btn btn-number" data-value="1">1</button>
+        <button class="btn btn-number" data-value="2">2</button>
+        <button class="btn btn-number" data-value="3">3</button>
+        <button class="btn btn-operator" data-operation="+">+</button>
+
+        <!-- 行5: +/-, 0, ., = -->
+        <button id="btn-toggle-sign" class="btn btn-function">+/-</button>
+        <button class="btn btn-number" data-value="0">0</button>
+        <button id="btn-decimal" class="btn btn-function">.</button>
+        <button id="btn-equals" class="btn btn-equals">=</button>
+      </div>
+
+      <!-- パーセントボタン（追加） -->
+      <div class="extra-buttons">
+        <button id="btn-percentage" class="btn btn-function">%</button>
+      </div>
+    </div>
+
+    <!-- 計算履歴 -->
+    <div class="history-section">
+      <div class="history-header">
+        <h3>計算履歴</h3>
+        <button id="btn-clear-history" class="btn-clear-history">クリア</button>
+      </div>
+      <div id="history-list" class="history-list">
+        <p class="empty">履歴がありません</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

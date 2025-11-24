@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>メモアプリ - レッスン179</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- サイドバー -->
+    <div class="sidebar">
+      <!-- ヘッダー -->
+      <div class="sidebar-header">
+        <h1>📝 メモアプリ</h1>
+      </div>
+
+      <!-- 検索バー -->
+      <div class="search-box">
+        <input type="text" id="search-input" placeholder="🔍 検索...">
+      </div>
+
+      <!-- 新規メモボタン -->
+      <button class="btn-new-note">+ 新規メモ</button>
+
+      <!-- ソート選択 -->
+      <select class="sort-select">
+        <option value="updated">更新日時順</option>
+        <option value="created">作成日時順</option>
+        <option value="title">タイトル順</option>
+      </select>
+
+      <!-- メモリスト -->
+      <div class="notes-list">
+        <p class="empty-message">メモがありません</p>
+      </div>
+    </div>
+
+    <!-- メインエリア -->
+    <div class="main-area">
+      <!-- エディタ -->
+      <div class="editor" style="display: none;">
+        <input type="text" class="note-title" placeholder="タイトル">
+
+        <textarea class="note-content" placeholder="メモを入力してください..."></textarea>
+
+        <div class="editor-footer">
+          <div class="footer-left">
+            <span class="char-count">0 文字</span>
+          </div>
+          <div class="footer-center">
+            <input type="text" class="tag-input" placeholder="タグを追加（カンマ区切り）">
+          </div>
+          <div class="footer-right">
+            <button class="btn-delete">🗑️ 削除</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 選択なし状態 -->
+      <div class="empty-state">
+        <div class="empty-content">
+          <div class="empty-icon">📝</div>
+          <h2>メモを選択するか、<br>新規メモを作成してください</h2>
+          <p>左側の「+ 新規メモ」ボタンをクリック<br>または Ctrl+N / Cmd+N を押してください</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

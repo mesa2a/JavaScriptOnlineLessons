@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>レッスン3：計算機として使う - 演習</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .instruction {
+            background-color: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #2196F3;
+        }
+        .instruction h2 {
+            margin-top: 0;
+            color: #1976D2;
+        }
+        .instruction ol {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        .instruction li {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+        .exercise {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .exercise h3 {
+            color: #333;
+            margin-top: 0;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        .exercise code {
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d32f2f;
+        }
+        .hint {
+            background-color: #fff3e0;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            border-left: 4px solid #FF9800;
+        }
+        .hint strong {
+            color: #F57C00;
+        }
+        .note {
+            background-color: #f3e5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            border-left: 4px solid #9C27B0;
+        }
+        .note strong {
+            color: #7B1FA2;
+        }
+    </style>
+</head>
+<body>
+    <h1>レッスン3：計算機として使う - 演習</h1>
+
+    <div class="instruction">
+        <h2>📝 演習の進め方</h2>
+        <ol>
+            <li><strong>F12キー</strong>を押して、開発者ツールを開きます</li>
+            <li><strong>Console</strong>タブをクリックします</li>
+            <li>各演習の問題を読んで、コンソールに入力してEnterを押します</li>
+            <li>正しい結果が表示されるか確認します</li>
+            <li>わからない場合は、ヒントを参考にしてください</li>
+        </ol>
+    </div>
+
+    <div class="exercise">
+        <h3>演習1：足し算をマスターする</h3>
+        <p>以下の計算をコンソールで実行してください。</p>
+        <ol>
+            <li><code>5 + 8</code> を計算してください</li>
+            <li><code>123 + 456</code> を計算してください</li>
+            <li>自分の誕生日の月と日を足してください（例：3月15日なら 3 + 15）</li>
+        </ol>
+        <div class="hint">
+            <strong>ヒント：</strong> <code>console.log(5 + 8)</code> のように入力します。数字はクォーテーションで囲みません。
+        </div>
+    </div>
+
+    <div class="exercise">
+        <h3>演習2：引き算を試す</h3>
+        <p>以下の計算をコンソールで実行してください。</p>
+        <ol>
+            <li><code>50 - 20</code> を計算してください</li>
+            <li><code>100 - 73</code> を計算してください</li>
+            <li><code>30 - 50</code> を計算してください（マイナスの結果になります）</li>
+        </ol>
+        <div class="hint">
+            <strong>ヒント：</strong> 引き算は <code>-</code> 記号を使います。
+        </div>
+    </div>
+
+    <div class="exercise">
+        <h3>演習3：掛け算を練習する</h3>
+        <p>以下の計算をコンソールで実行してください。</p>
+        <ol>
+            <li><code>6 * 7</code> を計算してください</li>
+            <li><code>12 * 12</code> を計算してください</li>
+            <li>九九の中で一番好きな計算をしてください（例：<code>8 * 8</code>）</li>
+        </ol>
+        <div class="hint">
+            <strong>ヒント：</strong> 掛け算は <code>*</code>（アスタリスク）を使います。<code>Shift + :</code>（「け」のキー）で入力できます。
+        </div>
+        <div class="note">
+            <strong>注意：</strong> <code>×</code> ではなく <code>*</code> を使います。
+        </div>
+    </div>
+
+    <div class="exercise">
+        <h3>演習4：割り算をやってみる</h3>
+        <p>以下の計算をコンソールで実行してください。</p>
+        <ol>
+            <li><code>100 / 10</code> を計算してください</li>
+            <li><code>50 / 4</code> を計算してください（小数になります）</li>
+            <li><code>20 / 3</code> を計算してください</li>
+        </ol>
+        <div class="hint">
+            <strong>ヒント：</strong> 割り算は <code>/</code>（スラッシュ）を使います。「め」のキーにあります。
+        </div>
+    </div>
+
+    <div class="exercise">
+        <h3>演習5：余りを求める</h3>
+        <p>以下の計算をコンソールで実行してください。</p>
+        <ol>
+            <li><code>17 % 5</code> を計算してください（17を5で割った余り）</li>
+            <li><code>20 % 6</code> を計算してください</li>
+            <li><code>15 % 2</code> を計算してください（奇数なので1余ります）</li>
+            <li><code>16 % 2</code> を計算してください（偶数なので0になります）</li>
+        </ol>
+        <div class="hint">
+            <strong>ヒント：</strong> 余りは <code>%</code> 記号を使います。<code>Shift + 5</code> で入力できます。
+        </div>
+    </div>
+
+    <div class="exercise">
+        <h3>演習6：計算の優先順位を確認する</h3>
+        <p>以下の計算をコンソールで実行して、結果を確認してください。</p>
+        <ol>
+            <li><code>5 + 3 * 2</code> を計算してください（先に掛け算が実行されます）</li>
+            <li><code>(5 + 3) * 2</code> を計算してください（括弧の中が先に実行されます）</li>
+            <li><code>10 - 4 / 2</code> を計算してください</li>
+            <li><code>(10 - 4) / 2</code> を計算してください</li>
+        </ol>
+        <div class="hint">
+            <strong>ヒント：</strong> 掛け算・割り算は足し算・引き算より先に計算されます。順番を変えたいときは括弧 <code>()</code> を使います。
+        </div>
+    </div>
+
+    <div class="exercise">
+        <h3>演習7：数字と文字列の違いを理解する</h3>
+        <p>以下を実行して、結果の違いを観察してください。</p>
+        <ol>
+            <li><code>2 + 3</code> を計算してください（数字の足し算）</li>
+            <li><code>"2" + "3"</code> を計算してください（文字列の連結）</li>
+            <li>どう違いましたか？結果をメモしてください</li>
+        </ol>
+        <div class="note">
+            <strong>重要：</strong> クォーテーションなし → 数字（計算される）、クォーテーションあり → 文字（連結される）
+        </div>
+    </div>
+
+    <div class="exercise">
+        <h3>演習8：複雑な計算に挑戦</h3>
+        <p>以下の計算をコンソールで実行してください。</p>
+        <ol>
+            <li><code>(8 + 2) * (5 - 3)</code> を計算してください</li>
+            <li><code>100 / (2 + 3) + 10</code> を計算してください</li>
+            <li><code>3 * 4 + 5 * 6</code> を計算してください</li>
+        </ol>
+        <div class="hint">
+            <strong>ヒント：</strong> 複雑な計算では、括弧を使って計算の順序を明確にしましょう。
+        </div>
+    </div>
+
+    <div class="exercise">
+        <h3>演習9：年齢を秒数に変換する（メイン課題）</h3>
+        <p>自分の年齢を秒数に変換してください。</p>
+        <ol>
+            <li>1年 = 365日</li>
+            <li>1日 = 24時間</li>
+            <li>1時間 = 60分</li>
+            <li>1分 = 60秒</li>
+        </ol>
+        <p><strong>計算式：</strong> <code>年齢 * 365 * 24 * 60 * 60</code></p>
+        <div class="hint">
+            <strong>例：</strong> 20歳の場合、<code>console.log(20 * 365 * 24 * 60 * 60)</code> と入力します。
+        </div>
+        <div class="note">
+            <strong>考えてみよう：</strong> 結果は何秒になりましたか？自分が生まれてから今まで、何億秒生きてきたことになりますか？
+        </div>
+    </div>
+
+    <div class="exercise">
+        <h3>チャレンジ問題：実用的な計算</h3>
+        <p>余裕がある人は、以下の計算にも挑戦してみましょう。</p>
+        <ol>
+            <li><strong>身長をインチに変換：</strong> 身長(cm) / 2.54</li>
+            <li><strong>体重をポンドに変換：</strong> 体重(kg) * 2.205</li>
+            <li><strong>時速を秒速に変換：</strong> 時速(km/h) * 1000 / 3600</li>
+        </ol>
+        <div class="hint">
+            <strong>例：</strong> 身長170cmの場合、<code>console.log(170 / 2.54)</code> と入力すると、インチに変換されます。
+        </div>
+    </div>
+
+    <script>
+        // このスクリプトは確認用のメッセージを表示します
+        console.log("==============================================");
+        console.log("  レッスン3：計算機として使う - 演習開始  ");
+        console.log("==============================================");
+        console.log("");
+        console.log("👋 こんにちは！このコンソールで計算を練習しましょう。");
+        console.log("");
+        console.log("例：console.log(1 + 1) と入力してEnterを押してください。");
+        console.log("");
+        console.log("==============================================");
+    </script>
+</body>
+</html>

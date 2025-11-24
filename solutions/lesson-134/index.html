@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 134</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .book-info {
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .info-item {
+            margin: 15px 0;
+            padding: 10px;
+            background-color: white;
+            border-radius: 4px;
+        }
+        .label {
+            font-weight: bold;
+            color: #555;
+            display: inline-block;
+            width: 100px;
+        }
+        .value {
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <h1>書籍情報</h1>
+
+    <div class="book-info">
+        <div class="info-item">
+            <span class="label">タイトル:</span>
+            <span class="value" id="bookTitle"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">著者:</span>
+            <span class="value" id="bookAuthor"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">価格:</span>
+            <span class="value" id="bookPrice"></span>円
+        </div>
+        <div class="info-item">
+            <span class="label">ページ数:</span>
+            <span class="value" id="bookPages"></span>ページ
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

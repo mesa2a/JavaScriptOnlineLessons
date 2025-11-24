@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 156</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        #stats-container {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-label {
+            display: block;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .stat-value {
+            display: block;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        #error-message {
+            display: none;
+            background-color: #dc3545;
+            color: white;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        #success-message {
+            display: none;
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        #search-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        #search-input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #007bff;
+            border-radius: 4px;
+        }
+        #clear-search-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        #input-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        #todo-input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+        }
+        #todo-input.error {
+            border-color: #dc3545;
+        }
+        #new-task-category {
+            padding: 10px;
+            font-size: 16px;
+        }
+        #add-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #char-counter {
+            text-align: right;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        #char-count.over {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        #filter-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        #category-select {
+            padding: 8px;
+            font-size: 14px;
+        }
+        #filter-buttons button {
+            padding: 8px 16px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            background-color: white;
+        }
+        #filter-buttons button.active {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        #todo-list {
+            list-style: none;
+            padding: 0;
+        }
+        #todo-list li {
+            padding: 10px;
+            margin-bottom: 5px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        #todo-list li.completed {
+            text-decoration: line-through;
+            color: #999;
+        }
+        #todo-list li.no-results {
+            cursor: default;
+            justify-content: center;
+            color: #999;
+        }
+        .category-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            color: white;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .task-text {
+            flex: 1;
+            cursor: pointer;
+        }
+        .edit-input {
+            flex: 1;
+            padding: 5px;
+            font-size: 16px;
+            border: 2px solid #007bff;
+            border-radius: 4px;
+        }
+        .edit-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .save-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .cancel-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- ここにHTML要素を追加してください -->
+
+    <script src="script.js"></script>
+</body>
+</html>
