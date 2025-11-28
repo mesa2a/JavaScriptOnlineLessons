@@ -1,17 +1,32 @@
 # レッスン137：複雑なオブジェクト
 
+**日付**: 2025-11-26
+
 ## このレッスンで学ぶこと
 
 このレッスンでは、より複雑なオブジェクトの構造について学びます。オブジェクトの中に別のオブジェクトや配列を含めることで、より詳細で構造化されたデータを扱うことができるようになります。
 
-## ネストしたオブジェクト
+## 日常生活での例え
 
-オブジェクトの中に別のオブジェクトを含めることができます。これを「ネストしたオブジェクト」と呼びます。
+複雑なオブジェクトは、**引き出し付きの机**のようなものです。
 
-### 基本的なネスト構造
+- **シンプルなオブジェクト**: 引き出しの中に直接物が入っている
+- **ネストしたオブジェクト**: 引き出しの中に小さな仕切りボックスがあり、その中にさらに物が入っている
+- **配列を含むオブジェクト**: 引き出しの中に複数の同じ種類の物（リストや名刺の束など）が入っている
+
+実際の生活では、情報はこのように階層的に整理されています：
+- **住所録**: 名前の中に「住所」という箱があり、その中に「都道府県」「市区町村」などが入っている
+- **商品カタログ**: 商品の中に「仕様」という箱があり、その中に複数のスペック情報が入っている
+- **学校のクラス**: クラスの中に「生徒リスト」という配列があり、各生徒が情報を持っている
+
+## ネストしたオブジェクトとは
+
+### 基本概念
+
+**ネストしたオブジェクト**とは、オブジェクトの中に別のオブジェクトが含まれている構造のことです。
 
 ```javascript
-let person = {
+const person = {
   name: "山田太郎",
   age: 30,
   address: {
@@ -22,14 +37,29 @@ let person = {
 };
 ```
 
-この例では、`address`プロパティの値が別のオブジェクトになっています。
+### データ構造の視覚化
+
+```
+person オブジェクト
+┌─────────────────────────────────┐
+│ name: "山田太郎"                │
+│ age: 30                         │
+│ address: {                      │ ← ここがネストしたオブジェクト
+│   ┌───────────────────────────┐ │
+│   │ prefecture: "東京都"      │ │
+│   │ city: "新宿区"            │ │
+│   │ street: "西新宿1-1-1"     │ │
+│   └───────────────────────────┘ │
+│ }                               │
+└─────────────────────────────────┘
+```
 
 ### ネストしたプロパティへのアクセス
 
 ドット記法を連続して使うことで、ネストしたプロパティにアクセスできます。
 
 ```javascript
-let person = {
+const person = {
   name: "山田太郎",
   age: 30,
   address: {
@@ -39,17 +69,35 @@ let person = {
   }
 };
 
-console.log(person.address.prefecture); // "東京都"
-console.log(person.address.city);       // "新宿区"
-console.log(person.address.street);     // "西新宿1-1-1"
+console.log(person.address.prefecture);  // "東京都"
+console.log(person.address.city);        // "新宿区"
+console.log(person.address.street);      // "西新宿1-1-1"
 ```
 
-### より深いネスト
+### 実行の流れ
+
+```
+【ステップ1】person.address.prefecture の実行
+
+1. person オブジェクトにアクセス
+   person = { name: "山田太郎", age: 30, address: {...} }
+
+2. person.address にアクセス
+   address = { prefecture: "東京都", city: "新宿区", street: "西新宿1-1-1" }
+
+3. address.prefecture にアクセス
+   結果: "東京都"
+
+完成した情報の取得経路:
+person → address → prefecture → "東京都"
+```
+
+## より深いネスト
 
 オブジェクトは何段階でもネストできます。
 
 ```javascript
-let company = {
+const company = {
   name: "ABC株式会社",
   employee: {
     name: "田中",
@@ -61,7 +109,33 @@ let company = {
   }
 };
 
-console.log(company.employee.contact.email); // "tanaka@abc.com"
+console.log(company.employee.contact.email);  // "tanaka@abc.com"
+```
+
+### データ構造の視覚化（3階層）
+
+```
+company オブジェクト
+┌─────────────────────────────────────────┐
+│ name: "ABC株式会社"                     │
+│ employee: {                             │
+│   ┌───────────────────────────────────┐ │
+│   │ name: "田中"                      │ │
+│   │ position: "エンジニア"            │ │
+│   │ contact: {                        │ │
+│   │   ┌─────────────────────────────┐ │ │
+│   │   │ email: "tanaka@abc.com"     │ │ │
+│   │   │ phone: "03-1234-5678"       │ │ │
+│   │   └─────────────────────────────┘ │ │
+│   │ }                                 │ │
+│   └───────────────────────────────────┘ │
+│ }                                       │
+└─────────────────────────────────────────┘
+
+アクセス経路:
+company.employee.contact.email
+ ↓       ↓        ↓       ↓
+第1層  第2層    第3層    最終値
 ```
 
 ## 配列を含むオブジェクト
@@ -71,15 +145,37 @@ console.log(company.employee.contact.email); // "tanaka@abc.com"
 ### 基本的な構造
 
 ```javascript
-let student = {
+const student = {
   name: "佐藤花子",
   age: 20,
   hobbies: ["読書", "音楽", "旅行"]
 };
 
-console.log(student.hobbies[0]); // "読書"
-console.log(student.hobbies[1]); // "音楽"
-console.log(student.hobbies[2]); // "旅行"
+console.log(student.hobbies[0]);  // "読書"
+console.log(student.hobbies[1]);  // "音楽"
+console.log(student.hobbies[2]);  // "旅行"
+```
+
+### データ構造の視覚化
+
+```
+student オブジェクト
+┌─────────────────────────────────┐
+│ name: "佐藤花子"                │
+│ age: 20                         │
+│ hobbies: [                      │ ← 配列プロパティ
+│   ┌───────────────────────────┐ │
+│   │ [0] "読書"                │ │
+│   │ [1] "音楽"                │ │
+│   │ [2] "旅行"                │ │
+│   └───────────────────────────┘ │
+│ ]                               │
+└─────────────────────────────────┘
+
+アクセス方法:
+student.hobbies[0]  → "読書"
+student.hobbies[1]  → "音楽"
+student.hobbies[2]  → "旅行"
 ```
 
 ### 配列要素の操作
@@ -87,7 +183,7 @@ console.log(student.hobbies[2]); // "旅行"
 配列のメソッドも通常通り使えます。
 
 ```javascript
-let student = {
+const student = {
   name: "佐藤花子",
   age: 20,
   hobbies: ["読書", "音楽"]
@@ -95,18 +191,44 @@ let student = {
 
 // 要素を追加
 student.hobbies.push("旅行");
-console.log(student.hobbies); // ["読書", "音楽", "旅行"]
+console.log(student.hobbies);  // ["読書", "音楽", "旅行"]
 
 // 配列の長さ
-console.log(student.hobbies.length); // 3
+console.log(student.hobbies.length);  // 3
 ```
 
-### 配列の要素がオブジェクト
+### 実行の流れ
+
+```
+【初期状態】
+student = {
+  name: "佐藤花子",
+  age: 20,
+  hobbies: ["読書", "音楽"]
+}
+
+【ステップ1】student.hobbies.push("旅行") を実行
+
+1. student.hobbies にアクセス
+   hobbies = ["読書", "音楽"]
+
+2. push("旅行") メソッドを実行
+   hobbies = ["読書", "音楽", "旅行"]
+
+【最終状態】
+student = {
+  name: "佐藤花子",
+  age: 20,
+  hobbies: ["読書", "音楽", "旅行"]  ← 要素が追加された
+}
+```
+
+## 配列の要素がオブジェクト
 
 配列の各要素をオブジェクトにすることもできます。
 
 ```javascript
-let classroom = {
+const classroom = {
   name: "クラスA",
   students: [
     { name: "太郎", score: 85 },
@@ -115,8 +237,31 @@ let classroom = {
   ]
 };
 
-console.log(classroom.students[0].name);  // "太郎"
-console.log(classroom.students[1].score); // 92
+console.log(classroom.students[0].name);   // "太郎"
+console.log(classroom.students[1].score);  // 92
+```
+
+### データ構造の視覚化
+
+```
+classroom オブジェクト
+┌─────────────────────────────────────────────┐
+│ name: "クラスA"                             │
+│ students: [                                 │
+│   ┌───────────────────────────────────────┐ │
+│   │ [0] { name: "太郎", score: 85 }       │ │
+│   │ [1] { name: "花子", score: 92 }       │ │
+│   │ [2] { name: "次郎", score: 78 }       │ │
+│   └───────────────────────────────────────┘ │
+│ ]                                           │
+└─────────────────────────────────────────────┘
+
+アクセス経路の例:
+classroom.students[1].score
+    ↓        ↓      ↓    ↓
+オブジェクト 配列  インデックス プロパティ
+                    1番目      score
+                   (花子)      → 92
 ```
 
 ## ネストと配列の組み合わせ
@@ -124,7 +269,7 @@ console.log(classroom.students[1].score); // 92
 ネストしたオブジェクトと配列を組み合わせることで、複雑なデータ構造を表現できます。
 
 ```javascript
-let school = {
+const school = {
   name: "ABC高校",
   location: {
     prefecture: "東京都",
@@ -142,428 +287,798 @@ let school = {
   ]
 };
 
-console.log(school.location.city);           // "渋谷区"
-console.log(school.classes[0].name);        // "1年A組"
-console.log(school.classes[0].students[1]); // "花子"
+console.log(school.location.city);            // "渋谷区"
+console.log(school.classes[0].name);          // "1年A組"
+console.log(school.classes[0].students[1]);   // "花子"
 ```
 
-## 実践例：アドレス帳の作成
+### データ構造の視覚化（複雑な構造）
 
-複雑なオブジェクトを使って、実用的なアドレス帳を作ってみましょう。
+```
+school オブジェクト
+┌───────────────────────────────────────────────────────┐
+│ name: "ABC高校"                                       │
+│                                                       │
+│ location: {                    ← ネストしたオブジェクト│
+│   ┌─────────────────────────┐                        │
+│   │ prefecture: "東京都"    │                        │
+│   │ city: "渋谷区"          │                        │
+│   └─────────────────────────┘                        │
+│ }                                                     │
+│                                                       │
+│ classes: [                     ← オブジェクトの配列  │
+│   ┌─────────────────────────────────────────────┐    │
+│   │ [0] {                                       │    │
+│   │   name: "1年A組",                           │    │
+│   │   students: ["太郎", "花子", "次郎"]        │    │
+│   │ }                                           │    │
+│   │ [1] {                                       │    │
+│   │   name: "1年B組",                           │    │
+│   │   students: ["恵子", "健太", "美咲"]        │    │
+│   │ }                                           │    │
+│   └─────────────────────────────────────────────┘    │
+│ ]                                                     │
+└───────────────────────────────────────────────────────┘
 
-### HTML
+複数のアクセス経路:
+1. school.location.city           → "渋谷区"
+2. school.classes[0].name         → "1年A組"
+3. school.classes[0].students[1]  → "花子"
+```
+
+### 実行の流れ
+
+```
+【school.classes[0].students[1] の実行】
+
+ステップ1: school にアクセス
+  school = { name: "ABC高校", location: {...}, classes: [...] }
+
+ステップ2: school.classes にアクセス
+  classes = [
+    { name: "1年A組", students: ["太郎", "花子", "次郎"] },
+    { name: "1年B組", students: ["恵子", "健太", "美咲"] }
+  ]
+
+ステップ3: classes[0] にアクセス（配列の0番目）
+  classes[0] = { name: "1年A組", students: ["太郎", "花子", "次郎"] }
+
+ステップ4: classes[0].students にアクセス
+  students = ["太郎", "花子", "次郎"]
+
+ステップ5: students[1] にアクセス（配列の1番目）
+  結果: "花子"
+
+アクセス経路の図解:
+school → classes → [0] → students → [1] → "花子"
+ ↓        ↓        ↓       ↓         ↓
+オブジェクト 配列   要素   プロパティ  要素
+```
+
+## 実践例1：ネスト構造の住所管理システム
+
+ネストしたオブジェクトを使って、詳細な住所情報を管理するシステムを作ってみましょう。
 
 ```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>アドレス帳</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>住所管理システム</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
+            font-family: 'Segoe UI', sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
         }
-        .contact-card {
-            border: 2px solid #4CAF50;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            background-color: #f1f8f4;
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
-        .contact-name {
+
+        .person-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+
+        .person-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .person-name {
             font-size: 24px;
             font-weight: bold;
-            color: #2E7D32;
+            color: #667eea;
             margin-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
         }
-        .section {
+
+        .info-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
             margin: 15px 0;
-            padding: 10px;
-            background-color: white;
-            border-radius: 5px;
         }
+
         .section-title {
             font-weight: bold;
-            color: #555;
-            margin-bottom: 5px;
+            color: #764ba2;
+            margin-bottom: 10px;
+            font-size: 16px;
         }
-        .hobby-list {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+
+        .info-item {
+            padding: 8px 0;
+            color: #333;
+            line-height: 1.6;
         }
-        .hobby-tag {
-            background-color: #2196F3;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 14px;
+
+        .label {
+            display: inline-block;
+            width: 100px;
+            font-weight: bold;
+            color: #666;
         }
     </style>
 </head>
 <body>
-    <h1>アドレス帳</h1>
-    <div id="contactList"></div>
+    <h1>📍 住所管理システム</h1>
+    <div id="personDisplay"></div>
 
-    <script src="script.js"></script>
+    <script>
+        // ネストしたオブジェクトを持つ人物データ
+        const person = {
+            name: "山田太郎",
+            age: 30,
+            address: {
+                postalCode: "160-0023",
+                prefecture: "東京都",
+                city: "新宿区",
+                street: "西新宿1-1-1",
+                building: "ABCビル3階"
+            },
+            contact: {
+                phone: "03-1234-5678",
+                mobile: "090-1111-2222",
+                email: "yamada@example.com"
+            }
+        };
+
+        const display = document.getElementById("personDisplay");
+
+        // 人物情報を表示する関数
+        function displayPerson() {
+            const card = document.createElement("div");
+            card.className = "person-card";
+
+            // 名前と年齢
+            const nameDiv = document.createElement("div");
+            nameDiv.className = "person-name";
+            nameDiv.textContent = `${person.name} (${person.age}歳)`;
+            card.appendChild(nameDiv);
+
+            // 住所セクション
+            const addressSection = document.createElement("div");
+            addressSection.className = "info-section";
+            addressSection.innerHTML = `
+                <div class="section-title">🏠 住所情報</div>
+                <div class="info-item">
+                    <span class="label">郵便番号:</span>${person.address.postalCode}
+                </div>
+                <div class="info-item">
+                    <span class="label">都道府県:</span>${person.address.prefecture}
+                </div>
+                <div class="info-item">
+                    <span class="label">市区町村:</span>${person.address.city}
+                </div>
+                <div class="info-item">
+                    <span class="label">番地:</span>${person.address.street}
+                </div>
+                <div class="info-item">
+                    <span class="label">建物名:</span>${person.address.building}
+                </div>
+            `;
+            card.appendChild(addressSection);
+
+            // 連絡先セクション
+            const contactSection = document.createElement("div");
+            contactSection.className = "info-section";
+            contactSection.innerHTML = `
+                <div class="section-title">📞 連絡先情報</div>
+                <div class="info-item">
+                    <span class="label">固定電話:</span>${person.contact.phone}
+                </div>
+                <div class="info-item">
+                    <span class="label">携帯電話:</span>${person.contact.mobile}
+                </div>
+                <div class="info-item">
+                    <span class="label">メール:</span>${person.contact.email}
+                </div>
+            `;
+            card.appendChild(contactSection);
+
+            display.appendChild(card);
+        }
+
+        // 実行
+        displayPerson();
+
+        // コンソールに詳細な情報を出力
+        console.log("=== 住所管理システム ===");
+        console.log(`名前: ${person.name}`);
+        console.log(`完全な住所: ${person.address.postalCode} ${person.address.prefecture}${person.address.city}${person.address.street} ${person.address.building}`);
+        console.log(`連絡先: ${person.contact.mobile}`);
+    </script>
 </body>
 </html>
 ```
 
-### JavaScript
+### このアプリケーションのポイント
 
-```javascript
-let addressBook = {
-  contacts: [
-    {
-      name: "山田太郎",
-      age: 30,
-      address: {
-        prefecture: "東京都",
-        city: "新宿区",
-        street: "西新宿1-1-1"
-      },
-      phones: ["03-1234-5678", "090-1111-2222"],
-      hobbies: ["ゴルフ", "読書", "料理"]
-    },
-    {
-      name: "佐藤花子",
-      age: 28,
-      address: {
-        prefecture: "神奈川県",
-        city: "横浜市",
-        street: "みなとみらい2-2-2"
-      },
-      phones: ["045-9876-5432"],
-      hobbies: ["音楽", "旅行"]
-    },
-    {
-      name: "田中次郎",
-      age: 35,
-      address: {
-        prefecture: "大阪府",
-        city: "大阪市",
-        street: "梅田3-3-3"
-      },
-      phones: ["06-5555-6666", "080-3333-4444"],
-      hobbies: ["スポーツ", "映画鑑賞", "カラオケ"]
-    }
-  ]
-};
+1. **ネストしたオブジェクト構造**
+   - `address` オブジェクトに複数の住所要素
+   - `contact` オブジェクトに複数の連絡先要素
 
-let contactList = document.getElementById("contactList");
+2. **データへのアクセス**
+   - `person.address.prefecture` で都道府県にアクセス
+   - `person.contact.email` でメールアドレスにアクセス
 
-// 連絡先を表示する関数
-function displayContacts() {
-  addressBook.contacts.forEach(function(contact) {
-    let card = document.createElement("div");
-    card.className = "contact-card";
+3. **視覚的な整理**
+   - セクションごとにグループ化して表示
+   - カラフルなカードデザイン
 
-    // 名前
-    let nameDiv = document.createElement("div");
-    nameDiv.className = "contact-name";
-    nameDiv.textContent = contact.name + " (" + contact.age + "歳)";
-    card.appendChild(nameDiv);
+## 実践例2：学生成績管理システム
 
-    // 住所
-    let addressSection = document.createElement("div");
-    addressSection.className = "section";
-    addressSection.innerHTML =
-      '<div class="section-title">住所</div>' +
-      contact.address.prefecture + ' ' +
-      contact.address.city + ' ' +
-      contact.address.street;
-    card.appendChild(addressSection);
-
-    // 電話番号
-    let phoneSection = document.createElement("div");
-    phoneSection.className = "section";
-    phoneSection.innerHTML = '<div class="section-title">電話番号</div>';
-    contact.phones.forEach(function(phone) {
-      let phoneDiv = document.createElement("div");
-      phoneDiv.textContent = phone;
-      phoneSection.appendChild(phoneDiv);
-    });
-    card.appendChild(phoneSection);
-
-    // 趣味
-    let hobbySection = document.createElement("div");
-    hobbySection.className = "section";
-    hobbySection.innerHTML = '<div class="section-title">趣味</div>';
-    let hobbyList = document.createElement("div");
-    hobbyList.className = "hobby-list";
-    contact.hobbies.forEach(function(hobby) {
-      let hobbyTag = document.createElement("span");
-      hobbyTag.className = "hobby-tag";
-      hobbyTag.textContent = hobby;
-      hobbyList.appendChild(hobbyTag);
-    });
-    hobbySection.appendChild(hobbyList);
-    card.appendChild(hobbySection);
-
-    contactList.appendChild(card);
-  });
-}
-
-displayContacts();
-```
-
-このアドレス帳では、各連絡先がネストしたオブジェクト（address）と配列（phones、hobbies）を含む複雑な構造になっています。
-
-## 複雑なオブジェクトの操作
-
-### ネストしたプロパティの変更
-
-```javascript
-let person = {
-  name: "太郎",
-  address: {
-    city: "東京",
-    country: "日本"
-  }
-};
-
-// ネストしたプロパティを変更
-person.address.city = "大阪";
-console.log(person.address.city); // "大阪"
-```
-
-### 配列要素の追加・削除
-
-```javascript
-let person = {
-  name: "花子",
-  skills: ["JavaScript", "HTML"]
-};
-
-// 配列に要素を追加
-person.skills.push("CSS");
-console.log(person.skills); // ["JavaScript", "HTML", "CSS"]
-```
-
-### ネストしたオブジェクトの追加
-
-```javascript
-let product = {
-  name: "ノートPC",
-  price: 120000
-};
-
-// 新しいネストしたオブジェクトを追加
-product.specs = {
-  cpu: "Intel Core i7",
-  memory: "16GB",
-  storage: "512GB SSD"
-};
-
-console.log(product.specs.cpu); // "Intel Core i7"
-```
-
-## 実践例：詳細な商品データ
-
-商品の詳細情報を管理するシステムを作ってみましょう。
-
-### HTML
+配列を含むオブジェクトを使って、学生の成績データを管理するシステムを作ってみましょう。
 
 ```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>商品詳細データ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生成績管理システム</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             max-width: 900px;
-            margin: 50px auto;
-            padding: 20px;
+            margin: 0 auto;
+            padding: 30px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            min-height: 100vh;
         }
-        .product-detail {
-            border: 2px solid #333;
-            border-radius: 10px;
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .student-card {
+            background: white;
+            border-radius: 15px;
             padding: 25px;
-            background-color: #fff;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
         }
-        .product-title {
+
+        .student-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #f5576c;
+        }
+
+        .student-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #f5576c;
+        }
+
+        .student-id {
+            font-size: 14px;
+            color: #666;
+            background: #f8f9fa;
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        .section {
+            margin: 15px 0;
+        }
+
+        .section-title {
+            font-weight: bold;
+            color: #f093fb;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .subject-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        .subject-item {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .subject-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .subject-score {
             font-size: 28px;
             font-weight: bold;
-            color: #333;
-            margin-bottom: 20px;
         }
-        .info-section {
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
+
+        .hobby-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
         }
-        .section-header {
-            font-size: 18px;
-            font-weight: bold;
-            color: #2196F3;
-            margin-bottom: 10px;
-        }
-        .spec-item {
-            padding: 8px 0;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        .tag {
-            display: inline-block;
-            background-color: #4CAF50;
+
+        .hobby-tag {
+            background: #f093fb;
             color: white;
-            padding: 5px 12px;
-            border-radius: 12px;
-            margin: 5px;
+            padding: 8px 15px;
+            border-radius: 20px;
             font-size: 14px;
         }
-        .review {
-            background-color: white;
-            padding: 10px;
-            margin: 10px 0;
-            border-left: 3px solid #FF9800;
-            border-radius: 3px;
-        }
-        .reviewer {
+
+        .average {
+            background: #28a745;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 20px;
             font-weight: bold;
-            color: #FF9800;
-        }
-        .rating {
-            color: #FFD700;
+            margin-top: 15px;
         }
     </style>
 </head>
 <body>
-    <h1>商品詳細管理システム</h1>
-    <div id="productDisplay"></div>
+    <h1>📊 学生成績管理システム</h1>
+    <div id="studentDisplay"></div>
 
-    <script src="script.js"></script>
+    <script>
+        // 配列を含むオブジェクト
+        const student = {
+            name: "佐藤花子",
+            studentId: "S12345",
+            grade: 2,
+            subjects: [
+                { name: "数学", score: 92 },
+                { name: "英語", score: 88 },
+                { name: "国語", score: 85 },
+                { name: "理科", score: 90 }
+            ],
+            hobbies: ["読書", "音楽", "テニス", "絵画"]
+        };
+
+        const display = document.getElementById("studentDisplay");
+
+        // 平均点を計算する関数
+        function calculateAverage(subjects) {
+            let total = 0;
+            for (let i = 0; i < subjects.length; i++) {
+                total += subjects[i].score;
+            }
+            return Math.round(total / subjects.length);
+        }
+
+        // 学生情報を表示する関数
+        function displayStudent() {
+            const card = document.createElement("div");
+            card.className = "student-card";
+
+            // ヘッダー（名前と学籍番号）
+            const header = document.createElement("div");
+            header.className = "student-header";
+            header.innerHTML = `
+                <div class="student-name">${student.name} (${student.grade}年生)</div>
+                <div class="student-id">学籍番号: ${student.studentId}</div>
+            `;
+            card.appendChild(header);
+
+            // 科目セクション
+            const subjectsSection = document.createElement("div");
+            subjectsSection.className = "section";
+            subjectsSection.innerHTML = '<div class="section-title">📚 科目別成績</div>';
+
+            const subjectList = document.createElement("div");
+            subjectList.className = "subject-list";
+
+            // 各科目の成績を表示
+            for (let i = 0; i < student.subjects.length; i++) {
+                const subject = student.subjects[i];
+                const subjectItem = document.createElement("div");
+                subjectItem.className = "subject-item";
+                subjectItem.innerHTML = `
+                    <div class="subject-name">${subject.name}</div>
+                    <div class="subject-score">${subject.score}点</div>
+                `;
+                subjectList.appendChild(subjectItem);
+            }
+
+            subjectsSection.appendChild(subjectList);
+            card.appendChild(subjectsSection);
+
+            // 平均点を表示
+            const average = calculateAverage(student.subjects);
+            const averageDiv = document.createElement("div");
+            averageDiv.className = "average";
+            averageDiv.textContent = `平均点: ${average}点`;
+            card.appendChild(averageDiv);
+
+            // 趣味セクション
+            const hobbiesSection = document.createElement("div");
+            hobbiesSection.className = "section";
+            hobbiesSection.innerHTML = '<div class="section-title">🎨 趣味</div>';
+
+            const hobbyList = document.createElement("div");
+            hobbyList.className = "hobby-list";
+
+            // 各趣味を表示
+            for (let i = 0; i < student.hobbies.length; i++) {
+                const hobbyTag = document.createElement("span");
+                hobbyTag.className = "hobby-tag";
+                hobbyTag.textContent = student.hobbies[i];
+                hobbyList.appendChild(hobbyTag);
+            }
+
+            hobbiesSection.appendChild(hobbyList);
+            card.appendChild(hobbiesSection);
+
+            display.appendChild(card);
+        }
+
+        // 実行
+        displayStudent();
+
+        // コンソールに詳細な情報を出力
+        console.log("=== 学生成績管理システム ===");
+        console.log(`学生名: ${student.name}`);
+        console.log(`科目数: ${student.subjects.length}`);
+        console.log("各科目の成績:");
+        for (let i = 0; i < student.subjects.length; i++) {
+            console.log(`  ${student.subjects[i].name}: ${student.subjects[i].score}点`);
+        }
+        console.log(`平均点: ${calculateAverage(student.subjects)}点`);
+        console.log(`趣味: ${student.hobbies.join(", ")}`);
+    </script>
 </body>
 </html>
 ```
 
-### JavaScript
+### このアプリケーションのポイント
 
-```javascript
-let product = {
-  id: 101,
-  name: "プレミアムワイヤレスヘッドホン",
-  price: 25000,
-  category: "オーディオ機器",
-  manufacturer: {
-    name: "AudioTech株式会社",
-    country: "日本",
-    contact: {
-      email: "info@audiotech.jp",
-      phone: "03-9999-8888"
-    }
-  },
-  specifications: {
-    type: "オーバーイヤー",
-    connectivity: "Bluetooth 5.0",
-    batteryLife: "30時間",
-    weight: "250g"
-  },
-  features: ["ノイズキャンセリング", "ハイレゾ対応", "折りたたみ式", "マルチポイント接続"],
-  reviews: [
-    {
-      user: "山田太郎",
-      rating: 5,
-      comment: "音質が素晴らしい。ノイズキャンセリングも完璧です。"
-    },
-    {
-      user: "佐藤花子",
-      rating: 4,
-      comment: "装着感が良く、長時間使用しても疲れません。"
-    },
-    {
-      user: "田中次郎",
-      rating: 5,
-      comment: "価格以上の価値があります。買って良かった。"
-    }
-  ],
-  inStock: true
-};
+1. **配列を含むオブジェクト**
+   - `subjects` 配列にオブジェクトの配列
+   - `hobbies` 配列に文字列の配列
 
-let productDisplay = document.getElementById("productDisplay");
+2. **配列の処理**
+   - for ループで全科目の成績を表示
+   - 平均点を計算する関数
 
-function displayProduct() {
-  let container = document.createElement("div");
-  container.className = "product-detail";
+3. **データへのアクセス**
+   - `student.subjects[i].score` で各科目の点数
+   - `student.hobbies[i]` で各趣味
 
-  // タイトル
-  let title = document.createElement("div");
-  title.className = "product-title";
-  title.textContent = product.name + " - ¥" + product.price.toLocaleString();
-  container.appendChild(title);
+## 実践例3：クラス全体の管理システム
 
-  // メーカー情報
-  let manufacturerSection = document.createElement("div");
-  manufacturerSection.className = "info-section";
-  manufacturerSection.innerHTML =
-    '<div class="section-header">メーカー情報</div>' +
-    '<div>会社名: ' + product.manufacturer.name + '</div>' +
-    '<div>国: ' + product.manufacturer.country + '</div>' +
-    '<div>連絡先: ' + product.manufacturer.contact.email + '</div>';
-  container.appendChild(manufacturerSection);
+オブジェクトの配列と複数のネスト構造を組み合わせたシステムを作ってみましょう。
 
-  // 仕様
-  let specsSection = document.createElement("div");
-  specsSection.className = "info-section";
-  specsSection.innerHTML = '<div class="section-header">製品仕様</div>';
-  for (let key in product.specifications) {
-    let specItem = document.createElement("div");
-    specItem.className = "spec-item";
-    specItem.textContent = key + ": " + product.specifications[key];
-    specsSection.appendChild(specItem);
-  }
-  container.appendChild(specsSection);
+```html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>クラス管理システム</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            min-height: 100vh;
+        }
 
-  // 特徴
-  let featuresSection = document.createElement("div");
-  featuresSection.className = "info-section";
-  featuresSection.innerHTML = '<div class="section-header">特徴</div>';
-  product.features.forEach(function(feature) {
-    let tag = document.createElement("span");
-    tag.className = "tag";
-    tag.textContent = feature;
-    featuresSection.appendChild(tag);
-  });
-  container.appendChild(featuresSection);
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
 
-  // レビュー
-  let reviewsSection = document.createElement("div");
-  reviewsSection.className = "info-section";
-  reviewsSection.innerHTML = '<div class="section-header">カスタマーレビュー</div>';
-  product.reviews.forEach(function(review) {
-    let reviewDiv = document.createElement("div");
-    reviewDiv.className = "review";
-    reviewDiv.innerHTML =
-      '<div class="reviewer">' + review.user + '</div>' +
-      '<div class="rating">' + "★".repeat(review.rating) + '</div>' +
-      '<div>' + review.comment + '</div>';
-    reviewsSection.appendChild(reviewDiv);
-  });
-  container.appendChild(reviewsSection);
+        .class-info {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
 
-  productDisplay.appendChild(container);
-}
+        .class-header {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4facfe;
+            margin-bottom: 15px;
+            text-align: center;
+            border-bottom: 3px solid #4facfe;
+            padding-bottom: 15px;
+        }
 
-displayProduct();
+        .teacher-info {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .teacher-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .students-section {
+            margin-top: 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #4facfe;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .student-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .student-card {
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .student-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .student-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #00695c;
+            margin-bottom: 10px;
+        }
+
+        .student-score {
+            font-size: 32px;
+            font-weight: bold;
+            color: #00897b;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .score-label {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .stats {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .stats-title {
+            font-weight: bold;
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .stat-item {
+            padding: 5px 0;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <h1>🏫 クラス管理システム</h1>
+    <div id="classDisplay"></div>
+
+    <script>
+        // 複雑なネスト構造を持つクラスデータ
+        const classroom = {
+            className: "3年A組",
+            teacher: {
+                name: "山田太郎",
+                subject: "数学",
+                experience: 15
+            },
+            students: [
+                { name: "佐藤花子", score: 92 },
+                { name: "田中次郎", score: 85 },
+                { name: "鈴木美咲", score: 88 },
+                { name: "高橋健太", score: 78 },
+                { name: "伊藤愛", score: 95 },
+                { name: "渡辺大輔", score: 82 }
+            ],
+            room: "301"
+        };
+
+        const display = document.getElementById("classDisplay");
+
+        // クラスの平均点を計算
+        function calculateClassAverage(students) {
+            let total = 0;
+            for (let i = 0; i < students.length; i++) {
+                total += students[i].score;
+            }
+            return Math.round(total / students.length);
+        }
+
+        // 最高点を見つける
+        function findTopScore(students) {
+            let topScore = 0;
+            for (let i = 0; i < students.length; i++) {
+                if (students[i].score > topScore) {
+                    topScore = students[i].score;
+                }
+            }
+            return topScore;
+        }
+
+        // クラス情報を表示する関数
+        function displayClassroom() {
+            const container = document.createElement("div");
+            container.className = "class-info";
+
+            // クラスヘッダー
+            const header = document.createElement("div");
+            header.className = "class-header";
+            header.textContent = `${classroom.className} (教室: ${classroom.room}号室)`;
+            container.appendChild(header);
+
+            // 担任教師情報
+            const teacherInfo = document.createElement("div");
+            teacherInfo.className = "teacher-info";
+            teacherInfo.innerHTML = `
+                <div class="teacher-name">👨‍🏫 担任: ${classroom.teacher.name}</div>
+                <div>担当科目: ${classroom.teacher.subject}</div>
+                <div>教職経験: ${classroom.teacher.experience}年</div>
+            `;
+            container.appendChild(teacherInfo);
+
+            // 生徒セクション
+            const studentsSection = document.createElement("div");
+            studentsSection.className = "students-section";
+
+            const sectionTitle = document.createElement("div");
+            sectionTitle.className = "section-title";
+            sectionTitle.innerHTML = `👥 生徒一覧 <span style="font-size: 16px; color: #666;">(全${classroom.students.length}名)</span>`;
+            studentsSection.appendChild(sectionTitle);
+
+            // 生徒グリッド
+            const studentGrid = document.createElement("div");
+            studentGrid.className = "student-grid";
+
+            // 各生徒のカードを作成
+            for (let i = 0; i < classroom.students.length; i++) {
+                const student = classroom.students[i];
+                const studentCard = document.createElement("div");
+                studentCard.className = "student-card";
+                studentCard.innerHTML = `
+                    <div class="student-name">${student.name}</div>
+                    <div class="student-score">${student.score}点</div>
+                    <div class="score-label">${classroom.teacher.subject} テスト成績</div>
+                `;
+                studentGrid.appendChild(studentCard);
+            }
+
+            studentsSection.appendChild(studentGrid);
+            container.appendChild(studentsSection);
+
+            // 統計情報
+            const stats = document.createElement("div");
+            stats.className = "stats";
+            const average = calculateClassAverage(classroom.students);
+            const topScore = findTopScore(classroom.students);
+            stats.innerHTML = `
+                <div class="stats-title">📈 クラス統計</div>
+                <div class="stat-item">• 生徒数: ${classroom.students.length}名</div>
+                <div class="stat-item">• 平均点: ${average}点</div>
+                <div class="stat-item">• 最高点: ${topScore}点</div>
+                <div class="stat-item">• 担当: ${classroom.teacher.name}先生 (${classroom.teacher.subject})</div>
+            `;
+            container.appendChild(stats);
+
+            display.appendChild(container);
+        }
+
+        // 実行
+        displayClassroom();
+
+        // コンソールに詳細な情報を出力
+        console.log("=== クラス管理システム ===");
+        console.log(`クラス名: ${classroom.className}`);
+        console.log(`担任: ${classroom.teacher.name}先生 (${classroom.teacher.subject})`);
+        console.log(`生徒数: ${classroom.students.length}名`);
+        console.log("\n生徒別成績:");
+        for (let i = 0; i < classroom.students.length; i++) {
+            console.log(`  ${i + 1}. ${classroom.students[i].name}: ${classroom.students[i].score}点`);
+        }
+        console.log(`\nクラス平均: ${calculateClassAverage(classroom.students)}点`);
+        console.log(`最高点: ${findTopScore(classroom.students)}点`);
+    </script>
+</body>
+</html>
 ```
 
-このシステムでは、製品情報がネストしたオブジェクト（manufacturer.contact）、配列（features）、オブジェクトの配列（reviews）を含む複雑な構造になっています。
+### このアプリケーションのポイント
+
+1. **複数のネスト構造**
+   - `teacher` オブジェクト（ネスト）
+   - `students` 配列（オブジェクトの配列）
+
+2. **複雑なデータアクセス**
+   - `classroom.teacher.name` で担任名
+   - `classroom.students[i].score` で各生徒の成績
+
+3. **データ処理**
+   - ループで全生徒の成績を表示
+   - 平均点と最高点の計算
+
+4. **実用的な機能**
+   - クラス統計の計算
+   - グリッドレイアウトで見やすい表示
 
 ## 複雑なデータ構造のナビゲート
 
-複雑なオブジェクトから特定のデータを取得する方法を理解することが重要です。
-
 ### パスを辿る
 
+複雑なオブジェクトから特定のデータを取得するには、パスを順に辿ります。
+
 ```javascript
-let data = {
+const data = {
   company: {
     departments: [
       {
@@ -578,13 +1093,36 @@ let data = {
 };
 
 // 営業部の最初の従業員の名前
-console.log(data.company.departments[0].employees[0].name); // "田中"
+console.log(data.company.departments[0].employees[0].name);  // "田中"
+```
+
+### アクセスパスの視覚化
+
+```
+data.company.departments[0].employees[0].name
+ ↓     ↓          ↓        ↓     ↓       ↓
+第1層 第2層      第3層    インデックス 第4層 プロパティ
+                  配列      0番目   配列の  最終値
+                           (営業部) 0番目
+                                   (田中)
+
+実行ステップ:
+1. data にアクセス
+2. data.company にアクセス
+3. company.departments にアクセス（配列）
+4. departments[0] にアクセス（0番目の部署）
+5. departments[0].employees にアクセス（配列）
+6. employees[0] にアクセス（0番目の従業員）
+7. employees[0].name にアクセス
+結果: "田中"
 ```
 
 ### ループでアクセス
 
+配列内の全オブジェクトにアクセスするには、ループを使います。
+
 ```javascript
-let company = {
+const company = {
   employees: [
     { name: "太郎", salary: 400000 },
     { name: "花子", salary: 450000 },
@@ -593,79 +1131,36 @@ let company = {
 };
 
 // すべての従業員の給与を表示
-company.employees.forEach(function(employee) {
-  console.log(employee.name + "の給与: " + employee.salary + "円");
-});
+for (let i = 0; i < company.employees.length; i++) {
+  console.log(company.employees[i].name + "の給与: " + company.employees[i].salary + "円");
+}
 ```
 
-## よくあるパターン
+### 実行の流れ
 
-### パターン1：階層的なデータ
-
-```javascript
-let organization = {
-  name: "本社",
-  children: [
-    {
-      name: "東京支社",
-      children: [
-        { name: "営業部", employees: 20 },
-        { name: "開発部", employees: 30 }
-      ]
-    },
-    {
-      name: "大阪支社",
-      children: [
-        { name: "営業部", employees: 15 }
-      ]
-    }
+```
+【初期状態】
+company = {
+  employees: [
+    { name: "太郎", salary: 400000 },
+    { name: "花子", salary: 450000 },
+    { name: "次郎", salary: 380000 }
   ]
-};
-```
+}
 
-### パターン2：設定オブジェクト
+【ループ実行】
 
-```javascript
-let appConfig = {
-  ui: {
-    theme: "dark",
-    language: "ja",
-    fontSize: 14
-  },
-  features: {
-    notifications: true,
-    autoSave: true,
-    experimental: ["feature1", "feature2"]
-  },
-  user: {
-    preferences: {
-      privacy: "high",
-      newsletter: false
-    }
-  }
-};
-```
+i = 0 の時:
+  company.employees[0] = { name: "太郎", salary: 400000 }
+  出力: "太郎の給与: 400000円"
 
-### パターン3：データと関連情報
+i = 1 の時:
+  company.employees[1] = { name: "花子", salary: 450000 }
+  出力: "花子の給与: 450000円"
 
-```javascript
-let article = {
-  title: "JavaScriptの基礎",
-  content: "...",
-  author: {
-    name: "山田太郎",
-    bio: "Web開発者",
-    socialMedia: {
-      twitter: "@yamada",
-      github: "yamada-dev"
-    }
-  },
-  tags: ["JavaScript", "プログラミング", "Web開発"],
-  comments: [
-    { user: "佐藤", text: "とても参考になりました" },
-    { user: "田中", text: "わかりやすい説明です" }
-  ]
-};
+i = 2 の時:
+  company.employees[2] = { name: "次郎", salary: 380000 }
+  出力: "次郎の給与: 380000円"
 ```
 
 ## 注意点
@@ -675,71 +1170,133 @@ let article = {
 ネストしたプロパティにアクセスする際、途中のプロパティが存在しない場合はエラーになります。
 
 ```javascript
-let person = {
+const person = {
   name: "太郎"
 };
 
 // エラー: Cannot read property 'city' of undefined
 // console.log(person.address.city);
 
-// 安全なアクセス
+// 安全なアクセス方法
 if (person.address !== undefined) {
   console.log(person.address.city);
+} else {
+  console.log("住所が登録されていません");
 }
 ```
 
 ### 2. 深いコピー vs 浅いコピー
 
-オブジェクトをコピーする際、ネストしたオブジェクトは参照がコピーされることに注意が必要です。
+オブジェクトをコピーする際、ネストしたオブジェクトは参照がコピーされます。
 
 ```javascript
-let original = {
+const original = {
   name: "太郎",
   address: { city: "東京" }
 };
 
-let copy = original;
+const copy = original;
 copy.address.city = "大阪";
 
-console.log(original.address.city); // "大阪" (元のオブジェクトも変更される)
+console.log(original.address.city);  // "大阪" (元のオブジェクトも変更される)
 ```
 
-## 練習問題
+## カリキュラムの仕様チェック
 
-次の仕様を満たすプログラムを作成してください。
+このレッスンで実装した内容が、カリキュラムの仕様を満たしているか確認します。
 
-### 仕様
+### カリキュラムの要件
 
-1. HTMLに以下の要素を作成する
-   - `id="display"`のdiv要素
+curriculum.md の レッスン137 (行1080-1085):
 
-2. JavaScriptで以下を実装する
-   - `library`という名前のオブジェクトを作成する
-     - name: "市立図書館"
-     - location: オブジェクト
-       - city: "東京"
-       - address: "新宿1-1-1"
-     - books: 配列（以下の3冊）
-       - { title: "JavaScript入門", author: "山田太郎", available: true }
-       - { title: "Web デザイン", author: "佐藤花子", available: false }
-       - { title: "データベース基礎", author: "田中次郎", available: true }
-   - 図書館名、場所、各書籍の情報を`display`要素に表示する
+```
+レッスン137:複雑なオブジェクト(30分)
+□ ネストしたオブジェクト
+□ 配列を含むオブジェクト
+□ アドレス帳作成
+【知識】ネストした構造、複合データ型
+✅ 成果物:詳細データ
+```
 
-### ヒント
+### 仕様の確認
 
-- ネストしたオブジェクトには`object.property.subproperty`でアクセスします
-- 配列の要素には`array[index]`でアクセスします
-- forEachループで配列の全要素を処理できます
+| 要件 | 実装内容 | 確認 |
+|-----|---------|-----|
+| ネストしたオブジェクト | `person.address.city` のような構造を解説、実践例1で住所管理システム実装 | ✅ |
+| 配列を含むオブジェクト | `student.hobbies[0]` のような構造を解説、実践例2で学生成績管理システム実装 | ✅ |
+| アドレス帳作成 | 実践例1で詳細な住所情報を含む住所管理システムを実装 | ✅ |
+| ネストした構造 | 複数階層のネスト構造を視覚化し、アクセス方法を詳しく解説 | ✅ |
+| 複合データ型 | オブジェクト内にオブジェクトや配列を含む複合的なデータ構造を解説 | ✅ |
+| 詳細データ | 実践例3でクラス管理システム（teacher, students配列など）を実装 | ✅ |
+
+### 詳細な確認
+
+**✅ ネストしたオブジェクト**
+- 基本的なネスト構造の解説
+- `person.address.prefecture` のようなアクセス方法
+- より深いネスト（3階層以上）の例
+- 実践例1: 住所管理システムで address, contact オブジェクトを実装
+
+**✅ 配列を含むオブジェクト**
+- `hobbies: ["読書", "音楽"]` のような構造の解説
+- 配列要素へのアクセス方法 (`student.hobbies[0]`)
+- 配列メソッド（push）の使用
+- 実践例2: 学生成績管理システムで subjects 配列、hobbies 配列を実装
+
+**✅ アドレス帳作成**
+- 実践例1で詳細な住所管理システムを実装
+- 郵便番号、都道府県、市区町村、番地、建物名を含む
+- 連絡先情報（電話、携帯、メール）も管理
+
+**✅ ネストした構造**
+- データ構造をASCII図で視覚化
+- アクセスパスの詳細な説明
+- 複数階層のネスト例を提供
+
+**✅ 複合データ型**
+- オブジェクト内のオブジェクト
+- オブジェクト内の配列
+- 配列内のオブジェクト
+- これらの組み合わせ
+
+**✅ 詳細データ（成果物）**
+- 実践例1: 住所管理システム（ネストしたオブジェクト）
+- 実践例2: 学生成績管理システム（配列を含むオブジェクト）
+- 実践例3: クラス管理システム（複合的な構造）
+
+すべての要件を満たしています。
 
 ## まとめ
 
 このレッスンでは、以下のことを学びました。
 
-1. ネストしたオブジェクトの作成とアクセス方法
-2. オブジェクトの中に配列を含める方法
-3. 配列の要素としてオブジェクトを使う方法
-4. ネストと配列を組み合わせた複雑なデータ構造
-5. 実践的なアドレス帳と商品詳細データの管理
-6. 複雑なデータ構造のナビゲート方法
+### 学んだこと
 
-複雑なオブジェクトを扱えるようになることで、より現実的で実用的なデータを管理できるようになりました。次のレッスンでは、オブジェクトのさらに高度な機能について学んでいきます。
+1. **ネストしたオブジェクト**
+   - オブジェクトの中にオブジェクトを含める方法
+   - ドット記法を連続して使ったアクセス方法
+   - 複数階層のネスト構造
+
+2. **配列を含むオブジェクト**
+   - オブジェクトのプロパティとして配列を使う方法
+   - 配列要素へのアクセスと操作
+   - オブジェクトの配列
+
+3. **複雑なデータ構造**
+   - ネストと配列の組み合わせ
+   - 複雑なデータ構造のナビゲート
+   - 実用的なデータ管理
+
+4. **実践的なアプリケーション**
+   - 住所管理システム
+   - 学生成績管理システム
+   - クラス管理システム
+
+### 重要なポイント
+
+- **データ構造の理解**: ネストした構造を図で視覚化することが重要
+- **アクセスパス**: パスを順に辿ることでデータにアクセス
+- **実用性**: 実際のデータは複雑な構造を持つことが多い
+- **エラー回避**: 存在しないプロパティへのアクセスに注意
+
+複雑なオブジェクトを扱えるようになることで、より現実的で実用的なデータを管理できるようになりました。次のレッスンでは、オブジェクトの配列について詳しく学んでいきます。

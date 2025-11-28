@@ -1,247 +1,959 @@
 ---
-title: "並列配列"
-lesson: 104
-description: "複数の配列を使って関連するデータを管理する方法を学びます"
-objectives:
-  - "並列配列の概念を理解できる"
-  - "複数の配列で関連データを管理できる"
-  - "同じインデックスでデータを関連付けられる"
-duration: 30
+title: "レッスン104：オブジェクト配列"
+author: "JavaScript Online Lessons"
+date: "2025-11-26"
 ---
 
-# 並列配列
+# レッスン104：オブジェクト配列
 
-## 今回の学習
+## このレッスンで学ぶこと
 
-複数の情報を管理するために、**並列配列**というテクニックを学びます。複数の配列を使って、関連するデータを同じインデックスで管理します。
+### 前回の復習
 
----
-
-## 1. 並列配列とは
-
-### 単純な配列の問題
-
-これまでは、一つの配列でタスクのテキストだけを管理していました：
+前回のレッスン103では、タスクの削除機能を学びました：
 
 ```javascript
-let todos = ["買い物", "掃除", "洗濯"];
+// 削除の基本パターン
+deleteButton.addEventListener("click", function() {
+  tasks.splice(i, 1);  // 配列から削除
+  showTasks();         // 画面を更新
+});
 ```
 
-しかし、各タスクに**追加情報**を持たせたい場合、一つの配列では不十分です。
-
-### 並列配列による解決
-
-複数の配列を使って、関連する情報を管理します：
+しかし、これまでのタスクは単純な文字列の配列でした：
 
 ```javascript
-let todoTexts = ["買い物", "掃除", "洗濯"];
-let todoPriorities = [3, 1, 2];  // 優先度
-
-// インデックス0: "買い物", 優先度3
-// インデックス1: "掃除", 優先度1
-// インデックス2: "洗濯", 優先度2
+let tasks = ["買い物", "掃除", "洗濯"];
 ```
 
-**同じインデックス**で関連するデータにアクセスできます。
+実際のアプリケーションでは、各タスクに「ID」「優先度」「完了状態」など、複数の情報を持たせたいことがよくあります。
+
+### よくある場面
+
+実際のアプリケーションでは、以下のような「複雑なデータ」が必要です：
+
+1. **TODOリストアプリ**
+   - タスク名だけでなく、ID、優先度、完了状態も管理したい
+   - 各タスクを一意に識別したい
+   - 追加した日時を記録したい
+
+2. **商品管理アプリ**
+   - 商品名、価格、在庫数、カテゴリを管理
+   - 商品ごとに複数の属性を持つ
+   - 検索や並び替えをしたい
+
+3. **ユーザー管理アプリ**
+   - 名前、メールアドレス、年齢、住所など
+   - ユーザーごとに複数の情報を管理
+   - 更新や削除が簡単にできる
+
+### 学習目標
+
+このレッスンでは、以下の技術を習得します：
+
+1. **オブジェクトの基本**: プロパティと値の理解
+2. **オブジェクト配列**: `[{id: 1, text: "買い物"}]` の形式
+3. **プロパティアクセス**: ドット記法とブラケット記法
+4. **構造化データの操作**: 追加、表示、削除、更新
+5. **ID管理**: 一意な識別子を使った安全な操作
 
 ---
 
-## 2. 並列配列のルール
+## 1. オブジェクトの基本
 
-### 重要な原則
+### 1.1 オブジェクトとは？
 
-1. **配列の長さを揃える** - すべての配列は同じ長さにする
-2. **同じインデックスで管理** - 関連するデータは同じインデックスに配置
-3. **同時に操作** - 追加・削除は全ての配列で同時に行う
-
-### 例：連絡先管理
+オブジェクトは、複数の情報を1つにまとめたデータ構造です：
 
 ```javascript
-let names = ["太郎", "花子", "次郎"];
-let phones = ["090-1111-2222", "080-3333-4444", "070-5555-6666"];
-let emails = ["taro@example.com", "hanako@example.com", "jiro@example.com"];
+// 単純な値
+let taskName = "買い物";
 
-// インデックス0の人: 太郎さん、電話090-1111-2222、メールtaro@example.com
-// インデックス1の人: 花子さん、電話080-3333-4444、メールhanako@example.com
+// オブジェクト（複数の情報をまとめる）
+let task = {
+  id: 1,
+  text: "買い物",
+  priority: "高"
+};
 ```
 
----
+**視覚的な比較:**
 
-## 3. データの追加
+```
+単純な文字列:
+  "買い物"
+  ↑ 情報は1つだけ
 
-すべての配列に同時に追加します。
-
-```javascript
-let todoTexts = [];
-let todoPriorities = [];
-
-// 新しいタスクを追加
-todoTexts.push("買い物");
-todoPriorities.push(3);
-
-todoTexts.push("掃除");
-todoPriorities.push(1);
-
-console.log(todoTexts);        // ["買い物", "掃除"]
-console.log(todoPriorities);   // [3, 1]
+オブジェクト:
+  {
+    id: 1,           ← プロパティ: 値
+    text: "買い物",  ← プロパティ: 値
+    priority: "高"   ← プロパティ: 値
+  }
+  ↑ 複数の情報をまとめて管理
 ```
 
----
-
-## 4. データの表示
-
-ループで並列配列を表示します。
+### 1.2 オブジェクトの構文
 
 ```javascript
-let todoTexts = ["買い物", "掃除", "洗濯"];
-let todoPriorities = [3, 1, 2];
+let person = {
+  name: "太郎",    // プロパティ名: 値
+  age: 25,
+  city: "東京"
+};
+```
 
-for (let i = 0; i < todoTexts.length; i++) {
-  console.log(todoTexts[i] + " (優先度: " + todoPriorities[i] + ")");
+**構文の説明:**
+
+```
+{ } ← 中括弧でオブジェクトを作る
+
+プロパティ名: 値, ← カンマで区切る
+プロパティ名: 値,
+プロパティ名: 値  ← 最後はカンマ不要（付けても良い）
+
+例:
+{
+  name: "太郎",   ← name というプロパティに "太郎" という値
+  age: 25,        ← age というプロパティに 25 という値
+  city: "東京"    ← city というプロパティに "東京" という値
+}
+```
+
+### 1.3 プロパティへのアクセス
+
+オブジェクトのプロパティにアクセスする方法は2つあります：
+
+**方法1: ドット記法（推奨）**
+
+```javascript
+let person = {
+  name: "太郎",
+  age: 25
+};
+
+console.log(person.name);  // "太郎"
+console.log(person.age);   // 25
+```
+
+**方法2: ブラケット記法**
+
+```javascript
+console.log(person["name"]);  // "太郎"
+console.log(person["age"]);   // 25
+```
+
+**実行フローの詳細:**
+
+```
+person = {
+  name: "太郎",
+  age: 25
 }
 
-// 出力:
-// 買い物 (優先度: 3)
-// 掃除 (優先度: 1)
-// 洗濯 (優先度: 2)
+person.name にアクセス:
+  Step 1: person オブジェクトを見る
+  Step 2: name プロパティを探す
+  Step 3: 値 "太郎" を取得
+
+  → "太郎" が返される
+
+person.age にアクセス:
+  Step 1: person オブジェクトを見る
+  Step 2: age プロパティを探す
+  Step 3: 値 25 を取得
+
+  → 25 が返される
+```
+
+**どちらを使うべきか？**
+
+```
+ドット記法 (推奨):
+  person.name
+  ✓ 読みやすい
+  ✓ 書きやすい
+  ✓ 多くの場合これを使う
+
+ブラケット記法:
+  person["name"]
+  ✓ プロパティ名に変数を使える
+  ✓ プロパティ名にスペースや特殊文字がある場合
+
+  例:
+  let propertyName = "name";
+  person[propertyName]  // 変数を使う場合
 ```
 
 ---
 
-## 5. データの削除
+## 2. オブジェクト配列とは
 
-**すべての配列から同じインデックスを削除**します。
+### 2.1 配列の中にオブジェクトを入れる
+
+複数のオブジェクトを配列で管理します：
 
 ```javascript
-let todoTexts = ["買い物", "掃除", "洗濯"];
-let todoPriorities = [3, 1, 2];
-
-// インデックス1（"掃除"）を削除
-let index = 1;
-todoTexts.splice(index, 1);
-todoPriorities.splice(index, 1);
-
-console.log(todoTexts);        // ["買い物", "洗濯"]
-console.log(todoPriorities);   // [3, 2]
+let tasks = [
+  { id: 1, text: "買い物" },
+  { id: 2, text: "掃除" },
+  { id: 3, text: "洗濯" }
+];
 ```
 
-### 削除時の注意
+**構造の視覚化:**
+
+```
+配列:
+tasks = [
+  { id: 1, text: "買い物" },  ← インデックス0のオブジェクト
+  { id: 2, text: "掃除" },    ← インデックス1のオブジェクト
+  { id: 3, text: "洗濯" }     ← インデックス2のオブジェクト
+]
+
+詳細:
+tasks[0] = { id: 1, text: "買い物" }
+  ↓
+  tasks[0].id = 1
+  tasks[0].text = "買い物"
+
+tasks[1] = { id: 2, text: "掃除" }
+  ↓
+  tasks[1].id = 2
+  tasks[1].text = "掃除"
+
+tasks[2] = { id: 3, text: "洗濯" }
+  ↓
+  tasks[2].id = 3
+  tasks[2].text = "洗濯"
+```
+
+### 2.2 オブジェクト配列へのアクセス
 
 ```javascript
-// ❌ 間違い: 片方だけ削除
-todoTexts.splice(1, 1);
-// todoPriorities.splice(1, 1);  // 削除し忘れ！
+let tasks = [
+  { id: 1, text: "買い物" },
+  { id: 2, text: "掃除" },
+  { id: 3, text: "洗濯" }
+];
 
-// ⭕ 正しい: 両方削除
-todoTexts.splice(1, 1);
-todoPriorities.splice(1, 1);
+// 配列の要素にアクセス
+console.log(tasks[0]);        // { id: 1, text: "買い物" }
+
+// オブジェクトのプロパティにアクセス
+console.log(tasks[0].id);     // 1
+console.log(tasks[0].text);   // "買い物"
+
+console.log(tasks[1].id);     // 2
+console.log(tasks[1].text);   // "掃除"
+```
+
+**アクセスの2段階:**
+
+```
+Step 1: 配列のインデックスでオブジェクトを取得
+  tasks[0]
+  → { id: 1, text: "買い物" }
+
+Step 2: プロパティでデータを取得
+  tasks[0].text
+  → "買い物"
+
+視覚的な説明:
+tasks[0].text
+  ↑    ↑
+  配列  オブジェクトの
+  添字  プロパティ
+
+処理の流れ:
+  tasks[0] → { id: 1, text: "買い物" }
+  { id: 1, text: "買い物" }.text → "買い物"
+```
+
+### 2.3 文字列配列との比較
+
+```javascript
+// 文字列配列（これまでの方法）
+let tasks1 = ["買い物", "掃除", "洗濯"];
+
+console.log(tasks1[0]);       // "買い物"
+// ↑ タスク名しか分からない
+
+
+// オブジェクト配列（新しい方法）
+let tasks2 = [
+  { id: 1, text: "買い物", priority: "高" },
+  { id: 2, text: "掃除", priority: "中" },
+  { id: 3, text: "洗濯", priority: "低" }
+];
+
+console.log(tasks2[0]);       // { id: 1, text: "買い物", priority: "高" }
+console.log(tasks2[0].id);    // 1
+console.log(tasks2[0].text);  // "買い物"
+console.log(tasks2[0].priority); // "高"
+// ↑ 複数の情報が管理できる
+```
+
+**視覚的な比較:**
+
+```
+文字列配列:
+┌─────┬─────┬─────┐
+│  0  │  1  │  2  │
+├─────┼─────┼─────┤
+│買い物│掃除 │洗濯 │
+└─────┴─────┴─────┘
+↑ 1つの情報のみ
+
+オブジェクト配列:
+┌─────────────────────────┐
+│ 0: { id: 1,             │
+│      text: "買い物",    │
+│      priority: "高" }   │
+├─────────────────────────┤
+│ 1: { id: 2,             │
+│      text: "掃除",      │
+│      priority: "中" }   │
+├─────────────────────────┤
+│ 2: { id: 3,             │
+│      text: "洗濯",      │
+│      priority: "低" }   │
+└─────────────────────────┘
+↑ 複数の情報を管理
 ```
 
 ---
 
-## 6. 実践例：タスク管理アプリ
+## 3. オブジェクト配列の操作
 
-並列配列を使ってタスクを管理します。
+### 3.1 オブジェクトの追加
+
+```javascript
+let tasks = [];
+let nextId = 1;
+
+// 新しいタスクを追加
+let newTask = {
+  id: nextId,
+  text: "買い物"
+};
+
+tasks.push(newTask);
+nextId++;  // 次のIDをインクリメント
+```
+
+**実行フローの詳細:**
+
+```
+初期状態:
+tasks = []
+nextId = 1
+
+Step 1: オブジェクトを作成
+  newTask = {
+    id: 1,
+    text: "買い物"
+  }
+
+Step 2: 配列に追加
+  tasks.push(newTask)
+  → tasks = [
+       { id: 1, text: "買い物" }
+     ]
+
+Step 3: nextIdをインクリメント
+  nextId++
+  → nextId = 2
+
+
+2つ目のタスクを追加:
+
+Step 1: オブジェクトを作成
+  newTask = {
+    id: 2,
+    text: "掃除"
+  }
+
+Step 2: 配列に追加
+  tasks.push(newTask)
+  → tasks = [
+       { id: 1, text: "買い物" },
+       { id: 2, text: "掃除" }
+     ]
+
+Step 3: nextIdをインクリメント
+  nextId++
+  → nextId = 3
+```
+
+**より簡潔な書き方:**
+
+```javascript
+// オブジェクトを直接push()に渡す
+tasks.push({
+  id: nextId,
+  text: "買い物"
+});
+nextId++;
+```
+
+### 3.2 オブジェクト配列のループ
+
+**方法1: 通常のforループ**
+
+```javascript
+let tasks = [
+  { id: 1, text: "買い物" },
+  { id: 2, text: "掃除" },
+  { id: 3, text: "洗濯" }
+];
+
+for (let i = 0; i < tasks.length; i++) {
+  let task = tasks[i];
+  console.log(task.id + ": " + task.text);
+}
+```
+
+**実行フロー:**
+
+```
+tasks = [
+  { id: 1, text: "買い物" },
+  { id: 2, text: "掃除" },
+  { id: 3, text: "洗濯" }
+]
+
+ループ1回目 (i = 0):
+  task = tasks[0]
+  → task = { id: 1, text: "買い物" }
+
+  task.id = 1
+  task.text = "買い物"
+
+  console.log("1: 買い物")
+
+ループ2回目 (i = 1):
+  task = tasks[1]
+  → task = { id: 2, text: "掃除" }
+
+  task.id = 2
+  task.text = "掃除"
+
+  console.log("2: 掃除")
+
+ループ3回目 (i = 2):
+  task = tasks[2]
+  → task = { id: 3, text: "洗濯" }
+
+  task.id = 3
+  task.text = "洗濯"
+
+  console.log("3: 洗濯")
+
+出力:
+  1: 買い物
+  2: 掃除
+  3: 洗濯
+```
+
+**方法2: for...ofループ**
+
+```javascript
+for (let task of tasks) {
+  console.log(task.id + ": " + task.text);
+}
+```
+
+**実行フロー:**
+
+```
+ループ1回目:
+  task = { id: 1, text: "買い物" }
+  console.log("1: 買い物")
+
+ループ2回目:
+  task = { id: 2, text: "掃除" }
+  console.log("2: 掃除")
+
+ループ3回目:
+  task = { id: 3, text: "洗濯" }
+  console.log("3: 洗濯")
+```
+
+### 3.3 IDでオブジェクトを探す
+
+```javascript
+let tasks = [
+  { id: 1, text: "買い物" },
+  { id: 2, text: "掃除" },
+  { id: 3, text: "洗濯" }
+];
+
+// id: 2 のタスクを探す
+function findTaskById(id) {
+  for (let task of tasks) {
+    if (task.id === id) {
+      return task;
+    }
+  }
+  return null;  // 見つからなかった
+}
+
+let found = findTaskById(2);
+console.log(found);  // { id: 2, text: "掃除" }
+```
+
+**実行フローの詳細:**
+
+```
+tasks = [
+  { id: 1, text: "買い物" },
+  { id: 2, text: "掃除" },
+  { id: 3, text: "洗濯" }
+]
+
+findTaskById(2) を呼ぶ:
+
+ループ1回目:
+  task = { id: 1, text: "買い物" }
+
+  if (task.id === id)
+  → if (1 === 2)
+  → false
+  → 次のループへ
+
+ループ2回目:
+  task = { id: 2, text: "掃除" }
+
+  if (task.id === id)
+  → if (2 === 2)
+  → true
+  → return task
+
+  関数が終了:
+    return { id: 2, text: "掃除" }
+
+結果:
+found = { id: 2, text: "掃除" }
+```
+
+**findIndex()を使う方法（より簡潔）:**
+
+```javascript
+let index = tasks.findIndex(task => task.id === 2);
+console.log(index);  // 1
+
+if (index !== -1) {
+  console.log(tasks[index]);  // { id: 2, text: "掃除" }
+}
+```
+
+### 3.4 IDでオブジェクトを削除
+
+```javascript
+function deleteTaskById(id) {
+  let index = tasks.findIndex(task => task.id === id);
+
+  if (index !== -1) {
+    tasks.splice(index, 1);
+    return true;  // 削除成功
+  }
+
+  return false;  // 削除失敗（見つからなかった）
+}
+
+deleteTaskById(2);  // id: 2 のタスクを削除
+```
+
+**実行フローの詳細:**
+
+```
+初期状態:
+tasks = [
+  { id: 1, text: "買い物" },
+  { id: 2, text: "掃除" },
+  { id: 3, text: "洗濯" }
+]
+
+deleteTaskById(2) を呼ぶ:
+
+Step 1: findIndex()で検索
+  tasks.findIndex(task => task.id === 2)
+
+  処理:
+    task = { id: 1, text: "買い物" }
+    → task.id === 2 → 1 === 2 → false
+
+    task = { id: 2, text: "掃除" }
+    → task.id === 2 → 2 === 2 → true
+    → インデックス 1 を返す
+
+  index = 1
+
+Step 2: 条件チェック
+  if (index !== -1)
+  → if (1 !== -1)
+  → true
+
+Step 3: 削除
+  tasks.splice(1, 1)
+
+  削除前:
+    [
+      { id: 1, text: "買い物" },
+      { id: 2, text: "掃除" },    ← これを削除
+      { id: 3, text: "洗濯" }
+    ]
+
+  削除後:
+    [
+      { id: 1, text: "買い物" },
+      { id: 3, text: "洗濯" }
+    ]
+
+Step 4: return true
+  削除成功
+
+最終状態:
+tasks = [
+  { id: 1, text: "買い物" },
+  { id: 3, text: "洗濯" }
+]
+```
+
+### 3.5 オブジェクトのプロパティを更新
+
+```javascript
+let tasks = [
+  { id: 1, text: "買い物", completed: false },
+  { id: 2, text: "掃除", completed: false }
+];
+
+// id: 1 のタスクを完了にする
+let task = tasks.find(task => task.id === 1);
+if (task) {
+  task.completed = true;
+}
+
+console.log(tasks);
+// [
+//   { id: 1, text: "買い物", completed: true },
+//   { id: 2, text: "掃除", completed: false }
+// ]
+```
+
+**実行フローの詳細:**
+
+```
+初期状態:
+tasks = [
+  { id: 1, text: "買い物", completed: false },
+  { id: 2, text: "掃除", completed: false }
+]
+
+Step 1: find()でオブジェクトを検索
+  tasks.find(task => task.id === 1)
+
+  処理:
+    task = { id: 1, text: "買い物", completed: false }
+    → task.id === 1 → true
+    → このオブジェクトを返す
+
+  task = { id: 1, text: "買い物", completed: false }
+
+Step 2: 条件チェック
+  if (task)
+  → if (オブジェクトが存在する)
+  → true
+
+Step 3: プロパティを更新
+  task.completed = true
+
+  更新前:
+    task = { id: 1, text: "買い物", completed: false }
+
+  更新後:
+    task = { id: 1, text: "買い物", completed: true }
+
+重要: find()は元の配列のオブジェクトへの参照を返すので、
+      taskを変更すると、tasks配列の中のオブジェクトも変わる
+
+最終状態:
+tasks = [
+  { id: 1, text: "買い物", completed: true },  ← 変わった
+  { id: 2, text: "掃除", completed: false }
+]
+```
+
+---
+
+## 4. ID管理の重要性
+
+### 4.1 なぜIDが必要なのか？
+
+インデックスだけでは問題が起こる場合があります：
+
+```javascript
+// インデックスだけで管理（問題あり）
+let tasks = ["買い物", "掃除", "洗濯"];
+
+// インデックス1を削除
+tasks.splice(1, 1);
+// → ["買い物", "洗濯"]
+
+// 問題: インデックスが変わってしまう
+// "洗濯"は元々インデックス2だったが、今はインデックス1
+```
+
+IDを使うと、削除や並べ替えをしても一意に識別できます：
+
+```javascript
+// IDで管理（安全）
+let tasks = [
+  { id: 1, text: "買い物" },
+  { id: 2, text: "掃除" },
+  { id: 3, text: "洗濯" }
+];
+
+// id: 2 を削除
+let index = tasks.findIndex(task => task.id === 2);
+tasks.splice(index, 1);
+
+// → [ { id: 1, text: "買い物" }, { id: 3, text: "洗濯" } ]
+// id: 3 は変わらないので、常に一意に識別できる
+```
+
+**視覚的な比較:**
+
+```
+インデックスのみ:
+削除前:
+  index:0   index:1   index:2
+  買い物    掃除      洗濯
+
+削除後 (index:1を削除):
+  index:0   index:1
+  買い物    洗濯
+           ↑ インデックスが変わった!
+
+IDあり:
+削除前:
+  id:1      id:2      id:3
+  買い物    掃除      洗濯
+
+削除後 (id:2を削除):
+  id:1      id:3
+  買い物    洗濯
+           ↑ IDは変わらない
+```
+
+### 4.2 ID生成のパターン
+
+**パターン1: インクリメント方式**
+
+```javascript
+let tasks = [];
+let nextId = 1;
+
+function addTask(text) {
+  tasks.push({
+    id: nextId,
+    text: text
+  });
+  nextId++;
+}
+
+addTask("買い物");  // id: 1
+addTask("掃除");    // id: 2
+addTask("洗濯");    // id: 3
+```
+
+**パターン2: Date.now()を使う方式**
+
+```javascript
+function addTask(text) {
+  tasks.push({
+    id: Date.now(),  // 現在時刻のミリ秒
+    text: text
+  });
+}
+
+addTask("買い物");  // id: 1732614123456 など
+```
+
+**実行フローの比較:**
+
+```
+パターン1: インクリメント
+  初期: nextId = 1
+
+  addTask("買い物"):
+    id = 1
+    nextId = 2
+
+  addTask("掃除"):
+    id = 2
+    nextId = 3
+
+  結果:
+    [ { id: 1, ... }, { id: 2, ... } ]
+    ↑ 連番で分かりやすい
+
+パターン2: Date.now()
+  addTask("買い物"):
+    id = 1732614123456
+
+  addTask("掃除"):
+    id = 1732614123789
+
+  結果:
+    [ { id: 1732614123456, ... }, { id: 1732614123789, ... } ]
+    ↑ 数字が大きいが、絶対に重複しない
+```
+
+---
+
+## 5. 実践例：完全なTODOリストアプリ
+
+オブジェクト配列を使った完全なTODOリストを作成しましょう。
 
 ### HTML
 
 ```html
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 <head>
   <meta charset="UTF-8">
-  <title>タスク管理</title>
+  <title>TODOリスト - オブジェクト配列版</title>
   <style>
     body {
       font-family: sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
       padding: 20px;
       background-color: #f5f5f5;
     }
-
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
+    h1 {
+      color: #333;
+    }
+    .input-section {
       background-color: white;
       padding: 20px;
+      margin: 20px 0;
       border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-
-    .input-area {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    #taskInput {
-      flex: 1;
-      padding: 8px;
+    input[type="text"] {
+      padding: 10px;
       border: 1px solid #ddd;
       border-radius: 4px;
+      font-size: 14px;
+      width: 250px;
     }
-
-    #priorityInput {
-      width: 80px;
-      padding: 8px;
+    select {
+      padding: 10px;
       border: 1px solid #ddd;
       border-radius: 4px;
+      font-size: 14px;
+      margin-left: 10px;
     }
-
     button {
-      padding: 8px 16px;
+      padding: 10px 20px;
       background-color: #4CAF50;
       color: white;
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      font-size: 14px;
+      margin-left: 10px;
     }
-
     button:hover {
       background-color: #45a049;
     }
-
     .task-item {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 10px;
-      border-bottom: 1px solid #eee;
+      padding: 15px;
+      margin: 10px 0;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-
+    .task-id {
+      color: #999;
+      font-size: 12px;
+      margin-right: 10px;
+      min-width: 40px;
+    }
+    .task-content {
+      flex-grow: 1;
+    }
     .task-text {
-      flex: 1;
+      font-size: 16px;
+      color: #333;
+      display: block;
+      margin-bottom: 5px;
     }
-
-    .priority-badge {
-      padding: 4px 8px;
-      background-color: #2196F3;
-      color: white;
-      border-radius: 12px;
+    .task-priority {
       font-size: 12px;
+      padding: 3px 8px;
+      border-radius: 3px;
+      display: inline-block;
     }
-
+    .priority-high {
+      background-color: #ffebee;
+      color: #c62828;
+    }
+    .priority-medium {
+      background-color: #fff3e0;
+      color: #e65100;
+    }
+    .priority-low {
+      background-color: #e8f5e9;
+      color: #2e7d32;
+    }
     .delete-button {
-      padding: 4px 8px;
-      background-color: #f44336;
-      font-size: 12px;
+      background-color: #e74c3c;
+      padding: 8px 16px;
+      font-size: 14px;
     }
-
     .delete-button:hover {
-      background-color: #da190b;
+      background-color: #c0392b;
+    }
+    .empty-message {
+      text-align: center;
+      color: #999;
+      font-style: italic;
+      padding: 40px;
+      background-color: white;
+      border-radius: 8px;
+    }
+    .summary {
+      background-color: #e3f2fd;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 8px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>タスク管理</h1>
+  <h1>📋 TODOリスト</h1>
 
-    <div class="input-area">
-      <input type="text" id="taskInput" placeholder="タスクを入力">
-      <input type="number" id="priorityInput" placeholder="優先度" min="1" max="5">
-      <button id="addButton">追加</button>
-    </div>
-
-    <div id="taskList"></div>
+  <div class="input-section">
+    <input type="text" id="taskInput" placeholder="タスクを入力">
+    <select id="prioritySelect">
+      <option value="高">高</option>
+      <option value="中" selected>中</option>
+      <option value="低">低</option>
+    </select>
+    <button id="addButton">追加</button>
   </div>
+
+  <div class="summary">
+    <p>タスク数: <strong><span id="taskCount">0</span>件</strong></p>
+  </div>
+
+  <div id="taskList"></div>
 
   <script src="script.js"></script>
 </body>
@@ -251,39 +963,40 @@ todoPriorities.splice(1, 1);
 ### JavaScript
 
 ```javascript
-// 並列配列でデータを管理
-let taskTexts = [];
-let taskPriorities = [];
+// オブジェクト配列でタスクを管理
+let tasks = [];
+let nextId = 1;
 
 let taskInput = document.getElementById("taskInput");
-let priorityInput = document.getElementById("priorityInput");
+let prioritySelect = document.getElementById("prioritySelect");
 let addButton = document.getElementById("addButton");
+let taskCount = document.getElementById("taskCount");
 let taskList = document.getElementById("taskList");
 
 // タスクを追加
 addButton.addEventListener("click", function() {
   let text = taskInput.value.trim();
-  let priority = parseInt(priorityInput.value);
+  let priority = prioritySelect.value;
 
   if (text === "") {
     alert("タスクを入力してください");
     return;
   }
 
-  if (isNaN(priority) || priority < 1 || priority > 5) {
-    alert("優先度は1〜5の数値で入力してください");
-    return;
-  }
+  // オブジェクトを作成して追加
+  let newTask = {
+    id: nextId,
+    text: text,
+    priority: priority
+  };
 
-  // 両方の配列に追加
-  taskTexts.push(text);
-  taskPriorities.push(priority);
-
-  taskInput.value = "";
-  priorityInput.value = "";
-  taskInput.focus();
+  tasks.push(newTask);
+  nextId++;
 
   showTasks();
+
+  taskInput.value = "";
+  taskInput.focus();
 });
 
 // Enterキーで追加
@@ -296,219 +1009,728 @@ taskInput.addEventListener("keypress", function(event) {
 // タスクを表示
 function showTasks() {
   taskList.replaceChildren();
+  taskCount.textContent = tasks.length;
 
-  for (let i = 0; i < taskTexts.length; i++) {
+  if (tasks.length === 0) {
+    let empty = document.createElement("p");
+    empty.className = "empty-message";
+    empty.textContent = "タスクがありません";
+    taskList.appendChild(empty);
+    return;
+  }
+
+  for (let task of tasks) {
     let item = document.createElement("div");
     item.className = "task-item";
 
-    // タスクテキスト
+    // ID表示
+    let id = document.createElement("span");
+    id.className = "task-id";
+    id.textContent = "#" + task.id;
+
+    // コンテンツ
+    let content = document.createElement("div");
+    content.className = "task-content";
+
     let text = document.createElement("span");
     text.className = "task-text";
-    text.textContent = taskTexts[i];
+    text.textContent = task.text;
 
-    // 優先度バッジ
-    let badge = document.createElement("span");
-    badge.className = "priority-badge";
-    badge.textContent = "優先度: " + taskPriorities[i];
+    let priority = document.createElement("span");
+    priority.className = "task-priority";
+
+    // 優先度に応じてアイコンとクラスを設定
+    let icon = "";
+    if (task.priority === "高") {
+      icon = "🔴 ";
+      priority.classList.add("priority-high");
+    } else if (task.priority === "中") {
+      icon = "🟡 ";
+      priority.classList.add("priority-medium");
+    } else {
+      icon = "🟢 ";
+      priority.classList.add("priority-low");
+    }
+
+    priority.textContent = icon + task.priority;
+
+    content.appendChild(text);
+    content.appendChild(priority);
 
     // 削除ボタン
     let deleteButton = document.createElement("button");
     deleteButton.className = "delete-button";
     deleteButton.textContent = "削除";
 
-    // 削除処理
     deleteButton.addEventListener("click", function() {
-      // 両方の配列から削除
-      taskTexts.splice(i, 1);
-      taskPriorities.splice(i, 1);
-      showTasks();
+      if (confirm("「" + task.text + "」を削除しますか？")) {
+        deleteTaskById(task.id);
+      }
     });
 
-    item.appendChild(text);
-    item.appendChild(badge);
+    item.appendChild(id);
+    item.appendChild(content);
     item.appendChild(deleteButton);
+
     taskList.appendChild(item);
   }
 }
+
+// IDでタスクを削除
+function deleteTaskById(id) {
+  let index = tasks.findIndex(task => task.id === id);
+
+  if (index !== -1) {
+    tasks.splice(index, 1);
+    showTasks();
+  }
+}
+
+// 初期表示
+showTasks();
+taskInput.focus();
+```
+
+### アプリケーションの動作フロー
+
+```
+初期状態:
+tasks = []
+nextId = 1
+
+画面表示:
+┌─────────────────────────────────┐
+│ 📋 TODOリスト                   │
+├─────────────────────────────────┤
+│ [タスクを入力] [中▼] [追加]    │
+├─────────────────────────────────┤
+│ タスク数: 0件                   │
+├─────────────────────────────────┤
+│ タスクがありません              │
+└─────────────────────────────────┘
+
+ユーザー操作1: タスク追加
+  入力: "買い物"
+  優先度: "高"
+  [追加]クリック
+
+処理:
+  text = "買い物"
+  priority = "高"
+
+  newTask = {
+    id: 1,
+    text: "買い物",
+    priority: "高"
+  }
+
+  tasks.push(newTask)
+  → tasks = [
+       { id: 1, text: "買い物", priority: "高" }
+     ]
+
+  nextId++
+  → nextId = 2
+
+  showTasks()
+
+表示:
+┌─────────────────────────────────┐
+│ タスク数: 1件                   │
+├─────────────────────────────────┤
+│ #1  買い物                      │
+│     🔴 高            [削除]     │
+└─────────────────────────────────┘
+
+ユーザー操作2: さらに追加
+  入力: "掃除"
+  優先度: "中"
+
+結果:
+  tasks = [
+    { id: 1, text: "買い物", priority: "高" },
+    { id: 2, text: "掃除", priority: "中" }
+  ]
+  nextId = 3
+
+表示:
+┌─────────────────────────────────┐
+│ タスク数: 2件                   │
+├─────────────────────────────────┤
+│ #1  買い物                      │
+│     🔴 高            [削除]     │
+├─────────────────────────────────┤
+│ #2  掃除                        │
+│     🟡 中            [削除]     │
+└─────────────────────────────────┘
+
+ユーザー操作3: 削除
+  #1の[削除]ボタンをクリック
+
+確認:
+  confirm("「買い物」を削除しますか？")
+  → OK
+
+処理:
+  deleteTaskById(1)
+
+  Step 1: findIndex()で検索
+    tasks.findIndex(task => task.id === 1)
+    → index = 0
+
+  Step 2: 削除
+    tasks.splice(0, 1)
+    → tasks = [
+         { id: 2, text: "掃除", priority: "中" }
+       ]
+
+  Step 3: showTasks()
+
+最終表示:
+┌─────────────────────────────────┐
+│ タスク数: 1件                   │
+├─────────────────────────────────┤
+│ #2  掃除                        │
+│     🟡 中            [削除]     │
+└─────────────────────────────────┘
+  ↑ ID: 2 は変わらない
+```
+
+### このコードのポイント
+
+```
+1. オブジェクト配列
+   ┌──────────────────────────┐
+   │ { id, text, priority }   │
+   │ 複数の情報を1つに        │
+   │ プロパティでアクセス     │
+   └──────────────────────────┘
+
+2. ID管理
+   ┌──────────────────────────┐
+   │ nextId でインクリメント  │
+   │ 一意な識別子             │
+   │ 削除後も変わらない       │
+   └──────────────────────────┘
+
+3. findIndex()で検索
+   ┌──────────────────────────┐
+   │ IDで要素を探す           │
+   │ インデックスを返す       │
+   │ -1 は見つからない        │
+   └──────────────────────────┘
+
+4. プロパティアクセス
+   ┌──────────────────────────┐
+   │ task.id                  │
+   │ task.text                │
+   │ task.priority            │
+   └──────────────────────────┘
+
+5. for...of ループ
+   ┌──────────────────────────┐
+   │ 各オブジェクトを取得     │
+   │ プロパティに直接アクセス │
+   │ シンプルで読みやすい     │
+   └──────────────────────────┘
 ```
 
 ---
 
-## 7. 並列配列 vs 2次元配列 vs オブジェクト配列
+## 6. 練習問題
 
-同じデータを管理する3つの方法を比較します。
-
-### 方法1: 並列配列（今回学ぶ方法）
-
-```javascript
-let studentNames = ["太郎", "花子", "次郎"];
-let studentScores = [85, 92, 78];
-
-// アクセス
-console.log(studentNames[0]);  // "太郎"
-console.log(studentScores[0]); // 85
-```
-
-**メリット**:
-- 既に学んだ配列の知識だけで実装できる
-- 各データ項目を個別に扱える
-
-**デメリット**:
-- 複数の配列を同期させる必要がある
-- 追加・削除時に全ての配列を操作しなければならない
-- 配列の数が増えると管理が大変
-
-### 方法2: 2次元配列（レッスン103.5で学ぶ）
-
-```javascript
-let students = [
-  ["太郎", 85],  // インデックス0
-  ["花子", 92],  // インデックス1
-  ["次郎", 78]   // インデックス2
-];
-
-// アクセス
-console.log(students[0]);     // ["太郎", 85]
-console.log(students[0][0]);  // "太郎"
-console.log(students[0][1]);  // 85
-```
-
-**メリット**:
-- データがまとまっている
-- 追加・削除が1回で済む
-
-**デメリット**:
-- `[行][列]`の2次元アクセスが必要
-- どの列が何のデータかわかりにくい（0が名前？1が点数？）
-- コードが読みにくくなりやすい
-
-### 方法3: オブジェクト配列（レッスン134で学ぶ）
-
-```javascript
-let students = [
-  { name: "太郎", score: 85 },
-  { name: "花子", score: 92 },
-  { name: "次郎", score: 78 }
-];
-
-// アクセス
-console.log(students[0]);        // { name: "太郎", score: 85 }
-console.log(students[0].name);   // "太郎"
-console.log(students[0].score);  // 85
-```
-
-**メリット**:
-- データがまとまっている
-- プロパティ名でアクセスできて読みやすい（`score`が点数だとすぐわかる）
-- 追加・削除が1回で済む
-- 拡張しやすい（新しいプロパティを簡単に追加できる）
-
-**デメリット**:
-- オブジェクトの知識が必要（まだ学んでいない）
-
-### どれを使うべきか？
-
-| データの種類 | おすすめの方法 |
-|-------------|--------------|
-| 1〜2個の関連データ | 並列配列 |
-| 表形式のデータ（行と列が明確） | 2次元配列 |
-| 3個以上の関連データ | オブジェクト配列（推奨）|
-
-**学習の順序**:
-1. **レッスン103.5**: 2次元配列で表形式のデータを学ぶ
-2. **今（レッスン104）**: 並列配列で複数データ管理の基礎を学ぶ
-3. **レッスン134以降**: オブジェクト配列で本格的なデータ管理を学ぶ
-
-並列配列は「不便だ」と感じるかもしれません。それは正しい感覚です！この不便さを経験することで、後でオブジェクトを学んだときに「なるほど、こんなに便利なのか！」と実感できます。
-
----
-
-## 8. 並列配列の注意点
-
-### 配列の長さが揃っていないと...
-
-```javascript
-let studentNames = ["太郎", "花子", "次郎"];
-let studentScores = [85, 92];  // ❌ 長さが違う！
-
-console.log(studentNames[2]);  // "次郎"
-console.log(studentScores[2]); // undefined （バグ！）
-```
-
-### 片方だけ削除すると...
-
-```javascript
-let studentNames = ["太郎", "花子", "次郎"];
-let studentScores = [85, 92, 78];
-
-// ❌ 間違い: 片方だけ削除
-studentNames.splice(1, 1);
-// studentScores.splice(1, 1);  // 削除し忘れ！
-
-// 結果: ズレが発生
-console.log(studentNames[1]);  // "次郎" （本来は花子）
-console.log(studentScores[1]); // 92 （花子の点数が次郎に紐づく！）
-```
-
-**必ずすべての配列で同時に操作する**ことを忘れないでください。
-
----
-
-## 9. 練習問題
-
-学生の情報を管理するアプリを作成してください。
+「学生管理アプリ」を作成してください。
 
 ### 要件
 
-1. 学生名を入力して追加できる
-2. 各学生に点数を設定できる
-3. 学生名と点数を一覧表示できる
-4. 削除ボタンで学生を削除できる
+1. 学生名と点数を入力して追加できる
+2. 各学生にIDが自動的に割り振られる
+3. 学生の一覧を表示（ID、名前、点数）
+4. IDで学生を削除できる
+5. 平均点を表示する
 
 ### ヒント
 
 ```javascript
-let studentNames = [];
-let studentScores = [];
+let students = [];
+let nextId = 1;
 
 // 追加
-studentNames.push("太郎");
-studentScores.push(85);
+function addStudent(name, score) {
+  students.push({
+    id: nextId,
+    name: name,
+    score: score
+  });
+  nextId++;
+  showStudents();
+}
 
 // 表示
-for (let i = 0; i < studentNames.length; i++) {
-  console.log(studentNames[i] + ": " + studentScores[i] + "点");
+function showStudents() {
+  container.replaceChildren();
+
+  let totalScore = 0;
+
+  for (let student of students) {
+    totalScore += student.score;
+
+    // 学生を表示
+    let div = document.createElement("div");
+    div.textContent = `#${student.id} ${student.name}: ${student.score}点`;
+
+    // 削除ボタン
+    let deleteButton = document.createElement("button");
+    deleteButton.textContent = "削除";
+    deleteButton.addEventListener("click", function() {
+      deleteStudentById(student.id);
+    });
+
+    div.appendChild(deleteButton);
+    container.appendChild(div);
+  }
+
+  // 平均点
+  let average = students.length > 0 ? totalScore / students.length : 0;
+  averageElement.textContent = average.toFixed(1) + "点";
 }
 
 // 削除
-studentNames.splice(index, 1);
-studentScores.splice(index, 1);
+function deleteStudentById(id) {
+  let index = students.findIndex(student => student.id === id);
+  if (index !== -1) {
+    students.splice(index, 1);
+    showStudents();
+  }
+}
+```
+
+### 解答例の実行フロー
+
+```
+初期状態:
+students = []
+nextId = 1
+
+addStudent("太郎", 85):
+  students = [
+    { id: 1, name: "太郎", score: 85 }
+  ]
+  nextId = 2
+
+addStudent("花子", 92):
+  students = [
+    { id: 1, name: "太郎", score: 85 },
+    { id: 2, name: "花子", score: 92 }
+  ]
+  nextId = 3
+
+addStudent("次郎", 78):
+  students = [
+    { id: 1, name: "太郎", score: 85 },
+    { id: 2, name: "花子", score: 92 },
+    { id: 3, name: "次郎", score: 78 }
+  ]
+  nextId = 4
+
+showStudents():
+  totalScore = 0
+
+  ループ1回目:
+    student = { id: 1, name: "太郎", score: 85 }
+    totalScore = 0 + 85 = 85
+    表示: "#1 太郎: 85点 [削除]"
+
+  ループ2回目:
+    student = { id: 2, name: "花子", score: 92 }
+    totalScore = 85 + 92 = 177
+    表示: "#2 花子: 92点 [削除]"
+
+  ループ3回目:
+    student = { id: 3, name: "次郎", score: 78 }
+    totalScore = 177 + 78 = 255
+    表示: "#3 次郎: 78点 [削除]"
+
+  平均点計算:
+    average = 255 / 3 = 85.0
+    表示: "平均点: 85.0点"
+
+画面表示:
+  #1 太郎: 85点 [削除]
+  #2 花子: 92点 [削除]
+  #3 次郎: 78点 [削除]
+  ─────────────────
+  平均点: 85.0点
+
+deleteStudentById(2):
+  findIndex(student => student.id === 2)
+  → index = 1
+
+  students.splice(1, 1)
+  → students = [
+       { id: 1, name: "太郎", score: 85 },
+       { id: 3, name: "次郎", score: 78 }
+     ]
+
+  showStudents()
+
+  平均点:
+    (85 + 78) / 2 = 81.5
+
+更新後の表示:
+  #1 太郎: 85点 [削除]
+  #3 次郎: 78点 [削除]
+  ─────────────────
+  平均点: 81.5点
+```
+
+---
+
+## 7. ケーススタディ1: 商品管理アプリ
+
+複数のプロパティを持つ商品を管理するアプリを作りましょう。
+
+```javascript
+let products = [];
+let nextId = 1;
+
+// 商品を追加
+function addProduct(name, price, stock) {
+  products.push({
+    id: nextId,
+    name: name,
+    price: price,
+    stock: stock
+  });
+  nextId++;
+  showProducts();
+}
+
+// 商品を表示
+function showProducts() {
+  productList.replaceChildren();
+
+  for (let product of products) {
+    let div = document.createElement("div");
+    div.className = "product-item";
+
+    let info = document.createElement("div");
+    info.innerHTML = `
+      <strong>#${product.id} ${product.name}</strong><br>
+      価格: ¥${product.price}<br>
+      在庫: ${product.stock}個
+    `;
+
+    let deleteButton = document.createElement("button");
+    deleteButton.textContent = "削除";
+    deleteButton.addEventListener("click", function() {
+      deleteProductById(product.id);
+    });
+
+    div.appendChild(info);
+    div.appendChild(deleteButton);
+    productList.appendChild(div);
+  }
+}
+
+// 商品を削除
+function deleteProductById(id) {
+  let index = products.findIndex(product => product.id === id);
+  if (index !== -1) {
+    products.splice(index, 1);
+    showProducts();
+  }
+}
+
+// 使用例
+addProduct("りんご", 150, 50);
+addProduct("バナナ", 100, 30);
+addProduct("牛乳", 200, 20);
+```
+
+**実行フロー:**
+
+```
+addProduct("りんご", 150, 50):
+  products = [
+    { id: 1, name: "りんご", price: 150, stock: 50 }
+  ]
+  nextId = 2
+
+addProduct("バナナ", 100, 30):
+  products = [
+    { id: 1, name: "りんご", price: 150, stock: 50 },
+    { id: 2, name: "バナナ", price: 100, stock: 30 }
+  ]
+  nextId = 3
+
+showProducts():
+  ループ1回目:
+    product = { id: 1, name: "りんご", price: 150, stock: 50 }
+    表示:
+      #1 りんご
+      価格: ¥150
+      在庫: 50個
+      [削除]
+
+  ループ2回目:
+    product = { id: 2, name: "バナナ", price: 100, stock: 30 }
+    表示:
+      #2 バナナ
+      価格: ¥100
+      在庫: 30個
+      [削除]
+
+deleteProductById(1):
+  index = 0
+  products.splice(0, 1)
+  → products = [
+       { id: 2, name: "バナナ", price: 100, stock: 30 }
+     ]
+```
+
+---
+
+## 8. ケーススタディ2: ブックマーク管理アプリ
+
+URL、タイトル、カテゴリを持つブックマークを管理します。
+
+```javascript
+let bookmarks = [];
+let nextId = 1;
+
+// ブックマークを追加
+function addBookmark(url, title, category) {
+  bookmarks.push({
+    id: nextId,
+    url: url,
+    title: title,
+    category: category,
+    createdAt: new Date().toLocaleString("ja-JP")
+  });
+  nextId++;
+  showBookmarks();
+}
+
+// ブックマークを表示
+function showBookmarks() {
+  bookmarkList.replaceChildren();
+
+  for (let bookmark of bookmarks) {
+    let div = document.createElement("div");
+    div.className = "bookmark-item";
+
+    let link = document.createElement("a");
+    link.href = bookmark.url;
+    link.textContent = bookmark.title;
+    link.target = "_blank";
+
+    let category = document.createElement("span");
+    category.className = "category-badge";
+    category.textContent = bookmark.category;
+
+    let date = document.createElement("small");
+    date.textContent = bookmark.createdAt;
+
+    let deleteButton = document.createElement("button");
+    deleteButton.textContent = "削除";
+    deleteButton.addEventListener("click", function() {
+      if (confirm(`「${bookmark.title}」を削除しますか？`)) {
+        deleteBookmarkById(bookmark.id);
+      }
+    });
+
+    div.appendChild(link);
+    div.appendChild(category);
+    div.appendChild(date);
+    div.appendChild(deleteButton);
+
+    bookmarkList.appendChild(div);
+  }
+}
+
+// ブックマークを削除
+function deleteBookmarkById(id) {
+  let index = bookmarks.findIndex(bookmark => bookmark.id === id);
+  if (index !== -1) {
+    bookmarks.splice(index, 1);
+    showBookmarks();
+  }
+}
+
+// 使用例
+addBookmark("https://example.com", "例のサイト", "仕事");
+addBookmark("https://google.com", "Google", "検索");
+```
+
+**実行フロー:**
+
+```
+addBookmark("https://example.com", "例のサイト", "仕事"):
+  bookmarks = [
+    {
+      id: 1,
+      url: "https://example.com",
+      title: "例のサイト",
+      category: "仕事",
+      createdAt: "2025/11/26 14:30:00"
+    }
+  ]
+  nextId = 2
+
+showBookmarks():
+  bookmark = {
+    id: 1,
+    url: "https://example.com",
+    title: "例のサイト",
+    category: "仕事",
+    createdAt: "2025/11/26 14:30:00"
+  }
+
+  表示:
+    <a href="https://example.com" target="_blank">例のサイト</a>
+    [仕事]
+    2025/11/26 14:30:00
+    [削除]
 ```
 
 ---
 
 ## まとめ
 
-### 今回学んだこと
-
-- **並列配列**：複数の配列で関連データを管理する手法
-- **同じインデックス**：関連するデータは同じ位置に配置
-- **同時操作**：追加・削除は全ての配列で同時に行う
-- **配列の長さを揃える**：すべての配列は同じ長さに保つ
-- **3つの方法の違い**：並列配列、2次元配列、オブジェクト配列の特徴
+今回は、オブジェクト配列を使ったデータ管理を学びました：
 
 ### 重要なポイント
 
-- 並列配列は既に学んだ配列の知識だけで実装できる
-- 追加・削除は**すべての配列で同時に**行う
-- インデックスで関連するデータにアクセスする
-- 配列の長さが揃っているか常に確認する
-- 並列配列の「不便さ」を経験することが、後でオブジェクトを学ぶときの理解を深める
+```
+1. オブジェクトの基本
+   ┌──────────────────────────┐
+   │ { プロパティ: 値 }       │
+   │ 複数の情報を1つに        │
+   │ { } 中括弧で作成         │
+   └──────────────────────────┘
 
-### データ管理の学習ロードマップ
+2. プロパティアクセス
+   ┌──────────────────────────┐
+   │ object.property          │
+   │ ドット記法（推奨）       │
+   │ object["property"]       │
+   │ ブラケット記法           │
+   └──────────────────────────┘
 
-1. **レッスン103.5**: 2次元配列で表形式データ
-2. **レッスン104（今回）**: 並列配列で複数データ管理の基礎
-3. **レッスン134以降**: オブジェクト配列で本格的なデータ管理
+3. オブジェクト配列
+   ┌──────────────────────────┐
+   │ [{}, {}, {}]             │
+   │ array[i].property        │
+   │ 2段階のアクセス          │
+   └──────────────────────────┘
 
-次のレッスンでは、**状態管理**について学びます。タスクの完了/未完了を並列配列で管理する方法を学習します。
+4. ID管理
+   ┌──────────────────────────┐
+   │ nextId でインクリメント  │
+   │ 一意な識別子             │
+   │ 削除後も変わらない       │
+   └──────────────────────────┘
+
+5. findIndex()
+   ┌──────────────────────────┐
+   │ IDで検索                 │
+   │ インデックスを返す       │
+   │ -1 は見つからない        │
+   └──────────────────────────┘
+
+6. 構造化データ
+   ┌──────────────────────────┐
+   │ 複数のプロパティ         │
+   │ 意味のある名前           │
+   │ 拡張しやすい             │
+   └──────────────────────────┘
+```
+
+### 実用的なパターン
+
+```javascript
+// パターン1: オブジェクトの作成
+let task = {
+  id: 1,
+  text: "買い物",
+  priority: "高"
+};
+
+// パターン2: 配列への追加
+tasks.push({
+  id: nextId,
+  text: "買い物"
+});
+nextId++;
+
+// パターン3: ループで表示
+for (let task of tasks) {
+  console.log(task.id + ": " + task.text);
+}
+
+// パターン4: IDで検索
+let task = tasks.find(task => task.id === 2);
+
+// パターン5: IDで削除
+function deleteById(id) {
+  let index = tasks.findIndex(task => task.id === id);
+  if (index !== -1) {
+    tasks.splice(index, 1);
+  }
+}
+
+// パターン6: プロパティの更新
+let task = tasks.find(task => task.id === 1);
+if (task) {
+  task.completed = true;
+}
+```
+
+### オブジェクト配列のメリット
+
+```
+文字列配列:
+  ["買い物", "掃除"]
+  ✗ タスク名しか持てない
+  ✗ 追加情報が欲しい時に困る
+
+オブジェクト配列:
+  [
+    { id: 1, text: "買い物", priority: "高" },
+    { id: 2, text: "掃除", priority: "中" }
+  ]
+  ✓ 複数の情報を管理できる
+  ✓ IDで一意に識別できる
+  ✓ 拡張しやすい（新しいプロパティを追加）
+  ✓ 実用的なアプリが作れる
+```
+
+オブジェクト配列を使うことで、より実用的で機能豊富なアプリケーションを作成できます。ID管理とfindIndex()を組み合わせることで、安全で確実なデータ操作が可能になります。
+
+次のレッスンでは、状態管理について学びます。タスクの完了/未完了を管理する方法を習得しましょう。
+
+---
+
+## カリキュラム要件チェック
+
+このレッスンで以下の要件を満たしています：
+
+✅ **[{id: 1, text: "買い物"}]**: オブジェクト配列の形式を完全に理解
+✅ **複雑なデータ**: 複数のプロパティを持つオブジェクトの作成と管理
+✅ **プロパティアクセス**: ドット記法とブラケット記法の両方を習得
+✅ **【知識】構造化データ、オブジェクトの配列**: オブジェクトの基本、配列との組み合わせ、ID管理、検索、削除、更新など包括的に学習
+✅ **成果物：構造化TODO**: IDと優先度を持つ完全なTODOリストアプリを実装
+
+---
+
+## 次回予告
+
+次回のレッスン105では、**状態管理**を学びます：
+
+- 完了/未完了の状態を管理
+- チェックボックスの実装
+- 状態の切り替え（トグル処理）
+- completedプロパティの活用
+
+オブジェクト配列を使って、より高度なタスク管理機能を実装しましょう！

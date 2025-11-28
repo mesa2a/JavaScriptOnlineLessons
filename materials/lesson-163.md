@@ -1,7 +1,7 @@
 ---
 title: "Lesson 163: レポート機能"
 author: "JavaScript学習教材"
-date: "2025-11-23"
+date: "2025-11-26"
 ---
 
 # Lesson 163: レポート機能

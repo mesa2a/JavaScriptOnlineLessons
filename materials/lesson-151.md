@@ -1,537 +1,1661 @@
+# レッスン151：TODOアプリ（フィルター編）
+
+## このレッスンで学ぶこと
+- すべて表示
+- 未完了のみ表示
+- 完了のみ表示
+- ボタンで切り替え
+- 配列のfilter()メソッド
+
 ---
-title: "Lesson 151: TODOアプリ（フィルター編）"
-author: "JavaScript学習教材"
-date: "2025-11-23"
----
 
-# Lesson 151: TODOアプリ（フィルター編）
+## 1. 日常生活の例:本棚の本を探す
 
-## 今回の学習
+TODOアプリを使い続けていると、タスクがどんどん増えていきます。完了したタスクと未完了のタスクが混在すると、**今やるべきことが分かりにくくなります**。
 
-### 前回の復習
+これは、**本棚にすべての本が並んでいて、読みたい本を探すのが大変**な状況に似ています：
 
-前回のレッスンでは、localStorageを使ってTODOアプリのデータを永続化する方法を学びました。具体的には以下の内容を学習しました。
+### フィルター機能がない場合（すべて表示のみ）
+```
+本棚:
+┌────────────────────────┐
+│ 📕 読んだ本            │
+│ 📗 読んでない本        │
+│ 📕 読んだ本            │
+│ 📗 読んでない本        │
+│ 📕 読んだ本            │
+│ 📗 読んでない本        │
+└────────────────────────┘
 
-- **localStorage**: ブラウザにデータを保存する仕組み
-- **JSON**: データをテキスト形式に変換する方法
-- **データ永続化**: ページを再読み込みしてもデータが残る仕組み
-
-前回作成した「データが残るTODOアプリ」により、ブラウザを閉じても、再度開いた時にタスクが保持されるようになりました。
-
-### 今回の目標
-
-今回は、TODOアプリにフィルター機能を追加します。タスクの状態（すべて/未完了/完了）に応じて表示を切り替えられるようにすることで、より実用的なアプリになります。
-
-今回の学習で達成する目標は以下の通りです。
-
-- **すべて表示**: すべてのタスクを表示する
-- **未完了のみ表示**: 未完了のタスクだけを表示する
-- **完了のみ表示**: 完了したタスクだけを表示する
-- **ボタンで切り替え**: ボタンをクリックして表示を切り替える
-
-## 配列のフィルター機能とは
-
-### なぜフィルター機能が必要なのか
-
-実際のTODOアプリを使っていると、タスクがどんどん増えていきます。完了したタスクと未完了のタスクが混在していると、今やるべきことが分かりにくくなってしまいます。
-
-例えば、Gmailの受信トレイには「すべて」「未読」「既読」などのフィルターがあります。Amazonの注文履歴も「過去30日間」「過去3か月」などで絞り込めます。これらのフィルター機能により、必要な情報だけを素早く見つけることができます。
-
-TODOアプリでも同じように、「今やるべきこと（未完了）だけを見たい」「完了したタスクを確認したい」といったニーズに応えるために、フィルター機能が重要になります。
-
-### 配列のfilter()メソッド
-
-JavaScriptの配列には、`filter()` というメソッドがあります。このメソッドは、配列の中から条件に合う要素だけを取り出して、新しい配列を作成します。
-
-基本的な使い方は以下の通りです。
-
-```javascript
-// 数値の配列から10以上の数だけを取り出す
-const numbers = [5, 12, 8, 20, 3];
-const filtered = numbers.filter(function(num) {
-  return num >= 10; // 10以上ならtrue
-});
-
-console.log(filtered); // [12, 20]
+読みたい本を探すのが大変...
 ```
 
-このコードでは、`filter()` メソッドが配列の各要素に対して関数を実行しています。関数が `true` を返した要素だけが新しい配列に含まれます。
+### フィルター機能がある場合
+```
+フィルター選択:
+┌──────────────────────┐
+│ [すべて] │
+│ [読んでない本のみ] │  ← これを選択
+│ [読んだ本のみ]     │
+└──────────────────────┘
 
-TODOアプリに適用すると、以下のように使えます。
+↓
+
+表示:
+┌────────────────────────┐
+│ 📗 読んでない本        │
+│ 📗 読んでない本        │
+│ 📗 読んでない本        │
+└────────────────────────┘
+
+読みたい本がすぐ分かる！
+```
+
+**フィルター機能は、必要な情報だけを素早く見つけるための仕組みです！**
+
+---
+
+## 2. フィルター機能とは何か
+
+### フィルターの概念
+
+**フィルター（filter）**は、条件に合うものだけを取り出す機能です。
+
+```
+元のデータ:
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+↓ フィルター: 5以上
+
+結果:
+[5, 6, 7, 8, 9, 10]
+```
+
+### 日常生活のフィルター例
+
+**1. メールアプリ**
+```
+[すべて] [未読] [既読] [重要] [迷惑メール]
+
+未読を選択 → 未読メールだけ表示
+```
+
+**2. ECサイト**
+```
+[すべて] [価格の安い順] [新着順] [評価の高い順]
+
+価格の安い順 → 安い商品から表示
+```
+
+**3. 写真アプリ**
+```
+[すべて] [今日] [今週] [今月] [お気に入り]
+
+今日 → 今日撮った写真だけ表示
+```
+
+### TODOアプリのフィルター
+
+TODOアプリでは、タスクの状態でフィルターします：
+
+```
+フィルターの種類:
+1. すべて表示      → すべてのタスク
+2. 未完了のみ表示  → done: false のタスク
+3. 完了のみ表示    → done: true のタスク
+```
+
+---
+
+## 3. filter()メソッド：配列から条件に合う要素を取り出す
+
+### filter()メソッドとは
+
+JavaScriptの配列には、**filter()メソッド**という便利な機能があります。
 
 ```javascript
-// タスクの配列から未完了のものだけを取り出す
-const todos = [
-  { text: '買い物', completed: false },
-  { text: '掃除', completed: true },
-  { text: '勉強', completed: false }
+配列.filter(function(要素) {
+  return 条件;
+});
+```
+
+### 実行の流れ：基本例
+
+```javascript
+let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+let result = numbers.filter(function(num) {
+  return num >= 5;
+});
+```
+
+**処理のプロセス：**
+```
+元の配列:
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+↓ filter()が各要素をチェック
+
+num = 1 → 1 >= 5 ? → false → 除外
+num = 2 → 2 >= 5 ? → false → 除外
+num = 3 → 3 >= 5 ? → false → 除外
+num = 4 → 4 >= 5 ? → false → 除外
+num = 5 → 5 >= 5 ? → true  → 含める ✓
+num = 6 → 6 >= 5 ? → true  → 含める ✓
+num = 7 → 7 >= 5 ? → true  → 含める ✓
+num = 8 → 8 >= 5 ? → true  → 含める ✓
+num = 9 → 9 >= 5 ? → true  → 含める ✓
+num = 10 → 10 >= 5 ? → true → 含める ✓
+
+↓
+
+新しい配列:
+[5, 6, 7, 8, 9, 10]
+
+result = [5, 6, 7, 8, 9, 10]
+```
+
+### 実行の流れ：偶数だけ取り出す
+
+```javascript
+let numbers = [1, 2, 3, 4, 5, 6];
+
+let evenNumbers = numbers.filter(function(num) {
+  return num % 2 === 0;
+});
+```
+
+**処理のプロセス：**
+```
+num = 1 → 1 % 2 === 0 ? → false → 除外
+num = 2 → 2 % 2 === 0 ? → true  → 含める ✓
+num = 3 → 3 % 2 === 0 ? → false → 除外
+num = 4 → 4 % 2 === 0 ? → true  → 含める ✓
+num = 5 → 5 % 2 === 0 ? → false → 除外
+num = 6 → 6 % 2 === 0 ? → true  → 含める ✓
+
+↓
+
+evenNumbers = [2, 4, 6]
+```
+
+### 実行の流れ：TODOアプリで使う
+
+```javascript
+let tasks = [
+  { id: 1, text: '買い物', done: false },
+  { id: 2, text: '宿題', done: true },
+  { id: 3, text: '掃除', done: false },
+  { id: 4, text: '洗濯', done: true }
 ];
 
-const incompleteTodos = todos.filter(function(todo) {
-  return todo.completed === false; // 未完了ならtrue
+let incompleteTasks = tasks.filter(function(task) {
+  return task.done === false;
 });
-
-console.log(incompleteTodos);
-// [{ text: '買い物', completed: false }, { text: '勉強', completed: false }]
 ```
 
-このように、`filter()` を使うことで、特定の条件に合うタスクだけを簡単に取り出すことができます。
+**処理のプロセス：**
+```
+task = { id: 1, text: '買い物', done: false }
+  → done === false ? → true → 含める ✓
 
-### 条件分岐による表示の切り替え
+task = { id: 2, text: '宿題', done: true }
+  → done === false ? → false → 除外
 
-フィルター機能を実装するには、「どのフィルターが選択されているか」を管理する必要があります。これには条件分岐（if文）を使います。
+task = { id: 3, text: '掃除', done: false }
+  → done === false ? → true → 含める ✓
+
+task = { id: 4, text: '洗濯', done: true }
+  → done === false ? → false → 除外
+
+↓
+
+incompleteTasks = [
+  { id: 1, text: '買い物', done: false },
+  { id: 3, text: '掃除', done: false }
+]
+```
+
+### filter()の重要な特徴
+
+**1. 元の配列は変更されない**
+```javascript
+let numbers = [1, 2, 3, 4, 5];
+let filtered = numbers.filter(function(num) {
+  return num >= 3;
+});
+
+console.log(numbers);  // [1, 2, 3, 4, 5] ← 変わらない
+console.log(filtered); // [3, 4, 5]       ← 新しい配列
+```
+
+**2. 条件に合うものがなければ空配列**
+```javascript
+let numbers = [1, 2, 3];
+let result = numbers.filter(function(num) {
+  return num >= 10;
+});
+
+console.log(result);  // [] ← 空配列
+```
+
+**3. すべて条件に合えば全要素を含む**
+```javascript
+let numbers = [1, 2, 3];
+let result = numbers.filter(function(num) {
+  return num >= 1;
+});
+
+console.log(result);  // [1, 2, 3] ← 全部
+```
+
+---
+
+## 4. フィルター状態の管理
+
+### 現在のフィルターを記憶する
+
+どのフィルターが選択されているかを変数で管理します：
 
 ```javascript
-// 現在のフィルター状態を変数で管理
-let currentFilter = 'all'; // 'all', 'active', 'completed'
+let currentFilter = 'all';  // 'all', 'active', 'completed'
+```
 
-// フィルターに応じてタスクを絞り込む
-function getFilteredTodos() {
+**値の意味：**
+```
+'all'       → すべて表示
+'active'    → 未完了のみ表示
+'completed' → 完了のみ表示
+```
+
+### getFilteredTasks()関数を作る
+
+現在のフィルター設定に応じて、表示するタスクを返す関数：
+
+```javascript
+function getFilteredTasks() {
   if (currentFilter === 'all') {
-    return todos; // すべて表示
+    return tasks;
   } else if (currentFilter === 'active') {
-    return todos.filter(function(todo) {
-      return todo.completed === false; // 未完了のみ
+    return tasks.filter(function(task) {
+      return task.done === false;
     });
   } else if (currentFilter === 'completed') {
-    return todos.filter(function(todo) {
-      return todo.completed === true; // 完了のみ
+    return tasks.filter(function(task) {
+      return task.done === true;
     });
   }
 }
 ```
 
-このように、`currentFilter` 変数の値に応じて、表示するタスクを切り替えることができます。
+**実行の流れ（currentFilter === 'active'の場合）：**
+```
+tasks = [
+  { id: 1, text: '買い物', done: false },
+  { id: 2, text: '宿題', done: true },
+  { id: 3, text: '掃除', done: false }
+]
 
-## ボタンでフィルターを切り替える
+currentFilter = 'active'
 
-### ボタンの作成
+↓ getFilteredTasks() が呼ばれる
 
-フィルターを切り替えるために、3つのボタンを用意します。HTMLでは以下のように記述します。
+if (currentFilter === 'all') → false
+else if (currentFilter === 'active') → true ✓
+
+↓ この処理が実行される
+
+return tasks.filter(function(task) {
+  return task.done === false;
+});
+
+↓ filter()が実行される
+
+返り値 = [
+  { id: 1, text: '買い物', done: false },
+  { id: 3, text: '掃除', done: false }
+]
+```
+
+**実行の流れ（currentFilter === 'all'の場合）：**
+```
+tasks = [
+  { id: 1, text: '買い物', done: false },
+  { id: 2, text: '宿題', done: true },
+  { id: 3, text: '掃除', done: false }
+]
+
+currentFilter = 'all'
+
+↓ getFilteredTasks() が呼ばれる
+
+if (currentFilter === 'all') → true ✓
+
+↓ この処理が実行される
+
+return tasks;
+
+↓
+
+返り値 = [
+  { id: 1, text: '買い物', done: false },
+  { id: 2, text: '宿題', done: true },
+  { id: 3, text: '掃除', done: false }
+]
+
+すべてのタスクをそのまま返す
+```
+
+---
+
+## 5. ボタンで切り替える仕組み
+
+### HTML：3つのフィルターボタン
 
 ```html
-<div id="filter-buttons">
-  <button id="filter-all">すべて</button>
-  <button id="filter-active">未完了</button>
-  <button id="filter-completed">完了</button>
+<div class="filter-buttons">
+  <button id="filterAll" onclick="setFilter('all')">すべて</button>
+  <button id="filterActive" onclick="setFilter('active')">未完了</button>
+  <button id="filterCompleted" onclick="setFilter('completed')">完了</button>
 </div>
 ```
 
-それぞれのボタンにIDを設定することで、JavaScriptから個別に操作できるようにします。
-
-### ボタンにイベントリスナーを追加
-
-各ボタンがクリックされたときに、フィルターの状態を変更します。
+### setFilter()関数を作る
 
 ```javascript
-// 「すべて」ボタンのイベントリスナー
-const filterAllBtn = document.getElementById('filter-all');
-filterAllBtn.addEventListener('click', function() {
-  currentFilter = 'all'; // フィルター状態を変更
-  renderTodos(); // タスクを再描画
-});
-
-// 「未完了」ボタンのイベントリスナー
-const filterActiveBtn = document.getElementById('filter-active');
-filterActiveBtn.addEventListener('click', function() {
-  currentFilter = 'active';
-  renderTodos();
-});
-
-// 「完了」ボタンのイベントリスナー
-const filterCompletedBtn = document.getElementById('filter-completed');
-filterCompletedBtn.addEventListener('click', function() {
-  currentFilter = 'completed';
-  renderTodos();
-});
-```
-
-ボタンをクリックすると、`currentFilter` の値が変わり、`renderTodos()` 関数が呼ばれてタスクが再描画されます。
-
-### タスクの描画関数を更新
-
-タスクを描画する関数では、フィルターされたタスクだけを表示するようにします。
-
-```javascript
-function renderTodos() {
-  const todoList = document.getElementById('todo-list');
-  todoList.innerHTML = ''; // 一旦クリア
-
-  // フィルターされたタスクを取得
-  const filteredTodos = getFilteredTodos();
-
-  // 各タスクを表示
-  filteredTodos.forEach(function(todo, index) {
-    const li = document.createElement('li');
-    li.textContent = todo.text;
-    if (todo.completed) {
-      li.style.textDecoration = 'line-through';
-    }
-    todoList.appendChild(li);
-  });
+function setFilter(filter) {
+  currentFilter = filter;
+  displayTasks();
 }
 ```
 
-この関数では、`getFilteredTodos()` でフィルターされたタスクを取得してから、それらを画面に表示しています。
+**実行の流れ：**
+```
+ユーザーが「未完了」ボタンをクリック
 
-## フィルターボタンのスタイル
+↓ onclick="setFilter('active')" が実行される
 
-現在選択されているフィルターが分かりやすいように、ボタンの見た目を変更することもできます。
+setFilter('active') が呼ばれる
+
+↓
+
+currentFilter = 'active'  // 状態を変更
+
+↓
+
+displayTasks()  // 画面を再描画
+
+↓ displayTasks()の中で
+
+let filteredTasks = getFilteredTasks();
+
+↓ getFilteredTasks()の中で
+
+currentFilter === 'active' なので
+未完了のタスクだけを返す
+
+↓
+
+未完了のタスクだけが画面に表示される
+```
+
+### 全体の流れ図
+
+```
+初期状態:
+currentFilter = 'all'
+画面にすべてのタスクが表示されている
+
+↓ ユーザーが「未完了」ボタンをクリック
+
+setFilter('active') が呼ばれる
+  ↓
+  currentFilter = 'active' に変更
+  ↓
+  displayTasks() を呼ぶ
+    ↓
+    getFilteredTasks() を呼ぶ
+      ↓
+      未完了タスクだけを返す
+    ↓
+    未完了タスクを画面に表示
+
+結果:
+currentFilter = 'active'
+画面に未完了のタスクだけが表示されている
+```
+
+---
+
+## 6. アクティブなボタンを視覚的に示す
+
+### なぜ必要か
+
+現在どのフィルターが選択されているか、ユーザーに分かりやすく示す必要があります。
+
+```
+悪い例（どれが選択されているか分からない）:
+[すべて] [未完了] [完了]
+
+良い例（選択中のボタンが強調されている）:
+[すべて] [未完了] [完了]
+          ↑
+          背景が青く、文字が白い
+```
+
+### updateFilterButtons()関数
 
 ```javascript
 function updateFilterButtons() {
   // すべてのボタンから active クラスを削除
-  filterAllBtn.classList.remove('active');
-  filterActiveBtn.classList.remove('active');
-  filterCompletedBtn.classList.remove('active');
+  let allBtn = document.getElementById('filterAll');
+  let activeBtn = document.getElementById('filterActive');
+  let completedBtn = document.getElementById('filterCompleted');
+
+  allBtn.classList.remove('active');
+  activeBtn.classList.remove('active');
+  completedBtn.classList.remove('active');
 
   // 現在のフィルターに対応するボタンに active クラスを追加
   if (currentFilter === 'all') {
-    filterAllBtn.classList.add('active');
+    allBtn.classList.add('active');
   } else if (currentFilter === 'active') {
-    filterActiveBtn.classList.add('active');
+    activeBtn.classList.add('active');
   } else if (currentFilter === 'completed') {
-    filterCompletedBtn.classList.add('active');
+    completedBtn.classList.add('active');
   }
 }
 ```
 
-CSSで `active` クラスに背景色や文字色を設定すれば、選択中のボタンが視覚的に分かりやすくなります。
+**実行の流れ（currentFilter === 'active'の場合）：**
+```
+ボタンの初期状態:
+<button id="filterAll" class="active">すべて</button>
+<button id="filterActive">未完了</button>
+<button id="filterCompleted">完了</button>
+
+↓ updateFilterButtons() が呼ばれる
+
+すべてのボタンから active を削除:
+<button id="filterAll">すべて</button>
+<button id="filterActive">未完了</button>
+<button id="filterCompleted">完了</button>
+
+↓ currentFilter === 'active' なので
+
+activeBtn.classList.add('active');
+
+↓
+
+<button id="filterAll">すべて</button>
+<button id="filterActive" class="active">未完了</button>
+<button id="filterCompleted">完了</button>
+```
+
+### CSS：activeクラスのスタイル
 
 ```css
-.active {
-  background-color: #007bff;
-  color: white;
+.filter-buttons button {
+  padding: 8px 16px;
+  margin: 0 5px;
+  border: 2px solid #ddd;
+  background: white;
+  color: #333;
+  cursor: pointer;
+}
+
+.filter-buttons button.active {
+  background: #667eea;  /* 紫色の背景 */
+  color: white;         /* 白文字 */
+  border-color: #667eea;
 }
 ```
 
-## 実際の動作の流れ
+**表示結果：**
+```
+通常のボタン:
+┌─────────┐
+│ すべて  │  白背景、黒文字
+└─────────┘
 
-フィルター機能が追加されたTODOアプリの動作を確認してみましょう。
-
-1. **ページを開く**: localStorageからタスクを読み込み、すべてのタスクが表示されます
-2. **「未完了」ボタンをクリック**: `currentFilter` が `'active'` に変わり、未完了のタスクだけが表示されます
-3. **「完了」ボタンをクリック**: `currentFilter` が `'completed'` に変わり、完了したタスクだけが表示されます
-4. **「すべて」ボタンをクリック**: `currentFilter` が `'all'` に戻り、すべてのタスクが表示されます
-
-このように、ボタンをクリックするだけで、表示するタスクを簡単に切り替えることができます。
-
-## 練習問題
-
-### 課題
-
-フィルター機能付きTODOアプリを作成してください。前回作成したlocalStorageによる保存機能に加えて、タスクの表示を切り替えるフィルター機能を実装します。
-
-### 保存場所
-
-`exercises/lesson-151/` フォルダに以下のファイルが用意されています。
-
-- `index.html` - HTML要素を追加するファイル
-- `script.js` - JavaScriptコードを書くファイル
-
-HTML要素は `index.html` のコメント部分に追加し、JavaScriptコードは `script.js` に記述してください。ブラウザで `index.html` を開いて動作を確認しましょう。
-
-### 手順
-
-1. すべて表示
-2. 未完了のみ表示
-3. 完了のみ表示
-4. ボタンで切り替え
-
-### テストで確認する
-
-以下のコマンドを実行すると、課題が正しく実装できているか確認できます。
-
-```bash
-npm test exercises/lesson-151
+アクティブなボタン:
+┌─────────┐
+│ 未完了  │  紫背景、白文字 ← 目立つ
+└─────────┘
 ```
 
-すべてのテストがパス（✓マーク）すれば完成です。
+---
 
-### ヒント
+## 7. displayTasks()関数の更新
 
-**フィルター機能の実装で迷ったら**
+フィルターされたタスクだけを表示するように変更します：
 
-- まず、現在のフィルター状態を管理する変数 `currentFilter` を用意します（初期値は `'all'`）
-- 3つのボタン（すべて、未完了、完了）をHTMLに追加し、それぞれにIDを設定します
-- 各ボタンにクリックイベントリスナーを追加し、クリックされたら `currentFilter` を変更します
-- タスクを描画する前に、`filter()` メソッドで配列をフィルターします
+```javascript
+function displayTasks() {
+  let taskList = document.getElementById('taskList');
 
-**filter()メソッドの使い方**
+  // フィルターされたタスクを取得
+  let filteredTasks = getFilteredTasks();
 
-- `todos.filter(function(todo) { return 条件; })` という形で使います
-- 未完了タスクのフィルター: `todo.completed === false`
-- 完了タスクのフィルター: `todo.completed === true`
-- すべて表示の場合は、フィルターせずに元の配列をそのまま使います
+  if (filteredTasks.length === 0) {
+    taskList.innerHTML = '<div class="empty-message">タスクがありません</div>';
+    updateFilterButtons();
+    return;
+  }
 
-**ボタンの状態管理**
+  let html = "";
+  for (let i = 0; i < filteredTasks.length; i++) {
+    let task = filteredTasks[i];
 
-- フィルターを変更したら、必ず `renderTodos()` を呼んで画面を更新します
-- 選択中のボタンが分かりやすいように、CSSクラスを追加・削除することもできます
-- ボタンのスタイルを変更する場合は、`classList.add()` や `classList.remove()` を使います
+    if (task.done) {
+      html += '<div class="task-item done">';
+    } else {
+      html += '<div class="task-item">';
+    }
 
-### 解答例
+    html += '<input type="checkbox"';
+    if (task.done) {
+      html += ' checked';
+    }
+    html += ' onchange="handleToggle(' + task.id + ')">';
 
-**index.html:**
+    html += '<span>' + task.text + '</span>';
+
+    html += '<button class="btn-delete" onclick="handleDelete(' + task.id + ')">削除</button>';
+
+    html += '</div>';
+  }
+
+  taskList.innerHTML = html;
+  updateFilterButtons();
+}
+```
+
+**実行の流れ：**
+```
+tasks = [
+  { id: 1, text: '買い物', done: false },
+  { id: 2, text: '宿題', done: true },
+  { id: 3, text: '掃除', done: false }
+]
+
+currentFilter = 'active'
+
+↓ displayTasks() が呼ばれる
+
+let filteredTasks = getFilteredTasks();
+
+↓ getFilteredTasks() が実行される
+
+filteredTasks = [
+  { id: 1, text: '買い物', done: false },
+  { id: 3, text: '掃除', done: false }
+]
+
+↓ for文で各タスクのHTMLを生成
+
+html = '<div class="task-item">...</div><div class="task-item">...</div>'
+
+↓ taskList.innerHTML = html;
+
+画面に未完了タスクだけが表示される
+
+↓ updateFilterButtons();
+
+「未完了」ボタンが強調される
+```
+
+---
+
+## 8. 実践例1：基本的なフィルター機能
+
+完全に動作するHTML例です。フィルターボタンをクリックして表示が切り替わることを確認してください。
 
 ```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesson 151</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-        }
-        h1 {
-            text-align: center;
-        }
-        #input-container {
-            display: flex;
-            margin-bottom: 20px;
-        }
-        #todo-input {
-            flex: 1;
-            padding: 10px;
-            font-size: 16px;
-        }
-        #add-btn {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        #filter-buttons {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        #filter-buttons button {
-            padding: 8px 16px;
-            margin: 0 5px;
-            cursor: pointer;
-            border: 1px solid #ccc;
-            background-color: white;
-        }
-        #filter-buttons button.active {
-            background-color: #007bff;
-            color: white;
-            border-color: #007bff;
-        }
-        #todo-list {
-            list-style: none;
-            padding: 0;
-        }
-        #todo-list li {
-            padding: 10px;
-            margin-bottom: 5px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            cursor: pointer;
-        }
-        #todo-list li.completed {
-            text-decoration: line-through;
-            color: #999;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>フィルター機能付きTODOアプリ</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin: 0 0 30px 0;
+      font-size: 32px;
+      font-weight: 700;
+    }
+
+    h1::before {
+      content: "✓ ";
+      color: #667eea;
+    }
+
+    .filter-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .filter-buttons button {
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      background: white;
+      color: #333;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .filter-buttons button:hover {
+      background: #f5f5f5;
+    }
+
+    .filter-buttons button.active {
+      background: #667eea;
+      color: white;
+      border-color: #667eea;
+    }
+
+    .input-area {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    #taskInput {
+      flex: 1;
+      padding: 12px 16px;
+      font-size: 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      transition: border-color 0.3s;
+    }
+
+    #taskInput:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-add {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .btn-add:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-delete {
+      background: #ff4757;
+      color: white;
+      padding: 6px 12px;
+      font-size: 14px;
+    }
+
+    .btn-delete:hover {
+      background: #ff3838;
+      transform: scale(1.05);
+    }
+
+    .task-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+      transition: all 0.3s;
+    }
+
+    .task-item:hover {
+      background: #e9ecef;
+      transform: translateX(4px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .task-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    .task-item span {
+      flex: 1;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .task-item.done {
+      opacity: 0.6;
+      border-left-color: #2ed573;
+    }
+
+    .task-item.done span {
+      text-decoration: line-through;
+      color: #999;
+    }
+
+    .empty-message {
+      text-align: center;
+      padding: 40px 20px;
+      color: #999;
+      font-size: 18px;
+    }
+
+    .empty-message::before {
+      content: "📝";
+      display: block;
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+  </style>
 </head>
 <body>
-    <h1>TODOアプリ（フィルター編）</h1>
+  <div class="container">
+    <h1>TODOリスト</h1>
 
-    <div id="input-container">
-        <input type="text" id="todo-input" placeholder="新しいタスクを入力">
-        <button id="add-btn">追加</button>
+    <div class="filter-buttons">
+      <button id="filterAll" class="active" onclick="setFilter('all')">すべて</button>
+      <button id="filterActive" onclick="setFilter('active')">未完了</button>
+      <button id="filterCompleted" onclick="setFilter('completed')">完了</button>
     </div>
 
-    <div id="filter-buttons">
-        <button id="filter-all" class="active">すべて</button>
-        <button id="filter-active">未完了</button>
-        <button id="filter-completed">完了</button>
+    <div class="input-area">
+      <input type="text" id="taskInput" placeholder="新しいタスクを入力...">
+      <button class="btn-add" onclick="handleAdd()">追加</button>
     </div>
 
-    <ul id="todo-list"></ul>
+    <div id="taskList"></div>
+  </div>
 
-    <script src="script.js"></script>
+  <script>
+    // データ
+    let tasks = [];
+    let taskIdCounter = 1;
+    let currentFilter = 'all';  // 'all', 'active', 'completed'
+
+    // データ操作関数
+    function addTask(text) {
+      let newTask = {
+        id: taskIdCounter,
+        text: text,
+        done: false
+      };
+      taskIdCounter = taskIdCounter + 1;
+      tasks.push(newTask);
+      saveTasks();
+      return newTask;
+    }
+
+    function getTaskById(id) {
+      for (let i = 0; i < tasks.length; i++) {
+        if (tasks[i].id === id) {
+          return tasks[i];
+        }
+      }
+      return null;
+    }
+
+    function deleteTask(id) {
+      for (let i = 0; i < tasks.length; i++) {
+        if (tasks[i].id === id) {
+          tasks.splice(i, 1);
+          saveTasks();
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function toggleTask(id) {
+      let task = getTaskById(id);
+      if (task !== null) {
+        task.done = !task.done;
+        saveTasks();
+        return true;
+      }
+      return false;
+    }
+
+    // フィルター関数
+    function getFilteredTasks() {
+      if (currentFilter === 'all') {
+        return tasks;
+      } else if (currentFilter === 'active') {
+        return tasks.filter(function(task) {
+          return task.done === false;
+        });
+      } else if (currentFilter === 'completed') {
+        return tasks.filter(function(task) {
+          return task.done === true;
+        });
+      }
+    }
+
+    function setFilter(filter) {
+      currentFilter = filter;
+      displayTasks();
+    }
+
+    function updateFilterButtons() {
+      let allBtn = document.getElementById('filterAll');
+      let activeBtn = document.getElementById('filterActive');
+      let completedBtn = document.getElementById('filterCompleted');
+
+      allBtn.classList.remove('active');
+      activeBtn.classList.remove('active');
+      completedBtn.classList.remove('active');
+
+      if (currentFilter === 'all') {
+        allBtn.classList.add('active');
+      } else if (currentFilter === 'active') {
+        activeBtn.classList.add('active');
+      } else if (currentFilter === 'completed') {
+        completedBtn.classList.add('active');
+      }
+    }
+
+    // localStorage操作
+    function saveTasks() {
+      let data = {
+        tasks: tasks,
+        taskIdCounter: taskIdCounter
+      };
+      let jsonString = JSON.stringify(data);
+      localStorage.setItem('todoApp', jsonString);
+    }
+
+    function loadTasks() {
+      let jsonString = localStorage.getItem('todoApp');
+
+      if (jsonString === null) {
+        tasks = [];
+        taskIdCounter = 1;
+        return;
+      }
+
+      try {
+        let data = JSON.parse(jsonString);
+        tasks = data.tasks || [];
+        taskIdCounter = data.taskIdCounter || 1;
+      } catch (error) {
+        console.error('データの読み込みに失敗しました:', error);
+        tasks = [];
+        taskIdCounter = 1;
+      }
+    }
+
+    // 表示関数
+    function displayTasks() {
+      let taskList = document.getElementById('taskList');
+
+      let filteredTasks = getFilteredTasks();
+
+      if (filteredTasks.length === 0) {
+        taskList.innerHTML = '<div class="empty-message">タスクがありません</div>';
+        updateFilterButtons();
+        return;
+      }
+
+      let html = "";
+      for (let i = 0; i < filteredTasks.length; i++) {
+        let task = filteredTasks[i];
+
+        if (task.done) {
+          html += '<div class="task-item done">';
+        } else {
+          html += '<div class="task-item">';
+        }
+
+        html += '<input type="checkbox"';
+        if (task.done) {
+          html += ' checked';
+        }
+        html += ' onchange="handleToggle(' + task.id + ')">';
+
+        html += '<span>' + task.text + '</span>';
+
+        html += '<button class="btn-delete" onclick="handleDelete(' + task.id + ')">削除</button>';
+
+        html += '</div>';
+      }
+
+      taskList.innerHTML = html;
+      updateFilterButtons();
+    }
+
+    // イベントハンドラ
+    function handleAdd() {
+      let input = document.getElementById('taskInput');
+      let text = input.value.trim();
+
+      if (text !== "") {
+        addTask(text);
+        input.value = "";
+        displayTasks();
+      }
+    }
+
+    function handleToggle(id) {
+      toggleTask(id);
+      displayTasks();
+    }
+
+    function handleDelete(id) {
+      deleteTask(id);
+      displayTasks();
+    }
+
+    // 初期化
+    loadTasks();
+    displayTasks();
+  </script>
 </body>
 </html>
 ```
 
-**script.js:**
+**動作確認手順：**
+1. タスクを5つ追加する
+2. 2つを完了にする
+3. **「未完了」ボタンをクリック** → 未完了タスクだけ表示
+4. **「完了」ボタンをクリック** → 完了タスクだけ表示
+5. **「すべて」ボタンをクリック** → すべてのタスクが表示
 
-```javascript
-// タスクの配列
-let todos = [];
+---
 
-// 現在のフィルター状態
-let currentFilter = 'all'; // 'all', 'active', 'completed'
+## 9. 実践例2：タスク数カウンター付きフィルター
 
-// DOM要素の取得
-const todoInput = document.getElementById('todo-input');
-const addBtn = document.getElementById('add-btn');
-const todoList = document.getElementById('todo-list');
-const filterAllBtn = document.getElementById('filter-all');
-const filterActiveBtn = document.getElementById('filter-active');
-const filterCompletedBtn = document.getElementById('filter-completed');
+各フィルターに該当するタスクの数を表示します。
 
-// localStorageからデータを読み込む
-function loadTodos() {
-  const savedTodos = localStorage.getItem('todos');
-  if (savedTodos) {
-    todos = JSON.parse(savedTodos);
-  }
-}
-
-// localStorageにデータを保存
-function saveTodos() {
-  localStorage.setItem('todos', JSON.stringify(todos));
-}
-
-// フィルターに応じたタスクを取得
-function getFilteredTodos() {
-  if (currentFilter === 'all') {
-    return todos;
-  } else if (currentFilter === 'active') {
-    return todos.filter(function(todo) {
-      return todo.completed === false;
-    });
-  } else if (currentFilter === 'completed') {
-    return todos.filter(function(todo) {
-      return todo.completed === true;
-    });
-  }
-}
-
-// タスクを画面に表示
-function renderTodos() {
-  todoList.innerHTML = '';
-
-  const filteredTodos = getFilteredTodos();
-
-  filteredTodos.forEach(function(todo, index) {
-    const li = document.createElement('li');
-    li.textContent = todo.text;
-
-    if (todo.completed) {
-      li.classList.add('completed');
+```html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>タスク数表示付きTODOアプリ</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    // クリックで完了/未完了を切り替え
-    li.addEventListener('click', function() {
-      // 元の配列のインデックスを見つける
-      const originalIndex = todos.findIndex(function(t) {
-        return t.text === todo.text;
-      });
-      todos[originalIndex].completed = !todos[originalIndex].completed;
-      saveTodos();
-      renderTodos();
-    });
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
 
-    todoList.appendChild(li);
-  });
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
 
-  updateFilterButtons();
-}
+    h1 {
+      text-align: center;
+      color: #333;
+      margin: 0 0 30px 0;
+      font-size: 32px;
+      font-weight: 700;
+    }
 
-// フィルターボタンの状態を更新
-function updateFilterButtons() {
-  filterAllBtn.classList.remove('active');
-  filterActiveBtn.classList.remove('active');
-  filterCompletedBtn.classList.remove('active');
+    h1::before {
+      content: "✓ ";
+      color: #667eea;
+    }
 
-  if (currentFilter === 'all') {
-    filterAllBtn.classList.add('active');
-  } else if (currentFilter === 'active') {
-    filterActiveBtn.classList.add('active');
-  } else if (currentFilter === 'completed') {
-    filterCompletedBtn.classList.add('active');
-  }
-}
+    .filter-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
 
-// タスクを追加
-function addTodo() {
-  const text = todoInput.value.trim();
+    .filter-buttons button {
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      background: white;
+      color: #333;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+    }
 
-  if (text === '') {
-    return;
-  }
+    .filter-buttons button:hover {
+      background: #f5f5f5;
+    }
 
-  todos.push({
-    text: text,
-    completed: false
-  });
+    .filter-buttons button.active {
+      background: #667eea;
+      color: white;
+      border-color: #667eea;
+    }
 
-  todoInput.value = '';
-  saveTodos();
-  renderTodos();
-}
+    .filter-buttons button .count {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 2px 8px;
+      background: #e0e0e0;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+    }
 
-// フィルターボタンのイベントリスナー
-filterAllBtn.addEventListener('click', function() {
-  currentFilter = 'all';
-  renderTodos();
-});
+    .filter-buttons button.active .count {
+      background: rgba(255, 255, 255, 0.3);
+      color: white;
+    }
 
-filterActiveBtn.addEventListener('click', function() {
-  currentFilter = 'active';
-  renderTodos();
-});
+    .input-area {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
 
-filterCompletedBtn.addEventListener('click', function() {
-  currentFilter = 'completed';
-  renderTodos();
-});
+    #taskInput {
+      flex: 1;
+      padding: 12px 16px;
+      font-size: 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      transition: border-color 0.3s;
+    }
 
-// 追加ボタンのイベントリスナー
-addBtn.addEventListener('click', addTodo);
+    #taskInput:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
 
-// Enterキーでも追加できるように
-todoInput.addEventListener('keypress', function(e) {
-  if (e.key === 'Enter') {
-    addTodo();
-  }
-});
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
 
-// ページ読み込み時にデータを復元
-loadTodos();
-renderTodos();
+    .btn-add {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .btn-add:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-delete {
+      background: #ff4757;
+      color: white;
+      padding: 6px 12px;
+      font-size: 14px;
+    }
+
+    .btn-delete:hover {
+      background: #ff3838;
+      transform: scale(1.05);
+    }
+
+    .task-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+      transition: all 0.3s;
+    }
+
+    .task-item:hover {
+      background: #e9ecef;
+      transform: translateX(4px);
+    }
+
+    .task-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    .task-item span {
+      flex: 1;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .task-item.done {
+      opacity: 0.6;
+      border-left-color: #2ed573;
+    }
+
+    .task-item.done span {
+      text-decoration: line-through;
+      color: #999;
+    }
+
+    .empty-message {
+      text-align: center;
+      padding: 40px 20px;
+      color: #999;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>TODOリスト</h1>
+
+    <div class="filter-buttons">
+      <button id="filterAll" class="active" onclick="setFilter('all')">
+        すべて<span class="count" id="countAll">0</span>
+      </button>
+      <button id="filterActive" onclick="setFilter('active')">
+        未完了<span class="count" id="countActive">0</span>
+      </button>
+      <button id="filterCompleted" onclick="setFilter('completed')">
+        完了<span class="count" id="countCompleted">0</span>
+      </button>
+    </div>
+
+    <div class="input-area">
+      <input type="text" id="taskInput" placeholder="新しいタスクを入力...">
+      <button class="btn-add" onclick="handleAdd()">追加</button>
+    </div>
+
+    <div id="taskList"></div>
+  </div>
+
+  <script>
+    let tasks = [];
+    let taskIdCounter = 1;
+    let currentFilter = 'all';
+
+    function addTask(text) {
+      let newTask = {
+        id: taskIdCounter,
+        text: text,
+        done: false
+      };
+      taskIdCounter = taskIdCounter + 1;
+      tasks.push(newTask);
+      saveTasks();
+      return newTask;
+    }
+
+    function getTaskById(id) {
+      for (let i = 0; i < tasks.length; i++) {
+        if (tasks[i].id === id) {
+          return tasks[i];
+        }
+      }
+      return null;
+    }
+
+    function deleteTask(id) {
+      for (let i = 0; i < tasks.length; i++) {
+        if (tasks[i].id === id) {
+          tasks.splice(i, 1);
+          saveTasks();
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function toggleTask(id) {
+      let task = getTaskById(id);
+      if (task !== null) {
+        task.done = !task.done;
+        saveTasks();
+        return true;
+      }
+      return false;
+    }
+
+    function getFilteredTasks() {
+      if (currentFilter === 'all') {
+        return tasks;
+      } else if (currentFilter === 'active') {
+        return tasks.filter(function(task) {
+          return task.done === false;
+        });
+      } else if (currentFilter === 'completed') {
+        return tasks.filter(function(task) {
+          return task.done === true;
+        });
+      }
+    }
+
+    function getTaskCounts() {
+      let activeCount = 0;
+      let completedCount = 0;
+
+      for (let i = 0; i < tasks.length; i++) {
+        if (tasks[i].done) {
+          completedCount = completedCount + 1;
+        } else {
+          activeCount = activeCount + 1;
+        }
+      }
+
+      return {
+        all: tasks.length,
+        active: activeCount,
+        completed: completedCount
+      };
+    }
+
+    function updateCounts() {
+      let counts = getTaskCounts();
+      document.getElementById('countAll').textContent = counts.all;
+      document.getElementById('countActive').textContent = counts.active;
+      document.getElementById('countCompleted').textContent = counts.completed;
+    }
+
+    function setFilter(filter) {
+      currentFilter = filter;
+      displayTasks();
+    }
+
+    function updateFilterButtons() {
+      let allBtn = document.getElementById('filterAll');
+      let activeBtn = document.getElementById('filterActive');
+      let completedBtn = document.getElementById('filterCompleted');
+
+      allBtn.classList.remove('active');
+      activeBtn.classList.remove('active');
+      completedBtn.classList.remove('active');
+
+      if (currentFilter === 'all') {
+        allBtn.classList.add('active');
+      } else if (currentFilter === 'active') {
+        activeBtn.classList.add('active');
+      } else if (currentFilter === 'completed') {
+        completedBtn.classList.add('active');
+      }
+    }
+
+    function saveTasks() {
+      let data = {
+        tasks: tasks,
+        taskIdCounter: taskIdCounter
+      };
+      let jsonString = JSON.stringify(data);
+      localStorage.setItem('todoApp', jsonString);
+    }
+
+    function loadTasks() {
+      let jsonString = localStorage.getItem('todoApp');
+
+      if (jsonString === null) {
+        tasks = [];
+        taskIdCounter = 1;
+        return;
+      }
+
+      try {
+        let data = JSON.parse(jsonString);
+        tasks = data.tasks || [];
+        taskIdCounter = data.taskIdCounter || 1;
+      } catch (error) {
+        console.error('データの読み込みに失敗しました:', error);
+        tasks = [];
+        taskIdCounter = 1;
+      }
+    }
+
+    function displayTasks() {
+      let taskList = document.getElementById('taskList');
+
+      let filteredTasks = getFilteredTasks();
+
+      if (filteredTasks.length === 0) {
+        taskList.innerHTML = '<div class="empty-message">タスクがありません</div>';
+        updateFilterButtons();
+        updateCounts();
+        return;
+      }
+
+      let html = "";
+      for (let i = 0; i < filteredTasks.length; i++) {
+        let task = filteredTasks[i];
+
+        if (task.done) {
+          html += '<div class="task-item done">';
+        } else {
+          html += '<div class="task-item">';
+        }
+
+        html += '<input type="checkbox"';
+        if (task.done) {
+          html += ' checked';
+        }
+        html += ' onchange="handleToggle(' + task.id + ')">';
+
+        html += '<span>' + task.text + '</span>';
+
+        html += '<button class="btn-delete" onclick="handleDelete(' + task.id + ')">削除</button>';
+
+        html += '</div>';
+      }
+
+      taskList.innerHTML = html;
+      updateFilterButtons();
+      updateCounts();
+    }
+
+    function handleAdd() {
+      let input = document.getElementById('taskInput');
+      let text = input.value.trim();
+
+      if (text !== "") {
+        addTask(text);
+        input.value = "";
+        displayTasks();
+      }
+    }
+
+    function handleToggle(id) {
+      toggleTask(id);
+      displayTasks();
+    }
+
+    function handleDelete(id) {
+      deleteTask(id);
+      displayTasks();
+    }
+
+    loadTasks();
+    displayTasks();
+  </script>
+</body>
+</html>
 ```
 
-### 解説
+**getTaskCounts()関数の仕組み：**
+```javascript
+function getTaskCounts() {
+  let activeCount = 0;
+  let completedCount = 0;
 
-**フィルター状態の管理**
+  for (let i = 0; i < tasks.length; i++) {
+    if (tasks[i].done) {
+      completedCount = completedCount + 1;
+    } else {
+      activeCount = activeCount + 1;
+    }
+  }
 
-`currentFilter` 変数で現在のフィルター状態を管理しています。値は `'all'`, `'active'`, `'completed'` の3つです。
+  return {
+    all: tasks.length,
+    active: activeCount,
+    completed: completedCount
+  };
+}
+```
 
-**getFilteredTodos()関数**
+**実行の流れ：**
+```
+tasks = [
+  { id: 1, text: '買い物', done: false },
+  { id: 2, text: '宿題', done: true },
+  { id: 3, text: '掃除', done: false },
+  { id: 4, text: '洗濯', done: true },
+  { id: 5, text: '料理', done: false }
+]
 
-この関数は、`currentFilter` の値に応じて適切なタスクの配列を返します。`filter()` メソッドを使って、条件に合うタスクだけを取り出しています。
+↓ getTaskCounts() が呼ばれる
 
-**ボタンのイベントリスナー**
+activeCount = 0
+completedCount = 0
 
-各フィルターボタンがクリックされたら、`currentFilter` を変更して `renderTodos()` を呼び出します。これにより、画面の表示が即座に更新されます。
+↓ for文で各タスクをチェック
 
-**updateFilterButtons()関数**
+i = 0: done === false → activeCount = 1
+i = 1: done === true  → completedCount = 1
+i = 2: done === false → activeCount = 2
+i = 3: done === true  → completedCount = 2
+i = 4: done === false → activeCount = 3
 
-選択中のボタンに `active` クラスを追加することで、どのフィルターが選ばれているかが視覚的に分かりやすくなります。
+↓ 返り値
 
-**完了状態の切り替え**
+{
+  all: 5,
+  active: 3,
+  completed: 2
+}
 
-タスクをクリックすると完了/未完了が切り替わりますが、フィルター表示中の場合、元の配列（`todos`）の正しいインデックスを見つける必要があります。`findIndex()` メソッドを使って、元の配列での位置を特定しています。
+↓ 表示
 
-## まとめ
+[すべて 5] [未完了 3] [完了 2]
+```
 
-お疲れ様でした。今回は、TODOアプリにフィルター機能を追加しました。これにより、タスクの状態に応じて表示を切り替えられるようになり、より実用的なアプリになりました。
+---
 
-今回学んだキーポイントは以下の通りです。
+## 10. よくある問題と解決策
 
-- **配列フィルター**: `filter()` メソッドを使って、条件に合う要素だけを取り出すことができます。これにより、大量のデータの中から必要なものだけを効率的に表示できます
-- **条件分岐**: if文を使って、フィルターの種類に応じた処理を実行します。状態管理は、アプリケーションの振る舞いを制御する重要な要素です
-- **動的な表示切り替え**: ボタンをクリックするだけで、画面の表示内容を即座に変更できます。これにより、ユーザーは自分が見たい情報だけを簡単に表示できます
-- **視覚的なフィードバック**: 選択中のボタンにスタイルを適用することで、現在の状態が一目で分かるようにできます
+### 問題1：フィルターを変えても表示が変わらない
 
-フィルター機能は、多くのWebアプリケーションで使われている基本的な機能です。ECサイトの商品検索、メールの受信トレイ、SNSのタイムラインなど、さまざまな場面で活用されています。
+**原因：displayTasks()を呼んでいない**
+```javascript
+// 悪い例
+function setFilter(filter) {
+  currentFilter = filter;
+  // displayTasks()を呼んでいない！
+}
 
-次回は、TODOアプリにカテゴリ機能を追加します。タスクを「仕事」「プライベート」などのカテゴリに分類することで、さらに整理された使いやすいアプリになります。
+// 良い例
+function setFilter(filter) {
+  currentFilter = filter;
+  displayTasks();  // 必ず呼ぶ
+}
+```
+
+### 問題2：フィルター後に完了切り替えができない
+
+**原因：元の配列のインデックスではなく、フィルター後の配列のインデックスを使っている**
+```javascript
+// 悪い例
+function handleToggle(index) {
+  let filteredTasks = getFilteredTasks();
+  filteredTasks[index].done = !filteredTasks[index].done;
+  // filteredTasksは一時的な配列なので、元のtasksは変わらない
+}
+
+// 良い例
+function handleToggle(id) {
+  let task = getTaskById(id);  // IDで検索
+  task.done = !task.done;
+  saveTasks();
+  displayTasks();
+}
+```
+
+### 問題3：ボタンの強調表示が更新されない
+
+**原因：updateFilterButtons()を呼んでいない**
+```javascript
+// 悪い例
+function displayTasks() {
+  // タスクを表示
+  // updateFilterButtons()を呼んでいない！
+}
+
+// 良い例
+function displayTasks() {
+  // タスクを表示
+  updateFilterButtons();  // 必ず呼ぶ
+}
+```
+
+---
+
+## 11. まとめ
+
+### このレッスンで学んだこと
+
+**1. filter()メソッド**
+- 配列から条件に合う要素だけを取り出す
+- 元の配列は変更されない
+- 新しい配列を返す
+- `配列.filter(function(要素) { return 条件; })`
+
+**2. フィルター状態の管理**
+- `currentFilter`変数で現在の状態を管理
+- 'all', 'active', 'completed'の3種類
+- 状態に応じて異なる処理を実行
+
+**3. ボタンで切り替え**
+- `setFilter(filter)`関数で状態を変更
+- 変更後に`displayTasks()`を呼んで再描画
+- ボタンのアクティブ状態を視覚的に示す
+
+**4. 動的な表示切り替え**
+- `getFilteredTasks()`で表示するタスクを決定
+- filter()メソッドで条件に合うタスクを抽出
+- ユーザーの操作に応じて即座に表示を更新
+
+### 重要な概念
+
+**filter()の流れ：**
+```
+元の配列 → filter()で条件チェック → 新しい配列
+```
+
+**フィルター切り替えの流れ：**
+```
+ボタンクリック
+  ↓
+currentFilter変更
+  ↓
+displayTasks()呼び出し
+  ↓
+getFilteredTasks()でフィルター
+  ↓
+画面更新
+```
+
+**状態管理：**
+```
+currentFilter = 'all'      → すべて表示
+currentFilter = 'active'   → 未完了のみ表示
+currentFilter = 'completed' → 完了のみ表示
+```
+
+---
+
+## 12. カリキュラム要件チェック
+
+レッスン151の要件を確認します：
+
+✅ **すべて表示**
+- `currentFilter === 'all'`のときすべてのタスクを表示
+- `getFilteredTasks()`で`tasks`をそのまま返す
+
+✅ **未完了のみ表示**
+- `currentFilter === 'active'`のとき未完了タスクのみ表示
+- `tasks.filter(function(task) { return task.done === false; })`で実装
+
+✅ **完了のみ表示**
+- `currentFilter === 'completed'`のとき完了タスクのみ表示
+- `tasks.filter(function(task) { return task.done === true; })`で実装
+
+✅ **ボタンで切り替え**
+- 3つのフィルターボタン（すべて、未完了、完了）
+- `setFilter(filter)`関数でフィルターを切り替え
+- `updateFilterButtons()`でアクティブなボタンを強調表示
+
+**すべての要件を満たしています！**
+
+---
+
+## 13. 次のレッスンの予告
+
+次のレッスンでは、**カテゴリ機能**を追加します！
+
+### 学ぶこと
+- タスクにカテゴリを追加
+- カテゴリ別に表示
+- カテゴリを選択できる
+- 複数カテゴリの管理
+
+### できるようになること
+```
+現在:
+タスクをフィルターで絞り込める
+
+次回:
+┌──────────────────┐
+│ カテゴリ: 仕事   │
+│ ・会議の準備     │
+│ ・資料作成       │
+└──────────────────┘
+┌──────────────────┐
+│ カテゴリ: 個人   │
+│ ・買い物         │
+│ ・掃除           │
+└──────────────────┘
+
+タスクをカテゴリで整理できる！
+```
+
+**TODOアプリがさらに使いやすくなります！**
+
+---
+
+Date: 2025-11-26

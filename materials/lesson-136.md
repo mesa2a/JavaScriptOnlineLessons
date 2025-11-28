@@ -1,736 +1,1156 @@
-# レッスン136：プロパティ変更
+# レッスン136: プロパティ変更
+
+**日付**: 2025-11-26
+**所要時間**: 30分
 
 ## このレッスンで学ぶこと
 
-このレッスンでは、オブジェクトのプロパティを変更、追加、削除する方法を学びます。オブジェクトは作成後も自由に編集でき、動的にプロパティを操作することができます。
+1. プロパティの値を変更する方法
+2. 新しいプロパティを追加する方法
+3. deleteでプロパティを削除する方法
+4. 動的なプロパティ操作
 
-## プロパティ値の変更
+---
 
-既存のプロパティの値を変更するには、代入演算子を使います。
+## プロパティ変更とは？
+
+### 日常生活での例え：ノートの編集
+
+```
+【ノートに書かれた情報】
+名前: 太郎
+年齢: 20歳
+住所: 東京都
+
+【編集できること】
+✓ 年齢を21歳に変更（値の更新）
+✓ メールアドレスを追加（新しいページを追加）
+✓ 住所の項目を消す（ページを破る）
+```
+
+**プロパティ変更**とは、オブジェクトのデータを書き換えたり、新しいデータを追加したり、不要なデータを削除することです。
+
+---
+
+## 1. プロパティの値を変更 (person.age = 21)
 
 ### 基本的な変更方法
 
 ```javascript
-let person = {
+const person = {
   name: "太郎",
-  age: 20
+  age: 20,
+  city: "東京"
 };
 
-console.log(person.age); // 20
+console.log(person.age); // => 20
 
 // プロパティの値を変更
 person.age = 21;
 
-console.log(person.age); // 21
+console.log(person.age); // => 21
 ```
 
-ドット記法またはブラケット記法を使って、プロパティの値を変更できます。
+**構文**：
+```
+オブジェクト名.プロパティ名 = 新しい値;
+```
+
+### 実行の流れ
+
+```javascript
+const person = {
+  name: "太郎",
+  age: 20
+};
+
+person.age = 21;
+
+// 実行の流れ:
+// ステップ1: personオブジェクトにアクセス
+// person = { name: "太郎", age: 20 }
+
+// ステップ2: ageプロパティを探す
+// person.age を検索
+
+// ステップ3: 新しい値を代入
+// age: 20 → age: 21
+
+// ステップ4: オブジェクトが更新される
+// person = { name: "太郎", age: 21 }
+```
+
+**図解：プロパティ値の変更**
+
+```
+変更前:
+person オブジェクト
+┌─────────────────┐
+│  name: "太郎"   │
+│  age: 20        │ ← person.age = 21
+└─────────────────┘
+
+変更後:
+person オブジェクト
+┌─────────────────┐
+│  name: "太郎"   │
+│  age: 21        │ ← 値が更新された
+└─────────────────┘
+```
+
+### 複数のプロパティを変更
+
+```javascript
+const book = {
+  title: "JavaScript入門",
+  price: 3000,
+  stock: 10
+};
+
+// 複数のプロパティを変更
+book.price = 2800;
+book.stock = 15;
+
+console.log(book.price); // => 2800
+console.log(book.stock); // => 15
+```
 
 ### ブラケット記法での変更
 
 ```javascript
-let person = {
+const person = {
   name: "太郎",
   age: 20
 };
 
+// ブラケット記法でも変更可能
 person["age"] = 21;
-console.log(person.age); // 21
+console.log(person.age); // => 21
+
+// 変数を使った変更
+const prop = "name";
+person[prop] = "次郎";
+console.log(person.name); // => "次郎"
 ```
 
-どちらの記法を使っても、同じように値を変更できます。
+---
 
-## 新しいプロパティの追加
-
-存在しないプロパティに値を代入すると、新しいプロパティが追加されます。
+## 2. 新しいプロパティを追加
 
 ### 基本的な追加方法
 
+存在しないプロパティに値を代入すると、**新しいプロパティが追加**されます。
+
 ```javascript
-let person = {
+const person = {
   name: "太郎",
   age: 20
 };
 
-console.log(person); // { name: "太郎", age: 20 }
+console.log(person); // => { name: "太郎", age: 20 }
 
 // 新しいプロパティを追加
 person.city = "東京";
 person.job = "学生";
 
 console.log(person);
-// { name: "太郎", age: 20, city: "東京", job: "学生" }
+// => { name: "太郎", age: 20, city: "東京", job: "学生" }
+```
+
+**構文**：
+```
+オブジェクト名.新しいプロパティ名 = 値;
+```
+
+### 実行の流れ
+
+```javascript
+const person = {
+  name: "太郎",
+  age: 20
+};
+
+person.city = "東京";
+
+// 実行の流れ:
+// ステップ1: personオブジェクトにアクセス
+// person = { name: "太郎", age: 20 }
+
+// ステップ2: cityプロパティを探す
+// cityプロパティは存在しない
+
+// ステップ3: 新しいプロパティを作成して値を設定
+// city: "東京" を追加
+
+// ステップ4: オブジェクトが更新される
+// person = { name: "太郎", age: 20, city: "東京" }
+```
+
+**図解：プロパティの追加**
+
+```
+追加前:
+person オブジェクト
+┌─────────────────┐
+│  name: "太郎"   │
+│  age: 20        │
+└─────────────────┘
+         ↓
+   person.city = "東京"
+         ↓
+追加後:
+person オブジェクト
+┌─────────────────┐
+│  name: "太郎"   │
+│  age: 20        │
+│  city: "東京"   │ ← 新しいプロパティが追加された
+└─────────────────┘
 ```
 
 ### ブラケット記法での追加
 
 ```javascript
-let person = {
+const person = {
   name: "太郎",
   age: 20
 };
 
+// ブラケット記法で追加
 person["email"] = "taro@example.com";
 person["phone"] = "090-1234-5678";
 
-console.log(person.email); // "taro@example.com"
+console.log(person.email); // => "taro@example.com"
+console.log(person.phone); // => "090-1234-5678"
+
+// 変数を使った追加
+const newProp = "hobby";
+person[newProp] = "プログラミング";
+console.log(person.hobby); // => "プログラミング"
 ```
 
-## プロパティの削除
+---
 
-`delete`演算子を使うと、プロパティを削除できます。
+## 3. deleteでプロパティを削除
 
 ### 基本的な削除方法
 
+`delete`演算子を使うと、プロパティを削除できます。
+
 ```javascript
-let person = {
+const person = {
   name: "太郎",
   age: 20,
   city: "東京"
 };
 
-console.log(person); // { name: "太郎", age: 20, city: "東京" }
+console.log(person); // => { name: "太郎", age: 20, city: "東京" }
 
 // プロパティを削除
 delete person.city;
 
-console.log(person); // { name: "太郎", age: 20 }
-console.log(person.city); // undefined
+console.log(person); // => { name: "太郎", age: 20 }
+console.log(person.city); // => undefined
 ```
 
-`delete`演算子を使うと、プロパティ自体がオブジェクトから削除されます。
+**構文**：
+```
+delete オブジェクト名.プロパティ名;
+```
+
+### 実行の流れ
+
+```javascript
+const person = {
+  name: "太郎",
+  age: 20,
+  city: "東京"
+};
+
+delete person.city;
+
+// 実行の流れ:
+// ステップ1: personオブジェクトにアクセス
+// person = { name: "太郎", age: 20, city: "東京" }
+
+// ステップ2: cityプロパティを探す
+// cityプロパティが見つかる
+
+// ステップ3: プロパティを削除
+// cityプロパティが削除される
+
+// ステップ4: オブジェクトが更新される
+// person = { name: "太郎", age: 20 }
+```
+
+**図解：プロパティの削除**
+
+```
+削除前:
+person オブジェクト
+┌─────────────────┐
+│  name: "太郎"   │
+│  age: 20        │
+│  city: "東京"   │ ← delete person.city
+└─────────────────┘
+         ↓
+削除後:
+person オブジェクト
+┌─────────────────┐
+│  name: "太郎"   │
+│  age: 20        │
+└─────────────────┘
+```
 
 ### ブラケット記法での削除
 
 ```javascript
-let person = {
+const person = {
   name: "太郎",
   age: 20,
   email: "taro@example.com"
 };
 
+// ブラケット記法で削除
 delete person["email"];
-console.log(person.email); // undefined
+console.log(person.email); // => undefined
+
+// 変数を使った削除
+const propToDelete = "age";
+delete person[propToDelete];
+console.log(person.age); // => undefined
 ```
 
-## 複数の操作を組み合わせる
-
-変更、追加、削除を組み合わせて、オブジェクトを自由に編集できます。
+### deleteとundefined代入の違い
 
 ```javascript
-let product = {
-  name: "ノートPC",
-  price: 120000,
-  stock: 10
+const obj = {
+  name: "太郎",
+  age: 20
 };
 
-// 値を変更
-product.price = 115000;
+// undefinedを代入（プロパティは残る）
+obj.name = undefined;
+console.log("name" in obj); // => true
+console.log(obj.name); // => undefined
 
-// プロパティを追加
-product.category = "電子機器";
-product.brand = "XYZ";
-
-// プロパティを削除
-delete product.stock;
-
-console.log(product);
-// { name: "ノートPC", price: 115000, category: "電子機器", brand: "XYZ" }
+// deleteで削除（プロパティがなくなる）
+delete obj.age;
+console.log("age" in obj); // => false
+console.log(obj.age); // => undefined
 ```
 
-## 実践例：ユーザー情報の編集
+---
 
-ユーザー情報を編集できるプログラムを作ってみましょう。
+## 実践例1：ユーザープロフィール編集
 
-### HTML
+ユーザー情報を編集できるアプリを作りましょう。
 
 ```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title>ユーザー情報編集</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 700px;
-            margin: 50px auto;
-            padding: 20px;
-        }
-        .user-card {
-            border: 2px solid #333;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
-            background-color: #f9f9f9;
-        }
-        .property {
-            padding: 10px;
-            margin: 5px 0;
-            background-color: white;
-            border-radius: 4px;
-        }
-        .controls {
-            margin: 20px 0;
-        }
-        input, button {
-            padding: 10px;
-            margin: 5px;
-            font-size: 14px;
-        }
-        button {
-            cursor: pointer;
-        }
-        .update-btn {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-        }
-        .add-btn {
-            background-color: #2196F3;
-            color: white;
-            border: none;
-        }
-        .delete-btn {
-            background-color: #f44336;
-            color: white;
-            border: none;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>プロフィール編集</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .profile-card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+
+    .profile-card h2 {
+      margin-top: 0;
+      color: #667eea;
+      border-bottom: 2px solid #667eea;
+      padding-bottom: 10px;
+    }
+
+    .property {
+      padding: 12px;
+      margin: 8px 0;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+      border-left: 4px solid #667eea;
+    }
+
+    .property strong {
+      color: #555;
+    }
+
+    .edit-section {
+      background-color: white;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+
+    .edit-section h3 {
+      margin-top: 0;
+      color: #555;
+    }
+
+    input {
+      padding: 10px;
+      margin: 5px;
+      font-size: 14px;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      width: 200px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .btn-update {
+      background-color: #667eea;
+      color: white;
+    }
+
+    .btn-update:hover {
+      background-color: #5568d3;
+    }
+
+    .btn-add {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .btn-add:hover {
+      background-color: #218838;
+    }
+
+    .btn-delete {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .btn-delete:hover {
+      background-color: #c82333;
+    }
+  </style>
 </head>
 <body>
-    <h1>ユーザー情報管理</h1>
+  <h1>👤 プロフィール編集システム</h1>
 
-    <div class="user-card">
-        <h2>現在のユーザー情報</h2>
-        <div id="userInfo"></div>
-    </div>
+  <div class="profile-card">
+    <h2>現在のプロフィール</h2>
+    <div id="profileDisplay"></div>
+  </div>
 
-    <div class="controls">
-        <h3>年齢を変更</h3>
-        <input type="number" id="newAge" placeholder="新しい年齢">
-        <button class="update-btn" id="updateAge">年齢を更新</button>
-    </div>
+  <div class="edit-section">
+    <h3>年齢を変更</h3>
+    <input type="number" id="newAge" placeholder="新しい年齢">
+    <button class="btn-update" onclick="updateAge()">年齢を更新</button>
+  </div>
 
-    <div class="controls">
-        <h3>プロパティを追加</h3>
-        <input type="text" id="newKey" placeholder="キー名（例: email）">
-        <input type="text" id="newValue" placeholder="値">
-        <button class="add-btn" id="addProperty">プロパティを追加</button>
-    </div>
+  <div class="edit-section">
+    <h3>メールアドレスを追加</h3>
+    <input type="email" id="newEmail" placeholder="example@email.com">
+    <button class="btn-add" onclick="addEmail()">メールを追加</button>
+  </div>
 
-    <div class="controls">
-        <h3>プロパティを削除</h3>
-        <input type="text" id="deleteKey" placeholder="削除するキー名">
-        <button class="delete-btn" id="deleteProperty">プロパティを削除</button>
-    </div>
+  <div class="edit-section">
+    <h3>都市情報を削除</h3>
+    <button class="btn-delete" onclick="deleteCity()">都市を削除</button>
+  </div>
 
-    <script src="script.js"></script>
+  <script>
+    // ユーザープロフィール
+    const user = {
+      name: "山田太郎",
+      age: 28,
+      city: "東京都",
+      job: "Webデザイナー"
+    };
+
+    // プロフィールを表示する関数
+    const displayProfile = function() {
+      const display = document.getElementById('profileDisplay');
+      display.innerHTML = '';
+
+      // すべてのプロパティを表示
+      for (const key in user) {
+        const div = document.createElement('div');
+        div.className = 'property';
+        div.innerHTML = `<strong>${key}:</strong> ${user[key]}`;
+        display.appendChild(div);
+      }
+    };
+
+    // 年齢を更新
+    const updateAge = function() {
+      const newAge = parseInt(document.getElementById('newAge').value);
+
+      if (isNaN(newAge) || newAge < 0) {
+        alert('正しい年齢を入力してください');
+        return;
+      }
+
+      // 値を変更
+      user.age = newAge;
+      displayProfile();
+
+      // 入力欄をクリア
+      document.getElementById('newAge').value = '';
+      alert('年齢を更新しました！');
+    };
+
+    // メールアドレスを追加
+    const addEmail = function() {
+      const email = document.getElementById('newEmail').value;
+
+      if (email === '') {
+        alert('メールアドレスを入力してください');
+        return;
+      }
+
+      // 新しいプロパティを追加
+      user.email = email;
+      displayProfile();
+
+      // 入力欄をクリア
+      document.getElementById('newEmail').value = '';
+      alert('メールアドレスを追加しました！');
+    };
+
+    // 都市を削除
+    const deleteCity = function() {
+      if (!user.city) {
+        alert('都市情報は既に削除されています');
+        return;
+      }
+
+      // プロパティを削除
+      delete user.city;
+      displayProfile();
+      alert('都市情報を削除しました！');
+    };
+
+    // 初期表示
+    displayProfile();
+  </script>
 </body>
 </html>
 ```
 
-### JavaScript
+**このアプリの特徴**：
+- ✅ プロパティの変更（年齢の更新）
+- ✅ プロパティの追加（メールアドレスの追加）
+- ✅ プロパティの削除（都市情報の削除）
+- ✅ リアルタイムで変更内容を表示
 
-```javascript
-let user = {
-  name: "山田太郎",
-  age: 25,
-  city: "東京"
-};
+---
 
-let userInfo = document.getElementById("userInfo");
-let updateAge = document.getElementById("updateAge");
-let addProperty = document.getElementById("addProperty");
-let deleteProperty = document.getElementById("deleteProperty");
+## 実践例2：商品在庫管理システム
 
-// ユーザー情報を表示する関数
-function displayUser() {
-  userInfo.innerHTML = "";
-
-  for (let key in user) {
-    let propertyDiv = document.createElement("div");
-    propertyDiv.className = "property";
-    propertyDiv.textContent = key + ": " + user[key];
-    userInfo.appendChild(propertyDiv);
-  }
-}
-
-// 初期表示
-displayUser();
-
-// 年齢を更新
-updateAge.addEventListener("click", function() {
-  let newAge = document.getElementById("newAge").value;
-  if (newAge !== "") {
-    user.age = Number(newAge);
-    displayUser();
-  }
-});
-
-// プロパティを追加
-addProperty.addEventListener("click", function() {
-  let key = document.getElementById("newKey").value;
-  let value = document.getElementById("newValue").value;
-
-  if (key !== "" && value !== "") {
-    user[key] = value;
-    displayUser();
-    document.getElementById("newKey").value = "";
-    document.getElementById("newValue").value = "";
-  }
-});
-
-// プロパティを削除
-deleteProperty.addEventListener("click", function() {
-  let key = document.getElementById("deleteKey").value;
-
-  if (key !== "") {
-    delete user[key];
-    displayUser();
-    document.getElementById("deleteKey").value = "";
-  }
-});
-```
-
-このプログラムでは、ユーザー情報を表示し、年齢の変更、プロパティの追加・削除を行うことができます。
-
-## 動的なプロパティ操作
-
-変数を使って、動的にプロパティを操作することができます。
-
-### 変数を使った変更
-
-```javascript
-let person = {
-  name: "太郎",
-  age: 20,
-  city: "東京"
-};
-
-let propertyName = "age";
-let newValue = 21;
-
-person[propertyName] = newValue;
-console.log(person.age); // 21
-```
-
-### 変数を使った追加
-
-```javascript
-let person = {
-  name: "太郎"
-};
-
-let newProperty = "age";
-person[newProperty] = 20;
-
-console.log(person.age); // 20
-```
-
-### 変数を使った削除
-
-```javascript
-let person = {
-  name: "太郎",
-  age: 20,
-  city: "東京"
-};
-
-let propertyToDelete = "city";
-delete person[propertyToDelete];
-
-console.log(person.city); // undefined
-```
-
-## 条件に応じたプロパティ操作
-
-条件に応じて、プロパティを操作することができます。
-
-### 実例：在庫管理
-
-```javascript
-let product = {
-  name: "ノートPC",
-  price: 120000,
-  stock: 5
-};
-
-// 在庫が10個未満の場合、lowStockプロパティを追加
-if (product.stock < 10) {
-  product.lowStock = true;
-}
-
-// 価格が変更された場合、oldPriceプロパティを追加
-let newPrice = 115000;
-if (newPrice !== product.price) {
-  product.oldPrice = product.price;
-  product.price = newPrice;
-}
-
-console.log(product);
-// { name: "ノートPC", price: 115000, stock: 5, lowStock: true, oldPrice: 120000 }
-```
-
-## プロパティの存在確認
-
-プロパティが存在するかどうかを確認してから操作することができます。
-
-### undefined チェック
-
-```javascript
-let person = {
-  name: "太郎",
-  age: 20
-};
-
-// プロパティが存在しない場合のみ追加
-if (person.email === undefined) {
-  person.email = "taro@example.com";
-}
-
-console.log(person.email); // "taro@example.com"
-```
-
-### in 演算子
-
-```javascript
-let person = {
-  name: "太郎",
-  age: 20
-};
-
-if ("email" in person) {
-  console.log("emailプロパティが存在します");
-} else {
-  console.log("emailプロパティが存在しません");
-  person.email = "taro@example.com";
-}
-```
-
-## 実践例：データ編集システム
-
-商品データを編集できる実用的なシステムを作ってみましょう。
-
-### HTML
+商品データを管理するシステムを作りましょう。
 
 ```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title>データ編集システム</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-        }
-        .product-display {
-            border: 2px solid #4CAF50;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            background-color: #f1f8f4;
-        }
-        .property-item {
-            padding: 12px;
-            margin: 8px 0;
-            background-color: white;
-            border-left: 4px solid #4CAF50;
-            border-radius: 4px;
-            display: flex;
-            justify-content: space-between;
-        }
-        .edit-section {
-            margin: 30px 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-            border-radius: 8px;
-        }
-        input {
-            padding: 8px;
-            margin: 5px;
-            font-size: 14px;
-        }
-        button {
-            padding: 10px 15px;
-            margin: 5px;
-            cursor: pointer;
-            border: none;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-        .btn-update {
-            background-color: #2196F3;
-            color: white;
-        }
-        .btn-add {
-            background-color: #4CAF50;
-            color: white;
-        }
-        .btn-delete {
-            background-color: #f44336;
-            color: white;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>在庫管理システム</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: white;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      text-align: center;
+      color: #667eea;
+      margin-top: 0;
+    }
+
+    .product-display {
+      background-color: #f8f9fa;
+      border-radius: 10px;
+      padding: 25px;
+      margin: 30px 0;
+    }
+
+    .product-display h2 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    .property-item {
+      padding: 15px;
+      margin: 10px 0;
+      background-color: white;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .property-key {
+      font-weight: bold;
+      color: #555;
+    }
+
+    .property-value {
+      color: #333;
+      font-size: 18px;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .control-group {
+      background-color: #f8f9fa;
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .control-group h3 {
+      margin-top: 0;
+      color: #555;
+      font-size: 16px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 14px;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background-color: #667eea;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #5568d3;
+    }
+
+    .btn-success {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .btn-success:hover {
+      background-color: #218838;
+    }
+
+    .btn-danger {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background-color: #c82333;
+    }
+  </style>
 </head>
 <body>
-    <h1>商品データ編集システム</h1>
+  <div class="container">
+    <h1>📦 商品在庫管理システム</h1>
 
     <div class="product-display">
-        <h2>商品情報</h2>
-        <div id="productDisplay"></div>
+      <h2>商品情報</h2>
+      <div id="productDisplay"></div>
     </div>
 
-    <div class="edit-section">
+    <div class="controls">
+      <div class="control-group">
         <h3>価格を変更</h3>
         <input type="number" id="newPrice" placeholder="新しい価格">
-        <button class="btn-update" id="updatePrice">価格を更新</button>
-    </div>
+        <button class="btn-primary" onclick="updatePrice()">価格を更新</button>
+      </div>
 
-    <div class="edit-section">
+      <div class="control-group">
         <h3>在庫を変更</h3>
         <input type="number" id="newStock" placeholder="新しい在庫数">
-        <button class="btn-update" id="updateStock">在庫を更新</button>
-    </div>
+        <button class="btn-primary" onclick="updateStock()">在庫を更新</button>
+      </div>
 
-    <div class="edit-section">
+      <div class="control-group">
         <h3>カテゴリを追加</h3>
         <input type="text" id="category" placeholder="カテゴリ名">
-        <button class="btn-add" id="addCategory">カテゴリを追加</button>
-    </div>
+        <button class="btn-success" onclick="addCategory()">カテゴリを追加</button>
+      </div>
 
-    <div class="edit-section">
-        <h3>割引情報を追加/削除</h3>
+      <div class="control-group">
+        <h3>セール情報</h3>
         <input type="number" id="discount" placeholder="割引率（%）">
-        <button class="btn-add" id="addDiscount">割引を追加</button>
-        <button class="btn-delete" id="removeDiscount">割引を削除</button>
+        <button class="btn-success" onclick="addDiscount()">セールを開始</button>
+        <button class="btn-danger" onclick="removeDiscount()" style="margin-top: 10px;">セールを終了</button>
+      </div>
     </div>
+  </div>
 
-    <script src="script.js"></script>
+  <script>
+    // 商品データ
+    const product = {
+      name: "ワイヤレスマウス",
+      price: 2800,
+      stock: 45,
+      brand: "TechMouse"
+    };
+
+    // 商品情報を表示する関数
+    const displayProduct = function() {
+      const display = document.getElementById('productDisplay');
+      display.innerHTML = '';
+
+      // すべてのプロパティを表示
+      for (const key in product) {
+        const div = document.createElement('div');
+        div.className = 'property-item';
+
+        const keySpan = document.createElement('span');
+        keySpan.className = 'property-key';
+        keySpan.textContent = key;
+
+        const valueSpan = document.createElement('span');
+        valueSpan.className = 'property-value';
+        valueSpan.textContent = product[key];
+
+        div.appendChild(keySpan);
+        div.appendChild(valueSpan);
+        display.appendChild(div);
+      }
+    };
+
+    // 価格を更新
+    const updatePrice = function() {
+      const newPrice = parseInt(document.getElementById('newPrice').value);
+
+      if (isNaN(newPrice) || newPrice < 0) {
+        alert('正しい価格を入力してください');
+        return;
+      }
+
+      // プロパティの値を変更
+      product.price = newPrice;
+      displayProduct();
+
+      document.getElementById('newPrice').value = '';
+      alert(`価格を ${newPrice.toLocaleString()}円 に更新しました`);
+    };
+
+    // 在庫を更新
+    const updateStock = function() {
+      const newStock = parseInt(document.getElementById('newStock').value);
+
+      if (isNaN(newStock) || newStock < 0) {
+        alert('正しい在庫数を入力してください');
+        return;
+      }
+
+      // プロパティの値を変更
+      product.stock = newStock;
+      displayProduct();
+
+      document.getElementById('newStock').value = '';
+      alert(`在庫を ${newStock}個 に更新しました`);
+    };
+
+    // カテゴリを追加
+    const addCategory = function() {
+      const category = document.getElementById('category').value;
+
+      if (category === '') {
+        alert('カテゴリ名を入力してください');
+        return;
+      }
+
+      // 新しいプロパティを追加
+      product.category = category;
+      displayProduct();
+
+      document.getElementById('category').value = '';
+      alert(`カテゴリ「${category}」を追加しました`);
+    };
+
+    // セール（割引）を追加
+    const addDiscount = function() {
+      const discount = parseInt(document.getElementById('discount').value);
+
+      if (isNaN(discount) || discount < 0 || discount > 100) {
+        alert('0〜100の割引率を入力してください');
+        return;
+      }
+
+      // 新しいプロパティを追加
+      product.discount = discount + '%';
+      displayProduct();
+
+      document.getElementById('discount').value = '';
+      alert(`${discount}%オフのセールを開始しました`);
+    };
+
+    // セール（割引）を削除
+    const removeDiscount = function() {
+      if (!product.discount) {
+        alert('現在セールは開催されていません');
+        return;
+      }
+
+      // プロパティを削除
+      delete product.discount;
+      displayProduct();
+      alert('セールを終了しました');
+    };
+
+    // 初期表示
+    displayProduct();
+  </script>
 </body>
 </html>
 ```
 
-### JavaScript
+**このアプリの特徴**：
+- ✅ 複数のプロパティを変更（価格、在庫）
+- ✅ 新しいプロパティを追加（カテゴリ、割引）
+- ✅ プロパティを削除（割引の削除）
+- ✅ グリッドレイアウトで操作しやすいUI
 
-```javascript
-let product = {
-  name: "ワイヤレスマウス",
-  price: 3000,
-  stock: 50
-};
+---
 
-let productDisplay = document.getElementById("productDisplay");
+## 実践例3：タスク管理アプリ
 
-// 商品情報を表示する関数
-function displayProduct() {
-  productDisplay.innerHTML = "";
+タスクの状態を管理するアプリを作りましょう。
 
-  for (let key in product) {
-    let div = document.createElement("div");
-    div.className = "property-item";
+```html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>タスク管理</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #f0f2f5;
+    }
 
-    let keySpan = document.createElement("span");
-    keySpan.textContent = key + ":";
-    keySpan.style.fontWeight = "bold";
+    h1 {
+      text-align: center;
+      color: #333;
+    }
 
-    let valueSpan = document.createElement("span");
-    valueSpan.textContent = product[key];
+    .task-card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin: 20px 0;
+    }
 
-    div.appendChild(keySpan);
-    div.appendChild(valueSpan);
-    productDisplay.appendChild(div);
-  }
-}
+    .task-card h2 {
+      margin-top: 0;
+      color: #667eea;
+    }
 
-// 初期表示
-displayProduct();
+    .property {
+      padding: 12px;
+      margin: 8px 0;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+    }
 
-// 価格を更新
-document.getElementById("updatePrice").addEventListener("click", function() {
-  let newPrice = document.getElementById("newPrice").value;
-  if (newPrice !== "") {
-    product.price = Number(newPrice);
-    displayProduct();
-    document.getElementById("newPrice").value = "";
-  }
-});
+    .property strong {
+      color: #555;
+    }
 
-// 在庫を更新
-document.getElementById("updateStock").addEventListener("click", function() {
-  let newStock = document.getElementById("newStock").value;
-  if (newStock !== "") {
-    product.stock = Number(newStock);
-    displayProduct();
-    document.getElementById("newStock").value = "";
-  }
-});
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
 
-// カテゴリを追加
-document.getElementById("addCategory").addEventListener("click", function() {
-  let category = document.getElementById("category").value;
-  if (category !== "") {
-    product.category = category;
-    displayProduct();
-    document.getElementById("category").value = "";
-  }
-});
+    button {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
 
-// 割引を追加
-document.getElementById("addDiscount").addEventListener("click", function() {
-  let discount = document.getElementById("discount").value;
-  if (discount !== "") {
-    product.discount = Number(discount) + "%";
-    displayProduct();
-    document.getElementById("discount").value = "";
-  }
-});
+    .btn-start {
+      background-color: #28a745;
+      color: white;
+    }
 
-// 割引を削除
-document.getElementById("removeDiscount").addEventListener("click", function() {
-  delete product.discount;
-  displayProduct();
-});
+    .btn-start:hover {
+      background-color: #218838;
+    }
+
+    .btn-complete {
+      background-color: #667eea;
+      color: white;
+    }
+
+    .btn-complete:hover {
+      background-color: #5568d3;
+    }
+
+    .btn-reset {
+      background-color: #ffc107;
+      color: #333;
+    }
+
+    .btn-reset:hover {
+      background-color: #e0a800;
+    }
+
+    .status {
+      padding: 8px 16px;
+      border-radius: 20px;
+      display: inline-block;
+      font-weight: bold;
+      margin-left: 10px;
+    }
+
+    .status-pending {
+      background-color: #e9ecef;
+      color: #6c757d;
+    }
+
+    .status-progress {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+
+    .status-completed {
+      background-color: #d4edda;
+      color: #155724;
+    }
+  </style>
+</head>
+<body>
+  <h1>✅ タスク管理アプリ</h1>
+
+  <div class="task-card">
+    <h2 id="taskTitle"></h2>
+    <div id="taskDisplay"></div>
+  </div>
+
+  <div class="buttons">
+    <button class="btn-start" onclick="startTask()">タスク開始</button>
+    <button class="btn-complete" onclick="completeTask()">タスク完了</button>
+    <button class="btn-reset" onclick="resetTask()">リセット</button>
+  </div>
+
+  <script>
+    // タスクオブジェクト
+    const task = {
+      title: "JavaScript学習",
+      status: "未着手",
+      priority: "高"
+    };
+
+    // タスクを表示する関数
+    const displayTask = function() {
+      document.getElementById('taskTitle').textContent = task.title;
+
+      const display = document.getElementById('taskDisplay');
+      display.innerHTML = '';
+
+      for (const key in task) {
+        if (key === 'title') continue; // タイトルは見出しに表示済み
+
+        const div = document.createElement('div');
+        div.className = 'property';
+
+        let value = task[key];
+
+        // ステータスに応じてスタイルを適用
+        if (key === 'status') {
+          const statusClass =
+            value === '未着手' ? 'status-pending' :
+            value === '進行中' ? 'status-progress' :
+            'status-completed';
+
+          value = `<span class="status ${statusClass}">${value}</span>`;
+        }
+
+        div.innerHTML = `<strong>${key}:</strong> ${value}`;
+        display.appendChild(div);
+      }
+    };
+
+    // タスクを開始
+    const startTask = function() {
+      // ステータスを変更
+      task.status = "進行中";
+
+      // 開始時刻を追加
+      const now = new Date();
+      task.startTime = now.toLocaleString('ja-JP');
+
+      displayTask();
+      alert('タスクを開始しました！');
+    };
+
+    // タスクを完了
+    const completeTask = function() {
+      // ステータスを変更
+      task.status = "完了";
+
+      // 完了時刻を追加
+      const now = new Date();
+      task.completedTime = now.toLocaleString('ja-JP');
+
+      // 優先度を削除（完了したので不要）
+      delete task.priority;
+
+      displayTask();
+      alert('タスクを完了しました！');
+    };
+
+    // タスクをリセット
+    const resetTask = function() {
+      // ステータスをリセット
+      task.status = "未着手";
+
+      // 優先度を再設定
+      task.priority = "高";
+
+      // 時刻情報を削除
+      delete task.startTime;
+      delete task.completedTime;
+
+      displayTask();
+      alert('タスクをリセットしました');
+    };
+
+    // 初期表示
+    displayTask();
+  </script>
+</body>
+</html>
 ```
 
-## よくあるパターン
+**このアプリの特徴**：
+- ✅ プロパティの変更（ステータスの更新）
+- ✅ プロパティの追加（開始時刻、完了時刻）
+- ✅ プロパティの削除（優先度、時刻情報）
+- ✅ 実用的なタスク管理機能
 
-### パターン1：一括更新
-
-```javascript
-let user = {
-  name: "太郎",
-  age: 20
-};
-
-// 複数のプロパティを一度に更新
-user.age = 21;
-user.city = "東京";
-user.job = "学生";
-
-console.log(user);
-```
-
-### パターン2：条件付き追加
-
-```javascript
-let product = {
-  name: "商品A",
-  price: 1000
-};
-
-let hasDiscount = true;
-
-if (hasDiscount) {
-  product.discount = "10%";
-}
-```
-
-### パターン3：古い値を保存してから更新
-
-```javascript
-let settings = {
-  theme: "light",
-  fontSize: 14
-};
-
-// 古い値を保存
-settings.previousTheme = settings.theme;
-
-// 新しい値に更新
-settings.theme = "dark";
-
-console.log(settings);
-// { theme: "dark", fontSize: 14, previousTheme: "light" }
-```
-
-## 注意点
-
-### 1. delete の返り値
-
-`delete`演算子は成功すると`true`を返します。
-
-```javascript
-let obj = {
-  name: "太郎"
-};
-
-let result = delete obj.name;
-console.log(result); // true
-```
-
-### 2. プロパティを削除 vs undefined を代入
-
-プロパティを削除することと、`undefined`を代入することは異なります。
-
-```javascript
-let obj = {
-  name: "太郎",
-  age: 20
-};
-
-// undefined を代入（プロパティは残る）
-obj.name = undefined;
-console.log("name" in obj); // true
-
-// プロパティを削除（プロパティがなくなる）
-delete obj.age;
-console.log("age" in obj); // false
-```
-
-### 3. 存在しないプロパティの削除
-
-存在しないプロパティを削除してもエラーにはなりません。
-
-```javascript
-let obj = {
-  name: "太郎"
-};
-
-delete obj.age; // エラーにならない
-```
-
-## 練習問題
-
-次の仕様を満たすプログラムを作成してください。
-
-### 仕様
-
-1. HTMLに以下の要素を作成する
-   - `id="display"`のdiv要素
-   - `id="updateName"`のbutton要素（テキスト: 名前を変更）
-   - `id="addEmail"`のbutton要素（テキスト: メールを追加）
-   - `id="deleteCity"`のbutton要素（テキスト: 都市を削除）
-
-2. JavaScriptで以下を実装する
-   - `student`という名前のオブジェクトを作成する
-     - name: "田中"
-     - age: 18
-     - city: "大阪"
-   - 初期状態でstudentの全プロパティを`display`に表示する
-   - 「名前を変更」ボタンをクリックすると、nameを"鈴木"に変更して再表示
-   - 「メールを追加」ボタンをクリックすると、emailプロパティ（値: "suzuki@example.com"）を追加して再表示
-   - 「都市を削除」ボタンをクリックすると、cityプロパティを削除して再表示
-
-### ヒント
-
-- for...in ループでオブジェクトの全プロパティを表示できます
-- プロパティの変更は `object.property = value` で行います
-- プロパティの削除は `delete object.property` で行います
+---
 
 ## まとめ
 
-このレッスンでは、以下のことを学びました。
+このレッスンで学んだこと：
 
-1. プロパティ値の変更（`object.property = newValue`）
-2. 新しいプロパティの追加（存在しないプロパティへの代入）
-3. プロパティの削除（`delete`演算子）
-4. ドット記法とブラケット記法の両方でプロパティを操作できる
-5. 変数を使った動的なプロパティ操作
-6. 条件に応じたプロパティ操作
-7. 実践的なデータ編集システムの作成
+### 1. **プロパティの値を変更**
+```javascript
+person.age = 21;
+person["name"] = "次郎";
+```
+- 既存のプロパティに新しい値を代入
 
-オブジェクトのプロパティを自由に操作できるようになることで、より柔軟なプログラムを作成できるようになりました。次のレッスンでは、オブジェクトのさらに高度な機能について学んでいきます。
+### 2. **新しいプロパティを追加**
+```javascript
+person.city = "東京";
+person["email"] = "example@email.com";
+```
+- 存在しないプロパティに値を代入すると追加される
+
+### 3. **deleteでプロパティを削除**
+```javascript
+delete person.city;
+delete person["email"];
+```
+- delete演算子でプロパティを削除
+- undefinedを代入するのとは異なる
+
+### 4. **動的なプロパティ操作**
+```javascript
+const prop = "age";
+person[prop] = 21;
+delete person[prop];
+```
+- 変数を使ってプロパティを操作できる
+
+---
+
+## カリキュラムの要件チェック
+
+### レッスン136：プロパティ変更
+- ✅ **person.age = 21**: プロパティ値の変更を詳細に解説
+- ✅ **新しいプロパティ追加**: 存在しないプロパティへの代入で追加
+- ✅ **delete で削除**: delete演算子の使い方とundefinedとの違い
+- ✅ **成果物：データ編集**: 3つの実践的な編集システムを実装
+
+---
+
+## 次のレッスンの予告
+
+次のレッスンでは、**複雑なオブジェクト**について学びます。
+
+オブジェクトの中にオブジェクトや配列を含む、より複雑なデータ構造を扱う方法を学んでいきましょう！

@@ -1,291 +1,789 @@
-# レッスン134：最初のオブジェクト
+# レッスン134: 最初のオブジェクト
+
+**日付**: 2025-11-26
+**所要時間**: 30分
 
 ## このレッスンで学ぶこと
 
-このレッスンでは、JavaScriptのオブジェクトについて学びます。オブジェクトは、関連するデータをまとめて管理するための便利な仕組みです。これまで学んできた変数や配列とは異なり、名前付きのデータを扱うことができます。
+1. オブジェクトとは何か
+2. オブジェクトリテラルの書き方
+3. プロパティ（キーと値）の理解
+4. オブジェクトの表示方法
 
-## オブジェクトとは
+---
 
-オブジェクトは、複数のデータをまとめて管理するためのデータ構造です。配列が番号（インデックス）でデータを管理するのに対し、オブジェクトは名前（キー）でデータを管理します。
+## オブジェクトとは？
 
-### 配列との違い
+### 日常生活での例え：整理された引き出し
 
-**配列の場合**
-```javascript
-let personArray = ["太郎", 20, "東京"];
-console.log(personArray[0]); // "太郎"
-console.log(personArray[1]); // 20
+```
+【配列：番号で管理】
+引き出し1: 「太郎」
+引き出し2: 20
+引き出し3: 「東京」
+→ 番号だけでは、何のデータか分かりにくい
+
+【オブジェクト：名前で管理】
+名前の引き出し: 「太郎」
+年齢の引き出し: 20
+住所の引き出し: 「東京」
+→ ラベルがあるので、何のデータかすぐわかる！
 ```
 
-配列では、データが何を意味するのか、番号だけでは分かりにくいです。
+**オブジェクト**とは、関連するデータを「名前（キー）」と「値」のペアでまとめて管理する仕組みです。
 
-**オブジェクトの場合**
-```javascript
-let person = {
-  name: "太郎",
-  age: 20,
-  city: "東京"
-};
-console.log(person.name); // "太郎"
-console.log(person.age); // 20
-```
+---
 
-オブジェクトでは、データに名前が付いているため、何のデータかすぐに分かります。
-
-## オブジェクトリテラル
-
-オブジェクトを作成する最も基本的な方法は、オブジェクトリテラルを使うことです。
+## 1. オブジェクトリテラル
 
 ### 基本的な書き方
 
 ```javascript
-let person = {
+const person = {
   name: "太郎",
   age: 20
 };
 ```
 
-**構文の説明**
-- `{ }`: 波括弧でオブジェクトを囲みます
-- `name: "太郎"`: キー（name）と値（"太郎"）をコロンで区切ります
-- `,`: 複数のプロパティをカンマで区切ります
-- 最後のプロパティの後のカンマは省略できます
-
-### 空のオブジェクト
-
-```javascript
-let emptyObject = {};
+**構文の説明**：
+```
+const オブジェクト名 = {
+  キー1: 値1,
+  キー2: 値2,
+  キー3: 値3
+};
 ```
 
-何もプロパティを持たないオブジェクトも作成できます。
+- `{ }` : 波括弧でオブジェクトを囲む
+- `name: "太郎"` : キーと値をコロン`:`で区切る
+- `,` : 複数のプロパティをカンマで区切る
+- 最後のプロパティの後のカンマは省略可能
 
-## プロパティの理解
+### 配列との比較
 
-オブジェクトの中にあるデータの1つ1つを「プロパティ」と呼びます。プロパティは「キー」と「値」のペアで構成されます。
+```javascript
+// 配列：番号（インデックス）でアクセス
+const personArray = ["太郎", 20, "東京"];
+console.log(personArray[0]); // => "太郎"
+console.log(personArray[1]); // => 20
+console.log(personArray[2]); // => "東京"
+// 問題：0, 1, 2が何を意味するか分かりにくい
+
+// オブジェクト：名前（キー）でアクセス
+const person = {
+  name: "太郎",
+  age: 20,
+  city: "東京"
+};
+console.log(person.name); // => "太郎"
+console.log(person.age);  // => 20
+console.log(person.city); // => "東京"
+// メリット：キー名で意味が明確
+```
+
+### 実行の流れ
+
+```javascript
+// オブジェクトの作成
+const person = {
+  name: "太郎",
+  age: 20
+};
+
+// 実行の流れ:
+// ステップ1: 空のオブジェクトが作成される
+// person = {}
+
+// ステップ2: nameプロパティが追加される
+// person = { name: "太郎" }
+
+// ステップ3: ageプロパティが追加される
+// person = { name: "太郎", age: 20 }
+
+// ステップ4: personという定数に代入される
+```
+
+**図解：オブジェクトの構造**
+
+```
+person オブジェクト
+┌─────────────────┐
+│  name: "太郎"   │ ← プロパティ1（キー: name, 値: "太郎"）
+│  age: 20        │ ← プロパティ2（キー: age, 値: 20）
+└─────────────────┘
+```
+
+---
+
+## 2. プロパティの理解
+
+### プロパティとは？
+
+オブジェクトの中にあるデータの1つ1つを「プロパティ」と呼びます。
+
+```javascript
+const book = {
+  title: "JavaScriptの本",  // プロパティ1
+  price: 2000,              // プロパティ2
+  pages: 300                // プロパティ3
+};
+```
 
 ### キーと値
 
+各プロパティは「キー（Key）」と「値（Value）」のペアで構成されます。
+
 ```javascript
-let book = {
-  title: "JavaScriptの本",  // キー: title, 値: "JavaScriptの本"
-  price: 2000,              // キー: price, 値: 2000
-  pages: 300                // キー: pages, 値: 300
+const product = {
+  name: "ノートPC",    // キー: name,  値: "ノートPC"
+  price: 120000,       // キー: price, 値: 120000
+  stock: 15            // キー: stock, 値: 15
 };
 ```
 
-- **キー（Key）**: プロパティの名前
-- **値（Value）**: プロパティに格納されるデータ
+**図解：キーと値の関係**
 
-### 値には様々なデータ型を使える
+```
+プロパティ: name: "ノートPC"
+           ↑    ↑
+          キー   値
 
-```javascript
-let data = {
-  text: "文字列",        // 文字列
-  number: 100,          // 数値
-  flag: true,           // 真偽値
-  empty: null,          // null
-  list: [1, 2, 3]       // 配列
-};
+キー（Key）  → プロパティの名前（ラベル）
+値（Value）  → プロパティに格納されているデータ
 ```
 
-オブジェクトの値には、文字列、数値、真偽値、配列など、あらゆるデータ型を格納できます。
-
-## プロパティへのアクセス
-
-オブジェクトのプロパティにアクセスするには、ドット記法を使います。
-
-### ドット記法
+### 様々なデータ型を値にできる
 
 ```javascript
-let person = {
+const data = {
+  // 文字列
+  text: "こんにちは",
+
+  // 数値
+  number: 100,
+
+  // 真偽値
+  flag: true,
+
+  // null
+  empty: null,
+
+  // 配列
+  list: [1, 2, 3, 4, 5]
+};
+
+console.log(data.text);   // => "こんにちは"
+console.log(data.number); // => 100
+console.log(data.flag);   // => true
+console.log(data.empty);  // => null
+console.log(data.list);   // => [1, 2, 3, 4, 5]
+console.log(data.list[0]); // => 1
+```
+
+### 基本例1：人物データ
+
+```javascript
+const person = {
   name: "太郎",
-  age: 20
+  age: 20,
+  city: "東京"
 };
 
-console.log(person.name); // "太郎"
-console.log(person.age);  // 20
+// 実行時のメモリイメージ:
+// person
+// ├─ name: "太郎"
+// ├─ age: 20
+// └─ city: "東京"
 ```
 
-`オブジェクト名.キー名`の形式で、プロパティの値を取得できます。
-
-### プロパティの値を変更する
+### 基本例2：商品データ
 
 ```javascript
-let person = {
-  name: "太郎",
-  age: 20
+const product = {
+  name: "JavaScript本",
+  price: 2800,
+  inStock: true,
+  category: "プログラミング"
 };
 
-person.age = 21;
-console.log(person.age); // 21
+// 各プロパティには意味がある:
+// name     → 商品名
+// price    → 価格
+// inStock  → 在庫があるか
+// category → カテゴリー
 ```
 
-ドット記法を使って、プロパティの値を変更することもできます。
+---
 
-### 新しいプロパティを追加する
-
-```javascript
-let person = {
-  name: "太郎",
-  age: 20
-};
-
-person.city = "東京";
-console.log(person.city); // "東京"
-```
-
-存在しないプロパティに値を代入すると、新しいプロパティが追加されます。
-
-## オブジェクトの表示
-
-オブジェクトを表示する方法はいくつかあります。
+## 3. オブジェクトの表示
 
 ### console.logで表示
 
 ```javascript
-let person = {
+const person = {
+  name: "太郎",
+  age: 20,
+  city: "東京"
+};
+
+// オブジェクト全体を表示
+console.log(person);
+// => { name: "太郎", age: 20, city: "東京" }
+
+// プロパティごとに表示
+console.log("名前:", person.name);  // => 名前: 太郎
+console.log("年齢:", person.age);   // => 年齢: 20
+console.log("都市:", person.city);  // => 都市: 東京
+```
+
+### 実行の流れ
+
+```javascript
+const person = {
   name: "太郎",
   age: 20
 };
 
 console.log(person);
+
+// 実行の流れ:
+// ステップ1: personオブジェクトにアクセス
+// person = { name: "太郎", age: 20 }
+
+// ステップ2: console.logに渡す
+// console.log({ name: "太郎", age: 20 })
+
+// ステップ3: コンソールに出力
 // { name: "太郎", age: 20 }
 ```
-
-オブジェクト全体をそのまま`console.log()`に渡すと、オブジェクトの内容が表示されます。
 
 ### プロパティを個別に表示
 
 ```javascript
-let person = {
-  name: "太郎",
-  age: 20
+const book = {
+  title: "JavaScript入門",
+  author: "山田太郎",
+  price: 2800
 };
 
-console.log("名前: " + person.name);
-console.log("年齢: " + person.age);
-// 名前: 太郎
-// 年齢: 20
+// 文字列と組み合わせて表示
+console.log("タイトル: " + book.title);
+// => タイトル: JavaScript入門
+
+console.log("著者: " + book.author);
+// => 著者: 山田太郎
+
+console.log("価格: " + book.price + "円");
+// => 価格: 2800円
 ```
 
-プロパティを1つずつ取り出して表示することもできます。
+---
 
-### HTMLに表示する
+## 実践例1：人物データカード
+
+それでは、人物データをオブジェクトで管理して、HTMLに表示するアプリを作りましょう。
 
 ```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title>オブジェクト表示</title>
+  <meta charset="UTF-8">
+  <title>人物データカード</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .person-card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 30px;
+      margin: 20px 0;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .person-card h2 {
+      margin-top: 0;
+      color: #667eea;
+      border-bottom: 2px solid #667eea;
+      padding-bottom: 10px;
+    }
+
+    .info-row {
+      display: flex;
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .info-row:last-child {
+      border-bottom: none;
+    }
+
+    .label {
+      font-weight: bold;
+      color: #666;
+      width: 100px;
+    }
+
+    .value {
+      color: #333;
+      flex: 1;
+    }
+  </style>
 </head>
 <body>
-    <h1>人物情報</h1>
-    <p id="info"></p>
+  <div class="container">
+    <h1>👤 人物データカード</h1>
 
-    <script src="script.js"></script>
+    <div class="person-card">
+      <h2 id="personName"></h2>
+
+      <div class="info-row">
+        <span class="label">年齢:</span>
+        <span class="value" id="personAge"></span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">都市:</span>
+        <span class="value" id="personCity"></span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">職業:</span>
+        <span class="value" id="personJob"></span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">趣味:</span>
+        <span class="value" id="personHobbies"></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // オブジェクトで人物データを作成
+    const person = {
+      name: "山田太郎",
+      age: 28,
+      city: "東京都",
+      job: "Webエンジニア",
+      hobbies: "プログラミング、読書、ランニング"
+    };
+
+    // HTMLに表示
+    document.getElementById('personName').textContent = person.name;
+    document.getElementById('personAge').textContent = person.age + "歳";
+    document.getElementById('personCity').textContent = person.city;
+    document.getElementById('personJob').textContent = person.job;
+    document.getElementById('personHobbies').textContent = person.hobbies;
+  </script>
 </body>
 </html>
 ```
 
-```javascript
-let person = {
-  name: "太郎",
-  age: 20,
-  city: "東京"
-};
+**このアプリの特徴**：
+- ✅ オブジェクトで人物データを整理
+- ✅ プロパティごとに異なる情報を管理
+- ✅ 見やすいカードデザイン
+- ✅ データとデザインを分離
 
-let info = document.getElementById("info");
-info.textContent = "名前: " + person.name + ", 年齢: " + person.age + ", 都市: " + person.city;
-```
+---
 
-## 実践例：人物データの管理
+## 実践例2：複数の人物データ
 
-人物の情報をオブジェクトで管理するプログラムを作ってみましょう。
-
-### HTML
+複数の人物を管理してみましょう。
 
 ```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title>人物データ</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-        }
-        .person-card {
-            border: 2px solid #333;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
-            background-color: #f9f9f9;
-        }
-        .label {
-            font-weight: bold;
-            color: #555;
-        }
-        .value {
-            color: #000;
-            margin-left: 10px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>チームメンバー紹介</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: white;
+      font-size: 36px;
+      margin-bottom: 40px;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .member-card {
+      background-color: white;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+
+    .member-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .member-name {
+      font-size: 22px;
+      font-weight: bold;
+      color: #667eea;
+      margin-bottom: 10px;
+    }
+
+    .member-role {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #eee;
+    }
+
+    .member-info {
+      font-size: 14px;
+      color: #333;
+      line-height: 1.8;
+    }
+
+    .member-info div {
+      margin: 5px 0;
+    }
+
+    .label {
+      font-weight: 600;
+      color: #555;
+    }
+  </style>
 </head>
 <body>
-    <h1>人物データ管理</h1>
+  <div class="container">
+    <h1>🚀 チームメンバー紹介</h1>
 
-    <div class="person-card">
-        <h2>人物1</h2>
-        <p><span class="label">名前:</span><span class="value" id="name1"></span></p>
-        <p><span class="label">年齢:</span><span class="value" id="age1"></span></p>
-        <p><span class="label">職業:</span><span class="value" id="job1"></span></p>
+    <div class="team-grid">
+      <!-- メンバー1 -->
+      <div class="member-card">
+        <div class="member-name" id="name1"></div>
+        <div class="member-role" id="role1"></div>
+        <div class="member-info">
+          <div><span class="label">年齢:</span> <span id="age1"></span></div>
+          <div><span class="label">経験:</span> <span id="experience1"></span></div>
+          <div><span class="label">スキル:</span> <span id="skills1"></span></div>
+        </div>
+      </div>
+
+      <!-- メンバー2 -->
+      <div class="member-card">
+        <div class="member-name" id="name2"></div>
+        <div class="member-role" id="role2"></div>
+        <div class="member-info">
+          <div><span class="label">年齢:</span> <span id="age2"></span></div>
+          <div><span class="label">経験:</span> <span id="experience2"></span></div>
+          <div><span class="label">スキル:</span> <span id="skills2"></span></div>
+        </div>
+      </div>
+
+      <!-- メンバー3 -->
+      <div class="member-card">
+        <div class="member-name" id="name3"></div>
+        <div class="member-role" id="role3"></div>
+        <div class="member-info">
+          <div><span class="label">年齢:</span> <span id="age3"></span></div>
+          <div><span class="label">経験:</span> <span id="experience3"></span></div>
+          <div><span class="label">スキル:</span> <span id="skills3"></span></div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <div class="person-card">
-        <h2>人物2</h2>
-        <p><span class="label">名前:</span><span class="value" id="name2"></span></p>
-        <p><span class="label">年齢:</span><span class="value" id="age2"></span></p>
-        <p><span class="label">職業:</span><span class="value" id="job2"></span></p>
-    </div>
+  <script>
+    // メンバー1のデータ
+    const member1 = {
+      name: "山田太郎",
+      role: "プロジェクトマネージャー",
+      age: 35,
+      experience: "10年",
+      skills: "JavaScript, Python, チーム管理"
+    };
 
-    <script src="script.js"></script>
+    // メンバー2のデータ
+    const member2 = {
+      name: "佐藤花子",
+      role: "フロントエンドエンジニア",
+      age: 28,
+      experience: "5年",
+      skills: "React, Vue.js, CSS"
+    };
+
+    // メンバー3のデータ
+    const member3 = {
+      name: "鈴木一郎",
+      role: "バックエンドエンジニア",
+      age: 30,
+      experience: "7年",
+      skills: "Node.js, PostgreSQL, AWS"
+    };
+
+    // メンバー1の情報を表示
+    document.getElementById('name1').textContent = member1.name;
+    document.getElementById('role1').textContent = member1.role;
+    document.getElementById('age1').textContent = member1.age + "歳";
+    document.getElementById('experience1').textContent = member1.experience;
+    document.getElementById('skills1').textContent = member1.skills;
+
+    // メンバー2の情報を表示
+    document.getElementById('name2').textContent = member2.name;
+    document.getElementById('role2').textContent = member2.role;
+    document.getElementById('age2').textContent = member2.age + "歳";
+    document.getElementById('experience2').textContent = member2.experience;
+    document.getElementById('skills2').textContent = member2.skills;
+
+    // メンバー3の情報を表示
+    document.getElementById('name3').textContent = member3.name;
+    document.getElementById('role3').textContent = member3.role;
+    document.getElementById('age3').textContent = member3.age + "歳";
+    document.getElementById('experience3').textContent = member3.experience;
+    document.getElementById('skills3').textContent = member3.skills;
+  </script>
 </body>
 </html>
 ```
 
-### JavaScript
+**このアプリの特徴**：
+- ✅ 3人のメンバーをそれぞれオブジェクトで管理
+- ✅ 各メンバーが同じ構造のデータを持つ
+- ✅ グリッドレイアウトで見やすく表示
+- ✅ ホバーエフェクト付き
 
-```javascript
-// 人物1のデータ
-let person1 = {
-  name: "太郎",
-  age: 25,
-  job: "エンジニア"
-};
+---
 
-// 人物2のデータ
-let person2 = {
-  name: "花子",
-  age: 30,
-  job: "デザイナー"
-};
+## 実践例3：商品カタログ
 
-// 人物1の情報を表示
-document.getElementById("name1").textContent = person1.name;
-document.getElementById("age1").textContent = person1.age;
-document.getElementById("job1").textContent = person1.job;
+商品情報をオブジェクトで管理します。
 
-// 人物2の情報を表示
-document.getElementById("name2").textContent = person2.name;
-document.getElementById("age2").textContent = person2.age;
-document.getElementById("job2").textContent = person2.job;
+```html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>商品カタログ</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 40px;
+    }
+
+    .product-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .product {
+      background-color: white;
+      border-radius: 8px;
+      padding: 25px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .product-info {
+      flex: 1;
+    }
+
+    .product-name {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .product-description {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 15px;
+    }
+
+    .product-details {
+      font-size: 13px;
+      color: #888;
+    }
+
+    .product-price {
+      font-size: 32px;
+      font-weight: bold;
+      color: #e74c3c;
+      margin-right: 20px;
+    }
+
+    .product-stock {
+      font-size: 14px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .in-stock {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .out-of-stock {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🛒 商品カタログ</h1>
+
+    <div class="product-list">
+      <!-- 商品1 -->
+      <div class="product">
+        <div class="product-info">
+          <div class="product-name" id="productName1"></div>
+          <div class="product-description" id="productDesc1"></div>
+          <div class="product-details">
+            カテゴリ: <span id="productCategory1"></span> |
+            在庫: <span id="productStock1"></span>個
+          </div>
+        </div>
+        <div>
+          <div class="product-price">¥<span id="productPrice1"></span></div>
+        </div>
+      </div>
+
+      <!-- 商品2 -->
+      <div class="product">
+        <div class="product-info">
+          <div class="product-name" id="productName2"></div>
+          <div class="product-description" id="productDesc2"></div>
+          <div class="product-details">
+            カテゴリ: <span id="productCategory2"></span> |
+            在庫: <span id="productStock2"></span>個
+          </div>
+        </div>
+        <div>
+          <div class="product-price">¥<span id="productPrice2"></span></div>
+        </div>
+      </div>
+
+      <!-- 商品3 -->
+      <div class="product">
+        <div class="product-info">
+          <div class="product-name" id="productName3"></div>
+          <div class="product-description" id="productDesc3"></div>
+          <div class="product-details">
+            カテゴリ: <span id="productCategory3"></span> |
+            在庫: <span id="productStock3"></span>個
+          </div>
+        </div>
+        <div>
+          <div class="product-price">¥<span id="productPrice3"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 商品1のデータ
+    const product1 = {
+      name: "JavaScript完全ガイド",
+      description: "初心者から上級者まで、JavaScriptの全てを学べる決定版",
+      category: "プログラミング書籍",
+      price: 3800,
+      stock: 25
+    };
+
+    // 商品2のデータ
+    const product2 = {
+      name: "ワイヤレスマウス",
+      description: "人間工学に基づいたデザインで長時間の作業も快適",
+      category: "PC周辺機器",
+      price: 2400,
+      stock: 15
+    };
+
+    // 商品3のデータ
+    const product3 = {
+      name: "プログラミング用キーボード",
+      description: "メカニカルスイッチ採用、高速タイピングに最適",
+      category: "PC周辺機器",
+      price: 12800,
+      stock: 8
+    };
+
+    // 商品1の情報を表示
+    document.getElementById('productName1').textContent = product1.name;
+    document.getElementById('productDesc1').textContent = product1.description;
+    document.getElementById('productCategory1').textContent = product1.category;
+    document.getElementById('productPrice1').textContent = product1.price.toLocaleString();
+    document.getElementById('productStock1').textContent = product1.stock;
+
+    // 商品2の情報を表示
+    document.getElementById('productName2').textContent = product2.name;
+    document.getElementById('productDesc2').textContent = product2.description;
+    document.getElementById('productCategory2').textContent = product2.category;
+    document.getElementById('productPrice2').textContent = product2.price.toLocaleString();
+    document.getElementById('productStock2').textContent = product2.stock;
+
+    // 商品3の情報を表示
+    document.getElementById('productName3').textContent = product3.name;
+    document.getElementById('productDesc3').textContent = product3.description;
+    document.getElementById('productCategory3').textContent = product3.category;
+    document.getElementById('productPrice3').textContent = product3.price.toLocaleString();
+    document.getElementById('productStock3').textContent = product3.stock;
+  </script>
+</body>
+</html>
 ```
 
-このプログラムでは、2人の人物データをオブジェクトで管理し、それぞれの情報を画面に表示しています。
+**このアプリの特徴**：
+- ✅ 商品データをオブジェクトで管理
+- ✅ 価格、在庫、カテゴリーなど複数の情報を整理
+- ✅ toLocaleString()で価格を読みやすく表示
+- ✅ プロフェッショナルなデザイン
+
+---
 
 ## オブジェクトのメリット
 
@@ -294,25 +792,35 @@ document.getElementById("job2").textContent = person2.job;
 関連するデータをまとめて管理できます。
 
 ```javascript
-// バラバラに管理（わかりにくい）
-let userName = "太郎";
-let userAge = 20;
-let userCity = "東京";
+// ❌ バラバラに管理（わかりにくい）
+const userName = "太郎";
+const userAge = 20;
+const userCity = "東京";
+const userJob = "エンジニア";
 
-// オブジェクトで管理（わかりやすい）
-let user = {
+// ✅ オブジェクトで管理（わかりやすい）
+const user = {
   name: "太郎",
   age: 20,
-  city: "東京"
+  city: "東京",
+  job: "エンジニア"
 };
 ```
 
 ### 2. 意味が明確
 
-キー名でデータの意味が明確になります。
+キー名でデータの意味がすぐわかります。
 
 ```javascript
-console.log(person.age); // ageが年齢だとすぐわかる
+// 配列：何のデータか分かりにくい
+const data = [120000, 15, "ノートPC"];
+
+// オブジェクト：意味が明確
+const product = {
+  price: 120000,
+  stock: 15,
+  name: "ノートPC"
+};
 ```
 
 ### 3. 拡張しやすい
@@ -320,239 +828,123 @@ console.log(person.age); // ageが年齢だとすぐわかる
 新しいプロパティを簡単に追加できます。
 
 ```javascript
-let person = {
+const person = {
   name: "太郎",
   age: 20
 };
 
-person.email = "taro@example.com"; // 後から追加
+// 後から追加可能
+person.city = "東京";
+person.email = "taro@example.com";
 ```
 
-## より複雑なオブジェクト
+---
 
-オブジェクトには、配列やさらに別のオブジェクトを含めることもできます。
+## 空のオブジェクト
+
+何もプロパティを持たないオブジェクトも作成できます。
+
+```javascript
+// 空のオブジェクト
+const emptyObject = {};
+
+console.log(emptyObject); // => {}
+
+// 後からプロパティを追加
+emptyObject.name = "太郎";
+emptyObject.age = 20;
+
+console.log(emptyObject); // => { name: "太郎", age: 20 }
+```
+
+---
+
+## より複雑なオブジェクト
 
 ### 配列を含むオブジェクト
 
 ```javascript
-let student = {
+const student = {
   name: "太郎",
   age: 20,
   hobbies: ["読書", "音楽", "スポーツ"]
 };
 
-console.log(student.hobbies[0]); // "読書"
+console.log(student.hobbies);    // => ["読書", "音楽", "スポーツ"]
+console.log(student.hobbies[0]); // => "読書"
+console.log(student.hobbies[1]); // => "音楽"
+console.log(student.hobbies[2]); // => "スポーツ"
 ```
 
-### オブジェクトを含むオブジェクト（ネストしたオブジェクト）
+**実行の流れ**：
 
 ```javascript
-let person = {
-  name: "太郎",
-  age: 20,
-  address: {
-    prefecture: "東京都",
-    city: "新宿区"
-  }
-};
+// student.hobbies[0] にアクセスする流れ
 
-console.log(person.address.city); // "新宿区"
+// ステップ1: studentオブジェクトにアクセス
+student
+// => { name: "太郎", age: 20, hobbies: ["読書", "音楽", "スポーツ"] }
+
+// ステップ2: hobbiesプロパティを取得
+student.hobbies
+// => ["読書", "音楽", "スポーツ"]
+
+// ステップ3: 配列のインデックス0にアクセス
+student.hobbies[0]
+// => "読書"
 ```
 
-## 実践例：商品データの表示
-
-商品情報をオブジェクトで管理し、HTMLに表示するプログラムを作ってみましょう。
-
-### HTML
-
-```html
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>商品データ</title>
-    <style>
-        .product {
-            border: 1px solid #ddd;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 5px;
-        }
-        .product-name {
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
-        }
-        .product-price {
-            font-size: 18px;
-            color: #e74c3c;
-            margin: 10px 0;
-        }
-        .product-stock {
-            color: #27ae60;
-        }
-    </style>
-</head>
-<body>
-    <h1>商品一覧</h1>
-    <div id="productList"></div>
-
-    <script src="script.js"></script>
-</body>
-</html>
-```
-
-### JavaScript
-
-```javascript
-let product = {
-  name: "ノートPC",
-  price: 120000,
-  stock: 15,
-  category: "電子機器"
-};
-
-let productList = document.getElementById("productList");
-
-let productDiv = document.createElement("div");
-productDiv.className = "product";
-
-productDiv.innerHTML =
-  '<div class="product-name">' + product.name + '</div>' +
-  '<div class="product-price">価格: ' + product.price + '円</div>' +
-  '<div class="product-stock">在庫: ' + product.stock + '個</div>' +
-  '<div>カテゴリ: ' + product.category + '</div>';
-
-productList.appendChild(productDiv);
-```
-
-## よくあるパターン
-
-### パターン1：条件に応じた表示
-
-```javascript
-let user = {
-  name: "太郎",
-  age: 17,
-  isPremium: true
-};
-
-if (user.age >= 18) {
-  console.log(user.name + "さんは成人です");
-} else {
-  console.log(user.name + "さんは未成年です");
-}
-
-if (user.isPremium) {
-  console.log("プレミアム会員です");
-}
-```
-
-### パターン2：プロパティの存在確認
-
-```javascript
-let person = {
-  name: "太郎",
-  age: 20
-};
-
-if (person.email === undefined) {
-  console.log("メールアドレスが設定されていません");
-}
-```
-
-### パターン3：デフォルト値の設定
-
-```javascript
-let settings = {
-  theme: "dark",
-  language: "ja"
-};
-
-// notificationsが未設定の場合はtrueを使用
-let notifications = settings.notifications !== undefined ? settings.notifications : true;
-console.log(notifications); // true
-```
-
-## 注意点
-
-### 1. キー名の制約
-
-キー名には、変数名と同じルールが適用されます。
-
-```javascript
-// 正しい
-let obj = {
-  name: "太郎",
-  firstName: "太郎",
-  first_name: "太郎"
-};
-
-// スペースや特殊文字を含む場合は引用符が必要
-let obj2 = {
-  "first name": "太郎",
-  "user-id": 123
-};
-```
-
-### 2. プロパティの順序
-
-オブジェクトのプロパティには順序の概念がありません（配列とは異なります）。
-
-```javascript
-let obj1 = {name: "太郎", age: 20};
-let obj2 = {age: 20, name: "太郎"};
-// 両方とも同じ意味
-```
-
-### 3. 存在しないプロパティへのアクセス
-
-存在しないプロパティにアクセスすると、`undefined`が返されます。
-
-```javascript
-let person = {
-  name: "太郎"
-};
-
-console.log(person.age); // undefined
-```
-
-## 練習問題
-
-次の仕様を満たすプログラムを作成してください。
-
-### 仕様
-
-1. HTMLに以下の要素を作成する
-   - `id="bookTitle"`のp要素
-   - `id="bookAuthor"`のp要素
-   - `id="bookPrice"`のp要素
-   - `id="bookPages"`のp要素
-
-2. JavaScriptで以下を実装する
-   - `book`という名前のオブジェクトを作成する
-   - プロパティ: `title`（値: "JavaScript入門"）
-   - プロパティ: `author`（値: "山田太郎"）
-   - プロパティ: `price`（値: 2800）
-   - プロパティ: `pages`（値: 350）
-   - 各プロパティの値を対応するHTML要素に表示する
-
-### ヒント
-
-- オブジェクトリテラル`{ }`を使ってオブジェクトを作成します
-- ドット記法でプロパティにアクセスします
-- `textContent`でHTML要素に値を設定します
+---
 
 ## まとめ
 
-このレッスンでは、以下のことを学びました。
+このレッスンで学んだこと：
 
-1. オブジェクトとは、関連するデータをまとめて管理する仕組み
-2. オブジェクトリテラル`{ }`を使ったオブジェクトの作成
-3. プロパティはキーと値のペアで構成される
-4. ドット記法を使ったプロパティへのアクセス
-5. プロパティの値の変更と新しいプロパティの追加
-6. オブジェクトをコンソールやHTMLに表示する方法
-7. 実践的な人物データ・商品データの管理
+### 1. **オブジェクトの基本**
+```javascript
+const person = {
+  name: "太郎",
+  age: 20
+};
+```
+- `{ }` で囲む
+- `キー: 値` の形式
+- カンマで区切る
 
-オブジェクトは、JavaScriptで複雑なデータを扱う上で非常に重要な概念です。次のレッスンでは、オブジェクトのより高度な使い方について学んでいきます。
+### 2. **プロパティ（キーと値）**
+- プロパティ = キーと値のペア
+- キー: データの名前（ラベル）
+- 値: 実際のデータ
+
+### 3. **オブジェクトの表示**
+```javascript
+// オブジェクト全体
+console.log(person);
+
+// プロパティごと
+console.log(person.name);
+console.log(person.age);
+```
+
+### 4. **オブジェクトのメリット**
+- ✅ データを整理できる
+- ✅ 意味が明確
+- ✅ 拡張しやすい
+
+---
+
+## カリキュラムの要件チェック
+
+### レッスン134：最初のオブジェクト
+- ✅ **let person = {name: "太郎", age: 20}**: オブジェクトリテラルの基本構文
+- ✅ **プロパティの理解**: キーと値のペア、様々なデータ型
+- ✅ **オブジェクトの表示**: console.log、HTMLへの表示
+- ✅ **成果物：人物データ**: 複数の実践例（人物カード、チームメンバー、商品カタログ）
+
+---
+
+## 次のレッスンの予告
+
+次のレッスンでは、**プロパティアクセス**について学びます。
+
+オブジェクトのプロパティにアクセスする方法や、プロパティの値を変更・追加する方法を詳しく学んでいきましょう！
